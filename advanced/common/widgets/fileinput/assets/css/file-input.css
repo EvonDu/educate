@@ -1,0 +1,111 @@
+.file-input{
+    position: relative;
+}
+
+/*内容部分*/
+.file-input .file-input-content{
+    position: relative;
+    /*border: 1px solid #c2cad8;*/
+}
+
+.file-input .file-input-content input{
+    position: absolute;
+    opacity: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.file-input.has-error .file-input-content{
+    border-color: #e73d4a;
+}
+
+/*遮罩部分*/
+.file-input .file-input-content .file-input-loading{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.file-input .file-input-content .file-input-loading.show{
+    visibility: visible;
+}
+
+.file-input .file-input-content .file-input-loading .file-input-loading-shade{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.3;
+}
+
+.file-input .file-input-content .file-input-loading .file-input-loading-content{
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-input .file-input-content .file-input-loading .file-input-loading-content .file-input-loading-icon{
+    background:url(../img/loading.png);
+    background-size:100% 100%;
+    background-size:contain;
+    width: 75px;
+    height: 75px;
+
+    -webkit-transform: rotate(360deg);
+    animation: rotation 3s linear infinite;
+    -moz-animation: rotation 3s linear infinite;
+    -webkit-animation: rotation 3s linear infinite;
+    -o-animation: rotation 3s linear infinite;
+}
+
+/* 显示图标 */
+.file-input .file-input-content{
+    width: 100%;
+    height: 100%;
+    /*background-color: white;*/
+    /*background:url(../img/icon_upload.png);*/
+    /*background-size:100% 100%;*/
+    /*background-size:contain;*/
+    border-style:solid;
+    border-width:2px;
+    border-color:#555555;
+    background:url(../img/icon_push.png);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.file-input .file-input-content[icon='file']{
+    background:url(../img/icon_file.png);
+    background-size:100% 100%;
+    background-size:contain;
+}
+
+.file-input .file-input-content[icon='image']{
+    background:url(../img/icon_image.png);
+    background-size:100% 100%;
+    background-size:contain;
+}
+
+.file-input .file-input-content[icon='video']{
+    background:url(../img/icon_video.png);
+    background-size:100% 100%;
+    background-size:contain;
+}
+
+/*旋转的动画*/
+@-webkit-keyframes rotation{
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}

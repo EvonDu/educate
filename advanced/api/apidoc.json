@@ -1,0 +1,7 @@
+{
+  "name": "API接口文档",
+  "title": "API接口文档",
+  "description":"yii-admin2接口文档",
+  "url" : "http://localhost/yii-admin2/advanced/api/web",
+  "version": "1.0.0"
+}

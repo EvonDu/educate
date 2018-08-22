@@ -1,0 +1,133 @@
+.images-input .images-input-content{
+    display: flex;
+    position: relative;
+    border: 1px solid #c2cad8;
+    margin-bottom: 6px;
+}
+
+.images-input .images-input-content .images-input-items{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height:32px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item{
+    margin: 8px;
+    position: relative;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item img{
+    width: 160px;
+    height: 160px;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item .images-input-item-shade{
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item .images-input-item-shade:hover{
+    opacity: 1;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item .images-input-item-shade .images-input-item-shade-background{
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+    position: absolute;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item .images-input-item-shade .images-input-item-shade-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 32px;
+    z-index: 1;
+}
+
+.images-input .images-input-content .images-input-items .images-input-item .images-input-item-shade .images-input-item-shade-content .images-input-item-shade-btn{
+    cursor: pointer;
+}
+
+.images-input .images-input-btn{
+    position: relative;
+    overflow: hidden;
+}
+
+.images-input .images-input-btn input{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.images-input .images-input-content .images-input-loading{
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.images-input .images-input-content .images-input-loading.show{
+    visibility: visible;
+}
+
+.images-input .images-input-content .images-input-loading .images-input-loading-shade{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.3;
+}
+
+.images-input .images-input-content .images-input-loading .images-input-loading-content{
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.images-input .images-input-content .images-input-loading .images-input-loading-content .images-input-loading-icon{
+    background:url(../img/loading.png);
+    background-size:100% 100%;
+    background-size:contain;
+    width: 75px;
+    height: 75px;
+
+    -webkit-transform: rotate(360deg);
+    animation: rotation 3s linear infinite;
+    -moz-animation: rotation 3s linear infinite;
+    -webkit-animation: rotation 3s linear infinite;
+    -o-animation: rotation 3s linear infinite;
+}
+
+/*旋转的动画*/
+@-webkit-keyframes rotation{
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
