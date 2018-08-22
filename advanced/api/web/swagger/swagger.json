@@ -1,11 +1,11 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "\u7528\u6237\u63a5\u53e3",
-        "description": "\u7528\u6237\u76f8\u5173\u63a5\u53e3",
+        "title": "\u63a5\u53e3\u6587\u6863",
+        "description": "\u63a5\u53e3\u76f8\u5173\u7684Swagger\u6587\u6863",
         "version": "1.0"
     },
-    "host": "localhost/yii-admin2/advanced/api/web",
+    "host": "localhost/github/educate/advanced/api/web",
     "schemes": [
         "http"
     ],
@@ -16,6 +16,35 @@
         "application/json"
     ],
     "paths": {
+        "/v1/media/pronunciations/{word}": {
+            "get": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "\u83b7\u53d6\u8bfb\u97f3",
+                "description": "\u6839\u636e\u5355\u8bcd\u83b7\u53d6\u8bfb\u97f3",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "word",
+                        "in": "path",
+                        "description": "\u5355\u8bcd",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u5355\u8bcd\u4fe1\u606f"
+                    }
+                }
+            }
+        },
         "/v1/user": {
             "get": {
                 "tags": [
@@ -95,7 +124,7 @@
                     },
                     {
                         "name": "status",
-                        "in": "path",
+                        "in": "formData",
                         "description": "\u7528\u6237\u72b6\u6001",
                         "required": true,
                         "type": "integer",
@@ -323,6 +352,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Media",
+            "description": "\u5a92\u4f53\u5e93"
+        },
         {
             "name": "User",
             "description": "\u7528\u6237\u6a21\u5757"

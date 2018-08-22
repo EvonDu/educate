@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\lib\QiniuUpload;
 use common\lib\Upload;
 use Yii;
 use yii\web\Controller;
@@ -84,5 +85,17 @@ class UploadController extends Controller
         $response->headers->set('Content-Type', mime_content_type($fullname));
         $response->format = yii\web\Response::FORMAT_RAW;
         $response->stream = fopen($fullname, 'r');
+    }
+
+
+    public function actionQiniu(){
+        if (isset($_FILES['file'])) {
+            $file = $_FILES['file'];
+            $src = QiniuUpload::upload($file,"pronunciation");
+            Upload::sentApiResult(0,"",$src);
+        }
+        else{
+            Upload::sentApiResult(0,"image could not be saved.",null);
+        }
     }
 }

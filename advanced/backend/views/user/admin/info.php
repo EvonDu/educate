@@ -56,7 +56,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
                     "status-icon" => true,
                 ]]); ?>
 
-                <?= $form->field($model, 'avatar')->el_upload([
+                <?= $form->field($model, 'avatar')->el_avatar([
                     'imageUrl'=>'imageUrl',
                     'action' => Url::to(["upload/file",'src'=>''],true),
                     ':show-file-list' => 'false',

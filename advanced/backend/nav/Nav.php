@@ -38,7 +38,7 @@ class Nav
                 'auth' => '',
                 'tags' => array(array('content' => 'system','class'=>'bg-teal'),),
                 'nodes' => array(
-                    array('title' => "测试一", 'url' => Url::to(['user/media/index'])),
+                    array('title' => "测试一", 'url' => Url::to(['media/pronunciation/index'])),
                 )
             ),
             //相关接口
@@ -47,7 +47,7 @@ class Nav
                 'header' => true
             ),
             array(
-                'url' => '#',
+                'url' => dirname(dirname(dirname(Url::home(true))))."/api/web/swagger",
                 'title' => "接口文档",
                 'icon' => 'fa fa-file-text-o',
                 'auth' => '',

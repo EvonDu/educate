@@ -50,6 +50,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                //用户模块
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
@@ -58,8 +59,16 @@ return [
                         'GET info/<id:\d+>' => 'info',
                         'PUT info/<id:\d+>' => 'info-update'
                     ],
-
-                ]
+                ],
+                //媒体模块
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => ['v1/media'],
+                    'extraPatterns' => [
+                        'GET pronunciations/<word:\w+>' => 'pronunciations',
+                    ],
+                ],
             ],
         ],
     ],
