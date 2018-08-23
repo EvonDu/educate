@@ -64,9 +64,19 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
-                    'controller' => ['v1/media'],
+                    'controller' => ['v1/medias'],
                     'extraPatterns' => [
                         'GET pronunciations/<word:\w+>' => 'pronunciations',
+                    ],
+                ],
+                //教师相关
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => ['v1/instructors'],
+                    'extraPatterns' => [
+                        'GET ' => 'index',
+                        'GET <id:\d+>' => 'view',
                     ],
                 ],
             ],

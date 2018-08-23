@@ -16,7 +16,65 @@
         "application/json"
     ],
     "paths": {
-        "/v1/media/pronunciations/{word}": {
+        "/v1/instructors": {
+            "get": {
+                "tags": [
+                    "Instructor"
+                ],
+                "summary": "\u6559\u5e08\u5217\u8868",
+                "description": "\u83b7\u53d6\u6559\u5e08\u5217\u8868\uff08\u6559\u5e08\u6570\u636e\u4e2d\u7684\u5b57\u6bb5\u5747\u53ef\u7528\u4f5c\u7b5b\u9009\u548c\u6392\u5e8f\uff09",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "\u5206\u9875",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u6559\u5e08\u5217\u8868"
+                    }
+                }
+            }
+        },
+        "/v1/instructors/{id}": {
+            "get": {
+                "tags": [
+                    "Instructor"
+                ],
+                "summary": "\u6559\u5e08\u8be6\u60c5",
+                "description": "\u6839\u636eID\u83b7\u53d6\u6559\u5e08\u4fe1\u606f",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u6559\u5e08\u8be6\u60c5"
+                    }
+                }
+            }
+        },
+        "/v1/medias/pronunciations/{word}": {
             "get": {
                 "tags": [
                     "Media"
@@ -352,6 +410,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Instructor",
+            "description": "\u6559\u5e08"
+        },
         {
             "name": "Media",
             "description": "\u5a92\u4f53\u5e93"
