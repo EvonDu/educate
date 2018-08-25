@@ -3,27 +3,45 @@
 use yii\helpers\Html;
 use vuelte\widgets\ActiveElementForm;
 
-vuelte\assets\PluginComponentsAsset::register($this);
-
 /* @var $this yii\web\View */
-/* @var $model common\models\user\User */
+/* @var $model common\models\admin\Admin */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php  function template($model){ ?>
+<div class="admin-form">
 
-<div class="user-form">
-
-    <?php $form = ActiveElementForm::begin(["options"=>[
+    <?php ActiveElementForm::begin(["options"=>[
         "label-width" => "100px",
         "status-icon" => true,
     ]]); ?>
 
-    <?= $form->field($model, 'status')->el_input(['v-model' => 'data.status', 'type' => 'input']) ?>
+    <el-form-item prop="status"
+                  label="<?= ActiveElementForm::getFieldLabel($model,"status")?>"
+                  error="<?= ActiveElementForm::getFieldError($model,"status")?>">
+        <el-input v-model="data.status"></el-input>
+    </el-form-item>
 
     <el-form-item>
-        <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-floppy-disk'></i> 保存",["type" => "info" ,"@click" => "submit"]) ?>
+        <lte-btn type="info" @click="submit"><i class='glyphicon glyphicon-floppy-disk'></i> 保存</lte-btn>
     </el-form-item>
 
     <?php ActiveElementForm::end(); ?>
 
 </div>
+<?php  }?>
+
+<script>
+    Vue.component('model-form', {
+        template: `<?= template($model); ?>`,
+        props:{
+            'data':{ type: Object, default: function(){ return {}; }}
+        },
+        methods: {
+            submit: function (event) {
+                YiiFormSubmit(this.data, "Admin");
+            }
+        }
+    });
+</script>
+
 

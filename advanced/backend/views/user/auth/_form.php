@@ -3,29 +3,51 @@
 use yii\helpers\Html;
 use vuelte\widgets\ActiveElementForm;
 
-vuelte\assets\PluginComponentsAsset::register($this);
-
 /* @var $this yii\web\View */
 /* @var $model common\models\auth\AuthItem */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<?php  function template($model){ ?>
 <div class="auth-item-form">
 
-    <?php $form = ActiveElementForm::begin(["options"=>[
+    <?php ActiveElementForm::begin(["options"=>[
         "label-width" => "100px",
         "status-icon" => true,
     ]]); ?>
 
-    <?= $form->field($model, 'description')->el_input(['v-model' => 'data.description']) ?>
+    <el-form-item prop="description"
+                  label="<?= ActiveElementForm::getFieldLabel($model,"description")?>"
+                  error="<?= ActiveElementForm::getFieldError($model,"description")?>">
+        <el-input v-model="data.description"></el-input>
+    </el-form-item>
 
-    <?= $form->field($model, 'name')->el_input(['v-model' => 'data.name', 'maxlength' => true]) ?>
+    <el-form-item prop="name"
+                  label="<?= ActiveElementForm::getFieldLabel($model,"name")?>"
+                  error="<?= ActiveElementForm::getFieldError($model,"name")?>">
+        <el-input v-model="data.name"></el-input>
+    </el-form-item>
 
     <el-form-item>
-        <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-floppy-disk'></i> 保存",["type" => "info", "@click" => "submit"]) ?>
+        <lte-btn type="info" @click="submit"><i class='glyphicon glyphicon-floppy-disk'></i> 保存</lte-btn>
     </el-form-item>
 
     <?php ActiveElementForm::end(); ?>
 
 </div>
+<?php  }?>
+
+<script>
+    Vue.component('model-form', {
+        template: `<?= template($model); ?>`,
+        props:{
+            'data':{ type: Object, default: function(){ return {}; }}
+        },
+        methods: {
+            submit: function (event) {
+                YiiFormSubmit(this.data, "AuthItem");
+            }
+        }
+    });
+</script>
+
 

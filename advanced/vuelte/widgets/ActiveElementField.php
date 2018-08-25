@@ -4,6 +4,11 @@ namespace vuelte\widgets;
 use Yii;
 use yii\helpers\Html;
 
+/**
+ * 放弃使用
+ * Class ActiveElementField
+ * @package vuelte\widgets
+ */
 class ActiveElementField extends \yii\widgets\ActiveField {
     /**
      * init
@@ -72,7 +77,7 @@ class ActiveElementField extends \yii\widgets\ActiveField {
         return $element;
     }
 
-    //region Element元素
+    //region 元素封装
 
     /**
      * @param $items

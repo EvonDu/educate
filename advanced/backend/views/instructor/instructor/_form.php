@@ -5,57 +5,14 @@ use yii\helpers\Url;
 use vuelte\widgets\ActiveElementForm;
 
 vuelte\assets\PluginComponentsAsset::register($this);
+print $this->render('@app/views/components/avatar');
+print $this->render('@app/views/components/tags');
 /* @var $this yii\web\View */
 /* @var $model common\models\instructor\Instructor */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<style>
-    /*tag*/
-    .el-tag{
-        margin-right: 10px;
-    }
-    .button-new-tag {
-        margin-right: 10px;
-        height: 32px;
-        line-height: 30px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .input-new-tag {
-        width: 90px;
-        margin-left: 10px;
-        vertical-align: bottom;
-    }
-    /*avatar*/
-    .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-    .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-    }
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 78px;
-        height: 78px;
-        line-height: 78px;
-        text-align: center;
-    }
-    .avatar {
-        width: 78px;
-        height: 78px;
-        display: block;
-    }
-    /*update*/
-    .el-upload__input{
-        display: none !important;
-    }
-</style>
-<?php  function template($model){ ?>
+
+<?php $template = function($model){ ?>
     <div class="teacher-form">
         <?php ActiveElementForm::begin(["options"=>[
             "label-width" => "100px",
@@ -71,13 +28,7 @@ vuelte\assets\PluginComponentsAsset::register($this);
         <el-form-item prop="avatar"
                       label="<?= ActiveElementForm::getFieldLabel($model,"avatar")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"avatar")?>">
-            <el-upload
-                    class="avatar-uploader"
-                    :action="uploadUrl"
-                    :on-success="upload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            <avatar v-model="data.avatar"></avatar>
         </el-form-item>
 
         <el-form-item prop="title"
@@ -89,24 +40,7 @@ vuelte\assets\PluginComponentsAsset::register($this);
         <el-form-item prop="tags"
                       label="<?= ActiveElementForm::getFieldLabel($model,"tags")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"tags")?>">
-            <el-tag
-                    :key="tag"
-                    v-for="tag in dynamicTags"
-                    closable
-                    :disable-transitions="false"
-                    @close="handleClose(tag)">
-                {{tag}}
-            </el-tag>
-            <el-input
-                    class="input-new-tag"
-                    v-if="inputVisible"
-                    v-model="inputValue"
-                    ref="saveTagInput"
-                    size="small"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm">
-            </el-input>
-            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+            <tags v-model="data.tags"></tags>
         </el-form-item>
 
         <el-form-item prop="abstract"
@@ -125,52 +59,13 @@ vuelte\assets\PluginComponentsAsset::register($this);
 
 <script>
     Vue.component('model-form', {
-        template: `<?= template($model); ?>`,
+        template: `<?= $template($model) ?>`,
         props:{
             'data':{ type: Object, default: function(){ return {}; }}
         },
-        data:function(){
-            return {
-                dynamicTags: [],
-                inputVisible: false,
-                inputValue: '',
-                imageUrl:null,
-                uploadUrl:"<?=Url::to(["upload/file",'src'=>''],true)?>",
-            }
-        },
-        created:function(){
-            this.dynamicTags = this.data.tags ? this.data.tags.split(",") : [];
-            this.imageUrl = this.data.avatar ? '<?= Url::to(['upload/get','src' => ''],true)?>' + this.data.avatar : null;
-        },
         methods: {
             submit: function (event) {
-                this.data.tags = this.dynamicTags.join(",");
                 YiiFormSubmit(this.data, "Instructor");
-            },
-            //tags相关方法
-            handleClose:function(tag) {
-                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-            },
-            showInput:function() {
-                this.inputVisible = true;
-                var _this  = this;
-                this.$nextTick(function(){
-                    return _this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-            handleInputConfirm:function() {
-                var inputValue = this.inputValue;
-                if (inputValue) {
-                    this.dynamicTags.push(inputValue);
-                }
-                this.inputVisible = false;
-                this.inputValue = '';
-            },
-            //头像相关方法
-            upload:function(res, file) {
-                if(res.state.code == 0 && res.data)
-                    this.data.avatar = res.data;
-                this.imageUrl = '<?= Url::to(['upload/get','src' => ''],true)?>' + this.data.avatar;
             },
         }
     });

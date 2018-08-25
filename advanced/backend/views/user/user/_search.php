@@ -7,11 +7,11 @@ use vuelte\widgets\ActiveElementForm;
 vuelte\assets\PluginComponentsAsset::register($this);
 
 /* @var $this yii\web\View */
-/* @var $model common\models\user\UserSearch */
+/* @var $model common\models\admin\AdminSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-search">
+<div class="admin-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -22,7 +22,13 @@ vuelte\assets\PluginComponentsAsset::register($this);
 
     <?= $form->field($model, 'username') ?>
 
-    <?= $form->field($model, 'email') ?>
+    <?= $form->field($model, 'auth_key') ?>
+
+    <?= $form->field($model, 'password_hash') ?>
+
+    <?= $form->field($model, 'password_reset_token') ?>
+
+    <?php // echo $form->field($model, 'email') ?>
 
     <?php // echo $form->field($model, 'status') ?>
 

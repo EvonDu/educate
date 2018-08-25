@@ -13,7 +13,7 @@ $this->params['small'] = 'Authority';
 $this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-vuelte\tools\VarConvert::run($this, $model, "data");
+vuelte\tools\VarConvert::run($this, $model, "data")
 ?>
 <div id="app">
     <lte-row>
@@ -40,7 +40,13 @@ vuelte\tools\VarConvert::run($this, $model, "data");
                     "status-icon" => true,
                 ]]); ?>
 
-                <?= $form->field($model, 'auths')->el_checkBoxList($model->list,['v-model' => 'data.auths', 'type' => 'input']) ?>
+                <el-form-item prop="auths"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"auths")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"auths")?>">
+                    <el-checkbox-group v-model="data.auths">
+                        <el-checkbox v-for="(item,key) in items" :label="key" :key="key">{{item}}</el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
 
                 <el-form-item>
                     <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-floppy-disk'></i> 保存",["type" => "info", "@click" => "submit"]) ?>
@@ -59,6 +65,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
         el:'#app',
         data:{
             data:data,
+            items:<?=json_encode($model->list)?>,
         },
         methods:{
             submit:function(event){

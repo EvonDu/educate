@@ -31,7 +31,7 @@ class Nav
                     array('title' => "权限管理", 'url' => Url::to(['user/auth/index'])),
                 )
             ),
-            /*array(
+            array(
                 'url' => '#',
                 'title' => "资料管理",
                 'icon' => 'fa fa-address-book',
@@ -39,7 +39,7 @@ class Nav
                 'nodes' => array(
                     array('title' => "教师管理", 'url' => Url::to(['instructor/instructor/index'])),
                 )
-            ),*/
+            ),
             /*array(
                 'url' => '#',
                 'title' => "媒体库",

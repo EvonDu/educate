@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 
 vuelte\tools\VarConvert::run($this, $model, "data");
+print $this->render('_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -34,9 +35,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
         <lte-col col="9">
             <lte-box title="新增" icon="fa fa-plus">
 
-                <?= $this->render('_form', [
-                'model' => $model,
-                ]) ?>
+                <model-form :data="data"></model-form>
 
             </lte-box>
         </lte-col>
@@ -47,12 +46,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
     new Vue({
         el:'#app',
         data:{
-            data:data,
-        },
-        methods:{
-            submit:function(event){
-                YiiFormSubmit(this.data,"<?= $model->formName()?>");
-            }
+            data:data
         }
     })
 </script>

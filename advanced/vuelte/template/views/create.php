@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = $this->title;
 
 vuelte\tools\VarConvert::run($this, $model, "data");
-echo $this->render('_form', ['model' => $model]);
+print $this->render('_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -55,7 +55,7 @@ echo $this->render('_form', ['model' => $model]);
     new Vue({
         el:'#app',
         data:{
-            data:data,
+            data:data
         }
     })
 </script>

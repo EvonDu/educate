@@ -44,20 +44,31 @@ class ActiveElementForm extends \yii\widgets\ActiveForm
         echo Html::endTag("el-form");
     }
 
-    //region 获取属性
-
+    /**
+     * @param $model
+     * @param $attribute
+     * @return string
+     */
     static public function getFieldName($model,$attribute){
         return Html::getInputName($model, $attribute);
     }
 
+    /**
+     * @param $model
+     * @param $attribute
+     * @return string
+     */
     static public function getFieldLabel($model,$attribute){
         return Html::encode($model->getAttributeLabel($attribute));
     }
 
+    /**
+     * @param $model
+     * @param $attribute
+     * @return mixed
+     */
     static public function getFieldError($model,$attribute){
         return $model->getFirstError($attribute);
     }
-
-    //endregion;
 }
 ?>

@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->nickname, 'url' => ['view',
 $this->params['breadcrumbs'][] = '更新';
 
 vuelte\tools\VarConvert::run($this, $model, "data");
+print $this->render('@app/views/components/avatar');
 ?>
 <div id="app">
     <lte-row>
@@ -25,7 +26,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
                     "block"=>true,
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
-                    "href"=>Url::to(["create"]),
+                    "href"=>Url::to(["signup"]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"info"
@@ -51,27 +52,29 @@ vuelte\tools\VarConvert::run($this, $model, "data");
         <lte-col col="9">
             <lte-box title="编辑" icon="fa fa-edit">
 
-                <?php $form = ActiveElementForm::begin(["options"=>[
+                <?php ActiveElementForm::begin(["options"=>[
                     "label-width" => "100px",
                     "status-icon" => true,
                 ]]); ?>
 
-                <?= $form->field($model, 'avatar')->el_avatar([
-                    'imageUrl'=>'imageUrl',
-                    'action' => Url::to(["upload/file",'src'=>''],true),
-                    ':show-file-list' => 'false',
-                    ':on-success' => "upload"
-                ]) ?>
+                <el-form-item prop="avatar"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"avatar")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"avatar")?>">
+                    <avatar v-model="data.avatar"></avatar>
+                </el-form-item>
 
-                <?= $form->field($model, 'nickname')->el_input(['v-model' => 'data.nickname', 'type' => 'input']) ?>
-
-                <?= $form->field($model, 'phone')->el_input(['v-model' => 'data.phone', 'type' => 'input']) ?>
+                <el-form-item prop="nickname"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"nickname")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"nickname")?>">
+                    <el-input v-model="data.nickname"></el-input>
+                </el-form-item>
 
                 <el-form-item>
-                    <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-floppy-disk'></i> 保存",["type" => "info", "@click" => "submit"]) ?>
+                    <lte-btn type="info" @click="submit"><i class='glyphicon glyphicon-floppy-disk'></i> 保存</lte-btn>
                 </el-form-item>
 
                 <?php ActiveElementForm::end(); ?>
+
 
             </lte-box>
         </lte-col>

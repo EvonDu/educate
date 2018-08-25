@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use vuelte\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\user\UserSearch */
+/* @var $searchModel common\models\admin\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '用户管理';
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <lte-row>
         <lte-col col="3">
             <lte-box title="选项" icon="fa fa-edit">
-                <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 注册",[
+                <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
                     "href"=>Url::to(["signup"]),
                     "a"=>true,
                     "block"=>true,
@@ -51,8 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'class' => 'vuelte\widgets\ActionColumn',
-                            'template' => '{view} {info} {delete}',
                             //'template' => '{view} {info} {delete} {assign}',
+                            'template' => '{view} {info} {delete}',
                             'buttons' => [
                                 'info' => function ($url, $model, $key) {
                                     $options = array_merge([

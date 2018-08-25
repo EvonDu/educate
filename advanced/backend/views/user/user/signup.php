@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\user\SignupForm */
+/* @var $model \common\models\admin\ChangePasswordForm */
 
 use yii\helpers\Url;
 use yii\helpers\Html;

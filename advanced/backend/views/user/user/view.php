@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\user\User */
+/* @var $model common\models\admin\Admin */
 
 $this->title = $model->info->nickname;
 $this->params['small'] = 'View';
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     "block"=>true,
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
-                    "href"=>Url::to(["create"]),
+                    "href"=>Url::to(["signup"]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"info"
