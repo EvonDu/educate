@@ -7,7 +7,7 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $model common\models\auth\AuthItem */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php  function template($model){ ?>
+<?php $template = function($model){ ?>
 <div class="auth-item-form">
 
     <?php ActiveElementForm::begin(["options"=>[
@@ -38,7 +38,7 @@ use vuelte\widgets\ActiveElementForm;
 
 <script>
     Vue.component('model-form', {
-        template: `<?= template($model); ?>`,
+        template: `<?= $template($model); ?>`,
         props:{
             'data':{ type: Object, default: function(){ return {}; }}
         },

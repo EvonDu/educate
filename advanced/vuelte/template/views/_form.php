@@ -23,7 +23,7 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?= "<?php" ?> $template = function($model){ ?>
+<?= "<?php " ?>$template = function($model){ ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
     <?= "<?php " ?>ActiveElementForm::begin(["options"=>[
