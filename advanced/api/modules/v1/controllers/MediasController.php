@@ -13,6 +13,17 @@ use common\models\user\User;
 use common\models\user\SignupForm;
 
 /**
+ * @SWG\Definition(
+ *     definition="Pronunciation",
+ *     @SWG\Property(property="id",description="ID",type="string"),
+ *     @SWG\Property(property="word",description="单词",type="string"),
+ *     @SWG\Property(property="audio",description="音频地址",type="string"),
+ *     @SWG\Property(property="created_at",description="创建时间（时间戳）",type="integer"),
+ *     @SWG\Property(property="updated_at",description="更新时间（时间戳）",type="integer"),
+ * )
+ */
+
+/**
  * @SWG\Tag(name="Media",description="媒体库")
  */
 class MediasController extends ActiveController

@@ -1,17 +1,56 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use common\models\course\Course;
+use common\models\course\CourseLesson;
 use common\models\course\CourseSearch;
+use common\models\course\CourseTypeSearch;
+use common\models\instructor\Instructor;
 use common\models\media\Pronunciation;
 use Yii;
+use yii\helpers\Url;
 use yii\rest\ActiveController;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use api\lib\ModelErrors;
-use common\models\user\User;
-use common\models\user\SignupForm;
+
+/**
+ * @SWG\Definition(
+ *     definition="Course",
+ *     @SWG\Property(property="num",description="课程号",type="string"),
+ *     @SWG\Property(property="price",description="课程价格",type="integer"),
+ *     @SWG\Property(property="instructor",description="导师ID",type="integer"),
+ *     @SWG\Property(property="type",description="分类ID",type="integer"),
+ *     @SWG\Property(property="image",description="封面",type="string"),
+ *     @SWG\Property(property="level",description="课程难度",type="integer"),
+ *     @SWG\Property(property="abstract",description="课程简介",type="string"),
+ *     @SWG\Property(property="content",description="课程内容",type="string"),
+ *     @SWG\Property(property="requirements_prerequisites",description="课程要求-前提",type="string"),
+ *     @SWG\Property(property="requirements_textbooks",description="课程要求-教科书",type="string"),
+ *     @SWG\Property(property="requirements_software",description="课程要求-软件",type="string"),
+ *     @SWG\Property(property="requirements_hardware",description="课程要求-硬件",type="string"),
+ *     @SWG\Property(property="next_term_at",description="下学期开学时间",type="integer"),
+ *     @SWG\Property(property="created_at",description="创建时间",type="integer"),
+ *     @SWG\Property(property="updated_at",description="更新时间",type="integer"),
+ * )
+ */
+
+/**
+ * @SWG\Definition(
+ *     definition="CourseLesson",
+ *     @SWG\Property(property="id",description="ID",type="string"),
+ *     @SWG\Property(property="course_id",description="课程ID",type="integer"),
+ *     @SWG\Property(property="lesson",description="章节号",type="integer"),
+ *     @SWG\Property(property="title",description="标题",type="string"),
+ *     @SWG\Property(property="abstract",description="简介",type="string"),
+ *     @SWG\Property(property="video",description="视频",type="string"),
+ *     @SWG\Property(property="doc",description="课件",type="string"),
+ *     @SWG\Property(property="created_at",description="创建时间（时间戳）",type="integer"),
+ *     @SWG\Property(property="updated_at",description="更新时间（时间戳）",type="integer"),
+ * )
+ */
 
 /**
  * @SWG\Tag(name="Course",description="课程")
@@ -39,6 +78,7 @@ class CoursesController extends ActiveController
     {
         $parent = parent::actions();
         unset($parent["index"]);
+        unset($parent["view"]);
         return $parent;
     }
 
@@ -46,31 +86,155 @@ class CoursesController extends ActiveController
      * 课程列表
      * @SWG\GET(
      *     path="/v1/courses",
-     *     tags={"Media"},
+     *     tags={"Course"},
      *     summary="课程列表",
      *     description="获取所有课程列表(所有字段均可作为参数作模糊查询)",
      *     consumes={"application/json"},
      *     produces={"application/json"},
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="path",description="页码" ),
+     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="页码" ),
      *     @SWG\Response( response="return",description="课程列表")
      * )
      */
     public function actionIndex(){
+        //查询类
         $searchModel = new CourseSearch();
         $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
 
+        //获取items
         $models = $dataProvider->getModels();
-        $result = [];
+        $items = [];
         foreach ($models as $model){
             $item = [
                 "num" => $model->num,
                 "name" => $model->name,
-                "image" => $model->image,
+                "image" => Url::to(["upload/get","src"=>$model->image],true),
+                "price" => $model->price,
+                "type" => $model->type,
+                "type_name" => $model->type0 ? $model->type0->name : null,
+                "instructor" => $model->type,
+                "instructor_name" => $model->instructor0 ? $model->instructor0->name : null,
+                "level" => $model->level,
                 "abstract" => $model->abstract,
             ];
-            $result[] = $item;
+            $items[] = $item;
         }
 
+        //分页数据
+        $totalCount = $dataProvider->totalCount;
+        $page = (int)Yii::$app->request->get("page",1);
+        $pageSize = $dataProvider->pagination->pageSize;
+        $pageCount = $dataProvider->pagination->pageCount;
+
+        //构建返回
+        $result = [
+            "page" => $page,
+            "pageCount" => $pageCount,
+            "pageSize" => $pageSize,
+            "totalCount" => $totalCount,
+            "items" => $items,
+        ];
+        return $result;
+    }
+
+    /**
+     * 课程详情
+     * @SWG\GET(
+     *     path="/v1/courses/{num}",
+     *     tags={"Course"},
+     *     summary="课程详情",
+     *     description="获取所有课程详细信息",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="num",type="string", required=false, in="path",description="课程编号" ),
+     *     @SWG\Response( response="return",description="课程详情")
+     * )
+     */
+    public function actionView($course_num){
+        //获取课程
+        $model = Course::findOne(["num"=>$course_num]);
+        if(!$model)
+            throw new NotFoundHttpException("Not found:$course_num");
+
+        //获取课程所有章节
+        $lessons = [];
+        foreach ($model->courseLessons as $lesson){
+            $item = [
+                "lesson"=>$lesson->lesson,
+                "title"=>$lesson->title,
+                "abstract"=>$lesson->abstract,
+                "is_public"=>$lesson->is_public,
+            ];
+            $lessons[] = $item;
+        }
+
+        //返回课程信息
+        $result = ArrayHelper::toArray($model);
+        $result["lessons"] = $lessons;
+        return $result;
+    }
+
+    /**
+     * 章节详情
+     * @SWG\GET(
+     *     path="/v1/courses/lessons/{id}",
+     *     tags={"Course"},
+     *     summary="章节详情",
+     *     description="获取章节的详细信息",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="id",type="integer", required=true, in="path",description="章节ID" ),
+     *     @SWG\Response( response="return",description="章节详情")
+     * )
+     */
+    public function actionLessons($id){
+        //查询
+        $model = CourseLesson::findOne($id);
+        if(!$model)
+            throw new NotFoundHttpException("Not found:$id");
+
+        //返回
+        $model->doc = Url::to(["upload/get","src"=>$model->doc],true);
+        $model->video = Url::to(["upload/get","src"=>$model->video],true);
+        return $model;
+    }
+
+    /**
+     * 课程类型
+     * @SWG\GET(
+     *     path="/v1/courses/types",
+     *     tags={"Course"},
+     *     summary="课程类型",
+     *     description="获取所有课程类型",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="页码" ),
+     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="查询数量" ),
+     *     @SWG\Response( response="return",description="课程类型列表")
+     * )
+     */
+    public function actionTypes(){
+        //查询类
+        $searchModel = new CourseTypeSearch();
+        $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
+
+        //获取items
+        $models = $dataProvider->getModels();
+        $items = ArrayHelper::toArray($models);
+
+        //分页数据
+        $totalCount = $dataProvider->totalCount;
+        $page = (int)Yii::$app->request->get("page",1);
+        $pageSize = $dataProvider->pagination->pageSize;
+        $pageCount = $dataProvider->pagination->pageCount;
+
+        //构建返回
+        $result = [
+            "page" => $page,
+            "pageCount" => $pageCount,
+            "pageSize" => $pageSize,
+            "totalCount" => $totalCount,
+            "items" => $items,
+        ];
         return $result;
     }
 }

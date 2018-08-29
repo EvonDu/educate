@@ -13,7 +13,7 @@ use common\models\user\SignupForm;
 
 /**
  * @SWG\Definition(
- *     definition="User",
+ *     definition="Admin",
  *     @SWG\Property(property="id",description="ID",type="string"),
  *     @SWG\Property(property="username",description="用户名",type="string"),
  *     @SWG\Property(property="auth_key",description="授权秘钥",type="string"),
@@ -25,7 +25,7 @@ use common\models\user\SignupForm;
 
 /**
  * @SWG\Definition(
- *     definition="UserInfo",
+ *     definition="AdminInfo",
  *     @SWG\Property(property="id",description="ID",type="string"),
  *     @SWG\Property(property="user_id",description="用户ID",type="string"),
  *     @SWG\Property(property="nickname",description="用户昵称",type="string"),
@@ -35,7 +35,7 @@ use common\models\user\SignupForm;
  */
 
 /**
- * @SWG\Tag(name="User",description="用户模块")
+ * @SWG\Tag(name="Admin",description="管理员")
  */
 class UserController extends ActiveController
 {

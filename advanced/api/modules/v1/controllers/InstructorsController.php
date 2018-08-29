@@ -14,6 +14,20 @@ use common\models\user\User;
 use common\models\user\SignupForm;
 
 /**
+ * @SWG\Definition(
+ *     definition="Instructor",
+ *     @SWG\Property(property="id",description="ID",type="string"),
+ *     @SWG\Property(property="name",description="导师名",type="integer"),
+ *     @SWG\Property(property="avatar",description="头像",type="string"),
+ *     @SWG\Property(property="title",description="头衔",type="string"),
+ *     @SWG\Property(property="tags",description="标签",type="string"),
+ *     @SWG\Property(property="abstract",description="简介",type="string"),
+ *     @SWG\Property(property="created_at",description="创建时间（时间戳）",type="integer"),
+ *     @SWG\Property(property="updated_at",description="更新时间（时间戳）",type="integer"),
+ * )
+ */
+
+/**
  * @SWG\Tag(name="Instructor",description="教师")
  */
 class InstructorsController extends ActiveController
@@ -57,11 +71,26 @@ class InstructorsController extends ActiveController
      * )
      */
     public function actionIndex(){
+        //查询
         $searchModel = new InstructorSearch();
         $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
-        $models = $dataProvider->getModels();
+        $items = $dataProvider->getModels();
 
-        return $models;
+        //分页数据
+        $totalCount = $dataProvider->totalCount;
+        $page = (int)Yii::$app->request->get("page",1);
+        $pageSize = $dataProvider->pagination->pageSize;
+        $pageCount = $dataProvider->pagination->pageCount;
+
+        //构建返回
+        $result = [
+            "page" => $page,
+            "pageCount" => $pageCount,
+            "pageSize" => $pageSize,
+            "totalCount" => $totalCount,
+            "items" => $items,
+        ];
+        return $result;
     }
 
     /**

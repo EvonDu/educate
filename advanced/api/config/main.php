@@ -50,7 +50,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                //用户模块
+                //用户
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
@@ -60,7 +60,7 @@ return [
                         'PUT info/<id:\d+>' => 'info-update'
                     ],
                 ],
-                //媒体模块
+                //媒体
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
@@ -69,7 +69,7 @@ return [
                         'GET pronunciations/<word:\w+>' => 'pronunciations',
                     ],
                 ],
-                //教师相关
+                //教师
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
@@ -77,6 +77,17 @@ return [
                     'extraPatterns' => [
                         'GET ' => 'index',
                         'GET <id:\d+>' => 'view',
+                    ],
+                ],
+                //课程
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => ['v1/courses'],
+                    'extraPatterns' => [
+                        'GET ' => 'index',
+                        'GET <course_num:\w+>' => 'view',
+                        'GET lessons/<id:\d+>' => 'lessons',
                     ],
                 ],
             ],

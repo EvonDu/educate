@@ -29,6 +29,7 @@ use common\models\instructor\Instructor;
  *
  * @property CourseType $type0
  * @property Instructor $instructor0
+ * @property CourseLesson[] $courseLessons
  */
 class Course extends \yii\db\ActiveRecord
 {
