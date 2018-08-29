@@ -37,6 +37,7 @@
     <el-upload
         class="avatar-uploader"
         :action="uploadUrl"
+        :show-file-list="false"
         :on-success="upload">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>

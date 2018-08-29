@@ -20,18 +20,36 @@ class Nav
             ),
             array(
                 'url' => '#',
-                'title' => "用户管理",
+                'title' => "管理员",
                 'icon' => 'fa fa-users',
                 'auth' => '',
                 'tags' => array(array('content' => 'system','class'=>'bg-teal'),),
                 'nodes' => array(
                     array('title' => "系统用户", 'url' => Url::to(['user/admin/index'])),
-                    array('title' => "用户管理", 'url' => Url::to(['user/user/index'])),
                     array('title' => "角色管理", 'url' => Url::to(['user/role/index'])),
                     array('title' => "权限管理", 'url' => Url::to(['user/auth/index'])),
                 )
             ),
             array(
+                'url' => '#',
+                'title' => "用户管理",
+                'icon' => 'fa fa-users',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "用户管理", 'url' => Url::to(['user/user/index'])),
+                )
+            ),
+            array(
+                'url' => '#',
+                'title' => "课程管理",
+                'icon' => 'fa fa-book',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "课程列表", 'url' => Url::to(['course/course/index'])),
+                    array('title' => "课程类型", 'url' => Url::to(['course/course-type/index'])),
+                )
+            ),
+            /*array(
                 'url' => '#',
                 'title' => "资料管理",
                 'icon' => 'fa fa-address-book',
@@ -39,7 +57,7 @@ class Nav
                 'nodes' => array(
                     array('title' => "教师管理", 'url' => Url::to(['instructor/instructor/index'])),
                 )
-            ),
+            ),*/
             /*array(
                 'url' => '#',
                 'title' => "媒体库",

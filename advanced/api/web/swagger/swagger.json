@@ -16,6 +16,35 @@
         "application/json"
     ],
     "paths": {
+        "/v1/courses": {
+            "get": {
+                "tags": [
+                    "Media"
+                ],
+                "summary": "\u8bfe\u7a0b\u5217\u8868",
+                "description": "\u83b7\u53d6\u6240\u6709\u8bfe\u7a0b\u5217\u8868(\u6240\u6709\u5b57\u6bb5\u5747\u53ef\u4f5c\u4e3a\u53c2\u6570\u4f5c\u6a21\u7cca\u67e5\u8be2)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "\u9875\u7801",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u8bfe\u7a0b\u5217\u8868"
+                    }
+                }
+            }
+        },
         "/v1/instructors": {
             "get": {
                 "tags": [
@@ -410,6 +439,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Course",
+            "description": "\u8bfe\u7a0b"
+        },
         {
             "name": "Instructor",
             "description": "\u6559\u5e08"

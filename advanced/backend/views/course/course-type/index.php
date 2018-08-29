@@ -5,10 +5,10 @@ use yii\helpers\Html;
 use vuelte\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\user\UserSearch */
+/* @var $searchModel common\models\course\CourseTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '用户管理';
+$this->title = '课程类型';
 $this->params['small'] = 'List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -43,21 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
 
                         'id',
-                        'email:email',
-                        //'auth_key',
-                        //'password_hash',
-                        //'password_reset_token',
-                        //'status',
-                        'firstname',
-                        'lastname',
-                        //'avatar',
-                        'phone',
-                        //'country',
-                        //'city',
-                        //'adderss_1',
-                        //'adderss_2',
-                        //'created_at',
-                        //'updated_at',
+                        'name',
+                        'created_at:datetime',
+                        'updated_at:datetime',
 
                         ['class' => 'vuelte\widgets\ActionColumn'],
                     ],

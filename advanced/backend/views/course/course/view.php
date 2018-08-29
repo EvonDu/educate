@@ -5,13 +5,18 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\instructor\Instructor */
+/* @var $model common\models\course\Course */
 
 $this->title = $model->name;
 $this->params['small'] = 'View';
-$this->params['breadcrumbs'][] = ['label' => '教师管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '课程管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    th{
+        width: 120px;
+    }
+</style>
 <div id="app">
     <lte-row>
         <lte-col col="3">
@@ -20,6 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     "href"=>Url::to(["index"]),
                     "a"=>true,
                     "block"=>true,
+                ])?>
+                <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-book'></i> 章节",[
+                    "href"=>Url::to(["course/course-lesson/list","course_id"=>$model->id]),
+                    "a"=>true,
+                    "block"=>true,
+                    "type"=>"warning"
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
                     "href"=>Url::to(["create"]),
@@ -58,15 +69,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'attributes' => [
                         'id',
+                        'num',
+                        [
+                            'attribute'=>'price',
+                            'value' => function($model){return isset($model->price)?$model->price/100:0;}
+                        ],
+                        'instructor0.name',
+                        'type0.name',
                         'name',
                         [
                             'attribute'=>'image',
                             'format' => 'raw',
-                            'value' => function($model){return isset($model->avatar)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->avatar]),['style'=>'width: 100px;']):null;}
+                            'value' => function($model){return isset($model->image)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->image]),['style'=>'width: 100px;']):null;}
                         ],
-                        'title',
-                        'tags:ntext',
+                        'level',
                         'abstract:raw',
+                        'content:raw',
+                        'requirements_prerequisites:raw',
+                        'requirements_textbooks:raw',
+                        'requirements_software:raw',
+                        'requirements_hardware:raw',
+                        'next_term_at:datetime',
                         'created_at:datetime',
                         'updated_at:datetime',
                     ],

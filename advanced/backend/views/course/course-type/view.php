@@ -5,11 +5,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\instructor\Instructor */
+/* @var $model common\models\course\CourseType */
 
 $this->title = $model->name;
 $this->params['small'] = 'View';
-$this->params['breadcrumbs'][] = ['label' => '教师管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '课程类型', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="app">
@@ -59,14 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         'name',
-                        [
-                            'attribute'=>'image',
-                            'format' => 'raw',
-                            'value' => function($model){return isset($model->avatar)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->avatar]),['style'=>'width: 100px;']):null;}
-                        ],
-                        'title',
-                        'tags:ntext',
-                        'abstract:raw',
                         'created_at:datetime',
                         'updated_at:datetime',
                     ],

@@ -61,7 +61,9 @@ print $this->render('@app/views/components/tags');
     Vue.component('model-form', {
         template: `<?= $template($model) ?>`,
         props:{
-            'data':{ type: Object, default: function(){ return {}; }}
+            data:{ type: Object, default: function(){ return {}; }},
+            statusMap:<?=json_encode($model->statusMap()) ?>,
+            typeMap:<?=json_encode($model->typeMap()) ?>,
         },
         methods: {
             submit: function (event) {

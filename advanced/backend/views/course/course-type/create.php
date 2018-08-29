@@ -5,11 +5,11 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\user\User */
+/* @var $model common\models\course\CourseType */
 
-$this->title = '添加用户';
+$this->title = '添加类型';
 $this->params['small'] = 'Create';
-$this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '课程类型', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 vuelte\tools\VarConvert::run($this, $model, "data");

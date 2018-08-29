@@ -4,12 +4,12 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\user\User */
+/* @var $model common\models\course\Course */
 
-$this->title = "更新：$model->firstname";
-$this->params['small'] = '用户管理';
-$this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->firstname, 'url' => ['view', 'id' => $model->id]];
+$this->title = "更新：$model->name";
+$this->params['small'] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '课程管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 
 vuelte\tools\VarConvert::run($this, $model, "data");
