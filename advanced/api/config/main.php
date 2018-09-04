@@ -54,10 +54,11 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
-                    'controller' => ['v1/user'],
+                    'controller' => ['v1/users'],
                     'extraPatterns' => [
-                        'GET info/<id:\d+>' => 'info',
-                        'PUT info/<id:\d+>' => 'info-update'
+                        'GET <id:\d+>' => 'view',
+                        'POST favorites' => 'favorites-create',
+                        'DELETE favorites' => 'favorites-delete',
                     ],
                 ],
                 //媒体

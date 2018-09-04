@@ -48,7 +48,7 @@ class Instructor extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => '名称',
+            'name' => '导师名称',
             'avatar' => '头像',
             'title' => '头衔',
             'tags' => '标签',

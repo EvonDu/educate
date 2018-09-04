@@ -33,9 +33,44 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "\u9875\u7801",
+                        "description": "\u5206\u9875",
                         "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "\u67e5\u8be2\u6570\u91cf",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "type_id",
+                        "in": "query",
+                        "description": "\u8bfe\u7a0b\u7c7b\u578bID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "instructor_id",
+                        "in": "query",
+                        "description": "\u8bfe\u7a0b\u5bfc\u5e08ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "\u8bfe\u7a0b\u540d\u79f0(\u6a21\u7cca\u67e5\u8be2)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "level",
+                        "in": "query",
+                        "description": "\u8bfe\u7a0b\u96be\u5ea6",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -103,42 +138,6 @@
                 }
             }
         },
-        "/v1/courses/types": {
-            "get": {
-                "tags": [
-                    "Course"
-                ],
-                "summary": "\u8bfe\u7a0b\u7c7b\u578b",
-                "description": "\u83b7\u53d6\u6240\u6709\u8bfe\u7a0b\u7c7b\u578b",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "\u9875\u7801",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "\u67e5\u8be2\u6570\u91cf",
-                        "required": false,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "return": {
-                        "description": "\u8bfe\u7a0b\u7c7b\u578b\u5217\u8868"
-                    }
-                }
-            }
-        },
         "/v1/instructors": {
             "get": {
                 "tags": [
@@ -157,6 +156,20 @@
                         "name": "page",
                         "in": "path",
                         "description": "\u5206\u9875",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "\u67e5\u8be2\u6570\u91cf",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "\u6807\u7b7e",
                         "required": false,
                         "type": "integer"
                     }
@@ -226,39 +239,49 @@
                 }
             }
         },
-        "/v1/user": {
+        "/v1/types": {
+            "get": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u8bfe\u7a0b\u7c7b\u578b",
+                "description": "\u83b7\u53d6\u6240\u6709\u8bfe\u7a0b\u7c7b\u578b",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "\u5206\u9875",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "\u67e5\u8be2\u6570\u91cf",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u8bfe\u7a0b\u7c7b\u578b\u5217\u8868"
+                    }
+                }
+            }
+        },
+        "/v1/users": {
             "get": {
                 "tags": [
                     "User"
                 ],
                 "summary": "\u7528\u6237\u5217\u8868",
-                "description": "",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "list": {
-                        "description": "\u7528\u6237\u5217\u8868",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/User"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/v1/user/{id}": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u8d26\u53f7\u4fe1\u606f",
-                "description": "\u83b7\u53d6\u7528\u6237\u8d26\u53f7\u4fe1\u606f",
+                "description": "\u83b7\u53d6\u7528\u6237\u5217\u8868\u8868\uff08\u6570\u636e\u4e2d\u7684\u5b57\u6bb5\u5747\u53ef\u7528\u4f5c\u7b5b\u9009\u548c\u6392\u5e8f\uff09",
                 "consumes": [
                     "application/json"
                 ],
@@ -267,94 +290,53 @@
                 ],
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "user": {
-                        "description": "\u7528\u6237\u8d26\u53f7\u4fe1\u606f",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u4fee\u6539\u72b6\u6001",
-                "description": "\u4fee\u6539\u8d26\u53f7\u4fe1\u606f\uff0c\u5f53\u524d\u53ea\u80fd\u4fee\u6539\u7528\u6237\u72b6\u6001",
-                "consumes": [
-                    "application/x-www-form-urlencoded"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
+                        "name": "page",
+                        "in": "query",
+                        "description": "\u5206\u9875",
+                        "required": false,
                         "type": "integer"
                     },
                     {
-                        "name": "status",
-                        "in": "formData",
-                        "description": "\u7528\u6237\u72b6\u6001",
-                        "required": true,
-                        "type": "integer",
-                        "enum": [
-                            10,
-                            0
-                        ]
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "\u67e5\u8be2\u6570\u91cf",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "query",
+                        "description": "\u6027\u522b",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "\u56fd\u5bb6",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "description": "\u57ce\u5e02",
+                        "required": false,
+                        "type": "string"
                     }
                 ],
                 "responses": {
-                    "user": {
-                        "description": "\u4fee\u6539\u540e\u7684\u8d26\u53f7\u4fe1\u606f",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
+                    "return": {
+                        "description": "\u7528\u6237\u5217\u8868"
                     }
                 }
             },
-            "delete": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u5220\u9664\u8d26\u53f7",
-                "description": "",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {}
-            }
-        },
-        "/v1/user/signup": {
             "post": {
                 "tags": [
                     "User"
                 ],
-                "summary": "\u6ce8\u518c\u7528\u6237",
-                "description": "",
+                "summary": "\u7528\u6237\u6ce8\u518c",
+                "description": "\u521b\u5efa\u65b0\u7528\u6237",
                 "consumes": [
                     "application/x-www-form-urlencoded"
                 ],
@@ -363,9 +345,9 @@
                 ],
                 "parameters": [
                     {
-                        "name": "username",
+                        "name": "email",
                         "in": "formData",
-                        "description": "\u7528\u6237\u540d",
+                        "description": "\u6ce8\u518c\u90ae\u7bb1",
                         "required": true,
                         "type": "string"
                     },
@@ -377,30 +359,83 @@
                         "type": "string"
                     },
                     {
-                        "name": "email",
+                        "name": "firstname",
                         "in": "formData",
-                        "description": "\u90ae\u7bb1",
+                        "description": "\u540d\u79f0",
                         "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "lastname",
+                        "in": "formData",
+                        "description": "\u59d3\u6c0f",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "formData",
+                        "description": "\u6027\u522b(1:\u7537\uff0c0:\u5973)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "avatar",
+                        "in": "formData",
+                        "description": "\u5934\u50cf(URL)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "formData",
+                        "description": "\u7535\u8bdd",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "formData",
+                        "description": "\u56fd\u5bb6",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city",
+                        "in": "formData",
+                        "description": "\u57ce\u5e02",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "adderss_1",
+                        "in": "formData",
+                        "description": "\u5730\u57401",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "adderss_2",
+                        "in": "formData",
+                        "description": "\u5730\u57402",
+                        "required": false,
                         "type": "string"
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "\u7528\u6237\u8d26\u53f7\u4fe1\u606f",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
                     }
                 }
             }
         },
-        "/v1/user/info/{id}": {
+        "/v1/users/{id}": {
             "get": {
                 "tags": [
                     "User"
                 ],
-                "summary": "\u7528\u6237\u4fe1\u606f",
-                "description": "\u83b7\u53d6\u7528\u6237\u4fe1\u606f",
+                "summary": "\u7528\u6237\u5217\u8868",
+                "description": "\u83b7\u53d6\u7528\u6237\u5217\u8868\u8868\uff08\u6570\u636e\u4e2d\u7684\u5b57\u6bb5\u5747\u53ef\u7528\u4f5c\u7b5b\u9009\u548c\u6392\u5e8f\uff09",
                 "consumes": [
                     "application/json"
                 ],
@@ -417,11 +452,8 @@
                     }
                 ],
                 "responses": {
-                    "info": {
-                        "description": "\u7528\u6237\u4fe1\u606f",
-                        "schema": {
-                            "$ref": "#/definitions/UserInfo"
-                        }
+                    "return": {
+                        "description": "\u7528\u6237\u5217\u8868"
                     }
                 }
             },
@@ -429,8 +461,8 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "\u4fee\u6539\u4fe1\u606f",
-                "description": "\u4fee\u6539\u8d26\u53f7\u4fe1\u606f",
+                "summary": "\u4fee\u6539\u7528\u6237\u4fe1\u606f",
+                "description": "\u4fee\u6539\u7528\u6237\u4fe1\u606f",
                 "consumes": [
                     "application/x-www-form-urlencoded"
                 ],
@@ -446,33 +478,169 @@
                         "type": "integer"
                     },
                     {
-                        "name": "nickname",
+                        "name": "firstname",
                         "in": "formData",
-                        "description": "\u7528\u6237\u6635\u79f0",
-                        "required": false,
+                        "description": "\u540d\u79f0",
+                        "required": true,
                         "type": "string"
                     },
                     {
-                        "name": "picture",
+                        "name": "lastname",
                         "in": "formData",
-                        "description": "\u7528\u6237\u5934\u50cf",
+                        "description": "\u59d3\u6c0f",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "formData",
+                        "description": "\u6027\u522b(1:\u7537\uff0c0:\u5973)",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "avatar",
+                        "in": "formData",
+                        "description": "\u5934\u50cf(URL)",
                         "required": false,
                         "type": "string"
                     },
                     {
                         "name": "phone",
                         "in": "formData",
-                        "description": "\u7528\u6237\u7535\u8bdd",
+                        "description": "\u7535\u8bdd",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country",
+                        "in": "formData",
+                        "description": "\u56fd\u5bb6",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city",
+                        "in": "formData",
+                        "description": "\u57ce\u5e02",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "adderss_1",
+                        "in": "formData",
+                        "description": "\u5730\u57401",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "adderss_2",
+                        "in": "formData",
+                        "description": "\u5730\u57402",
                         "required": false,
                         "type": "string"
                     }
                 ],
                 "responses": {
-                    "info": {
-                        "description": "\u4fee\u6539\u540e\u7684\u7528\u6237\u4fe1\u606f",
-                        "schema": {
-                            "$ref": "#/definitions/UserInfo"
-                        }
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            }
+        },
+        "/v1/users/favorites": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "\u7528\u6237\u6536\u85cf",
+                "description": "\u83b7\u53d6\u7528\u6237\u6536\u85cf\u8bfe\u7a0b\u5217\u8868",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u6536\u85cf\u5217\u8868"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "\u6dfb\u52a0\u7528\u6237\u6536\u85cf",
+                "description": "\u6dfb\u52a0\u7528\u6237\u6536\u85cf",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
+                "description": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
                     }
                 }
             }
@@ -489,11 +657,11 @@
                     "description": "\u8bfe\u7a0b\u4ef7\u683c",
                     "type": "integer"
                 },
-                "instructor": {
+                "instructor_id": {
                     "description": "\u5bfc\u5e08ID",
                     "type": "integer"
                 },
-                "type": {
+                "type_id": {
                     "description": "\u5206\u7c7bID",
                     "type": "integer"
                 },
@@ -643,22 +811,14 @@
                 }
             }
         },
-        "Admin": {
+        "CourseType": {
             "properties": {
                 "id": {
                     "description": "ID",
-                    "type": "string"
+                    "type": "integer"
                 },
-                "username": {
-                    "description": "\u7528\u6237\u540d",
-                    "type": "string"
-                },
-                "auth_key": {
-                    "description": "\u6388\u6743\u79d8\u94a5",
-                    "type": "string"
-                },
-                "email": {
-                    "description": "\u90ae\u7bb1",
+                "name": {
+                    "description": "\u8bfe\u7a0b\u7c7b\u578b",
                     "type": "string"
                 },
                 "created_at": {
@@ -671,27 +831,59 @@
                 }
             }
         },
-        "AdminInfo": {
+        "User": {
             "properties": {
                 "id": {
                     "description": "ID",
+                    "type": "integer"
+                },
+                "email": {
+                    "description": "\u90ae\u7bb1",
                     "type": "string"
                 },
-                "user_id": {
-                    "description": "\u7528\u6237ID",
+                "firstname": {
+                    "description": "\u540d\u79f0",
                     "type": "string"
                 },
-                "nickname": {
-                    "description": "\u7528\u6237\u6635\u79f0",
+                "lastname": {
+                    "description": "\u59d3\u6c0f",
                     "type": "string"
                 },
-                "picture": {
-                    "description": "\u7528\u6237\u5934\u50cf",
+                "sex": {
+                    "description": "\u6027\u522b",
+                    "type": "integer"
+                },
+                "avatar": {
+                    "description": "\u5934\u50cf",
                     "type": "string"
                 },
                 "phone": {
-                    "description": "\u7528\u6237\u7535\u8bdd",
+                    "description": "\u7535\u8bdd",
                     "type": "string"
+                },
+                "country": {
+                    "description": "\u56fd\u5bb6",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "\u57ce\u5e02",
+                    "type": "string"
+                },
+                "adderss_1": {
+                    "description": "\u5730\u57401",
+                    "type": "string"
+                },
+                "adderss_2": {
+                    "description": "\u5730\u57402",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "\u521b\u5efa\u65f6\u95f4\uff08\u65f6\u95f4\u6233\uff09",
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "description": "\u66f4\u65b0\u65f6\u95f4\uff08\u65f6\u95f4\u6233\uff09",
+                    "type": "integer"
                 }
             }
         }
@@ -703,15 +895,15 @@
         },
         {
             "name": "Instructor",
-            "description": "\u6559\u5e08"
+            "description": "\u5bfc\u5e08"
         },
         {
             "name": "Media",
             "description": "\u5a92\u4f53\u5e93"
         },
         {
-            "name": "Admin",
-            "description": "\u7ba1\u7406\u5458"
+            "name": "User",
+            "description": "\u7528\u6237"
         }
     ]
 }

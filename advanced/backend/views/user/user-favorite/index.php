@@ -5,10 +5,10 @@ use yii\helpers\Html;
 use vuelte\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\teacher\TeacherSearch */
+/* @var $searchModel common\models\user\UserFavoriteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Teachers';
+$this->title = 'User Favorites';
 $this->params['small'] = 'List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -42,13 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
-                        'id',
-                        'name',
-                        'title',
-                        'tags:ntext',
-                        'abstract:ntext',
-                        //'created_at',
-                        //'updated_at',
+                        'user_id',
+                        'course_id',
+                        'created_at',
 
                         ['class' => 'vuelte\widgets\ActionColumn'],
                     ],

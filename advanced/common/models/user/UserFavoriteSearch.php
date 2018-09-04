@@ -1,16 +1,16 @@
 <?php
 
-namespace common\models\media;
+namespace common\models\user;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\media\Pronunciation;
+use common\models\user\UserFavorite;
 
 /**
- * PronunciationSearch represents the model behind the search form of `common\models\media\Pronunciation`.
+ * UserFavoriteSearch represents the model behind the search form of `common\models\user\UserFavorite`.
  */
-class PronunciationSearch extends Pronunciation
+class UserFavoriteSearch extends UserFavorite
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class PronunciationSearch extends Pronunciation
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at'], 'integer'],
-            [['word', 'audio'], 'safe'],
+            [['user_id', 'course_id', 'created_at'], 'integer'],
         ];
     }
 
@@ -41,7 +40,7 @@ class PronunciationSearch extends Pronunciation
      */
     public function search($params)
     {
-        $query = Pronunciation::find();
+        $query = UserFavorite::find();
 
         // add conditions that should always apply here
 
@@ -59,13 +58,10 @@ class PronunciationSearch extends Pronunciation
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'course_id' => $this->course_id,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
-
-        $query->andFilterWhere(['like', 'word', $this->word])
-            ->andFilterWhere(['like', 'audio', $this->audio]);
 
         return $dataProvider;
     }

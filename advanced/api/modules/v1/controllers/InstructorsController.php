@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiRequest;
 use common\models\instructor\Instructor;
 use common\models\instructor\InstructorSearch;
 use Yii;
@@ -28,7 +29,7 @@ use common\models\user\SignupForm;
  */
 
 /**
- * @SWG\Tag(name="Instructor",description="教师")
+ * @SWG\Tag(name="Instructor",description="导师")
  */
 class InstructorsController extends ActiveController
 {
@@ -51,14 +52,11 @@ class InstructorsController extends ActiveController
 
     public function actions()
     {
-        $parent = parent::actions();
-        unset($parent["index"]);
-        unset($parent["view"]);
-        return $parent;
+        return [];
     }
 
     /**
-     * 获取读音
+     * 教师列表
      * @SWG\GET(
      *     path="/v1/instructors",
      *     tags={"Instructor"},
@@ -67,6 +65,8 @@ class InstructorsController extends ActiveController
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter( name="page",type="integer", required=false, in="path",description="分页" ),
+     *     @SWG\Parameter( name="pageSize",type="integer", required=false, in="query",description="查询数量" ),
+     *     @SWG\Parameter( name="tags",type="integer", required=false, in="query",description="标签" ),
      *     @SWG\Response( response="return",description="教师列表")
      * )
      */
@@ -74,27 +74,19 @@ class InstructorsController extends ActiveController
         //查询
         $searchModel = new InstructorSearch();
         $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
-        $items = $dataProvider->getModels();
 
-        //分页数据
-        $totalCount = $dataProvider->totalCount;
-        $page = (int)Yii::$app->request->get("page",1);
-        $pageSize = $dataProvider->pagination->pageSize;
-        $pageCount = $dataProvider->pagination->pageCount;
+        //设置分页
+        $pagination = ApiRequest::injectionPage($dataProvider);
 
         //构建返回
-        $result = [
-            "page" => $page,
-            "pageCount" => $pageCount,
-            "pageSize" => $pageSize,
-            "totalCount" => $totalCount,
-            "items" => $items,
-        ];
+        $result = array_merge($pagination,[
+            "items" => $dataProvider->getModels()
+        ]);
         return $result;
     }
 
     /**
-     * 获取读音
+     * 教师详情
      * @SWG\GET(
      *     path="/v1/instructors/{id}",
      *     tags={"Instructor"},

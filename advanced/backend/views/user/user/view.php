@@ -65,6 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'statusName',
                         'firstname',
                         'lastname',
+                        'sexName',
                         [
                             'attribute'=>'avatar',
                             'format' => 'raw',

@@ -74,8 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute'=>'price',
                             'value' => function($model){return isset($model->price)?$model->price/100:0;}
                         ],
-                        'instructor0.name',
-                        'type0.name',
+                        'instructor.name',
+                        'type.name',
                         'name',
                         [
                             'attribute'=>'image',

@@ -4,16 +4,16 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\teacher\Teacher */
+/* @var $model common\models\user\UserFavorite */
 
-$this->title = 'Update Teacher: {nameAttribute}';
+$this->title = 'Update User Favorite: {nameAttribute}';
 $this->params['small'] = 'Update';
-$this->params['breadcrumbs'][] = ['label' => 'Teachers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => 'User Favorites', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->user_id, 'url' => ['view', 'user_id' => $model->user_id, 'course_id' => $model->course_id]];
 $this->params['breadcrumbs'][] = 'Update';
 
 vuelte\tools\VarConvert::run($this, $model, "data");
-echo $this->render('_form', ['model' => $model]);
+print $this->render('_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -31,7 +31,7 @@ echo $this->render('_form', ['model' => $model]);
                     "type"=>"info"
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-remove'></i> 删除",[
-                    "href"=>Url::to(["delete", 'id' => $model->id]),
+                    "href"=>Url::to(["delete", 'user_id' => $model->user_id, 'course_id' => $model->course_id]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"danger",
@@ -63,11 +63,6 @@ echo $this->render('_form', ['model' => $model]);
         el:'#app',
         data:{
             data:data
-        },
-        methods:{
-            submit:function(event){
-                YiiFormSubmit(this.data,"<?= $model->formName()?>");
-            }
         }
     })
 </script>

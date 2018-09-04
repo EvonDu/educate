@@ -12,8 +12,8 @@ use common\models\instructor\Instructor;
  * @property int $id 聚集索引
  * @property string $num 课程号
  * @property int $price 课程价格
- * @property int $instructor 课程导师
- * @property int $type 课程等级
+ * @property int $instructor_id 课程导师
+ * @property int $type_id 课程等级
  * @property string $name 课程名称
  * @property string $image 课程封面
  * @property int $level 课程难度
@@ -27,8 +27,8 @@ use common\models\instructor\Instructor;
  * @property int $created_at 创建时间
  * @property int $updated_at 更新时间
  *
- * @property CourseType $type0
- * @property Instructor $instructor0
+ * @property CourseType $type
+ * @property Instructor $instructor
  * @property CourseLesson[] $courseLessons
  */
 class Course extends \yii\db\ActiveRecord
@@ -48,14 +48,23 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             [['num'], 'required'],
-            [['price', 'instructor', 'type', 'level', 'next_term_at', 'created_at', 'updated_at'], 'integer'],
+            [['price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'created_at', 'updated_at'], 'integer'],
             [['abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'string'],
             [['num', 'name'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 256],
             [['num'], 'unique'],
-            [['type'], 'exist', 'skipOnError' => true, 'targetClass' => CourseType::className(), 'targetAttribute' => ['type' => 'id']],
-            [['instructor'], 'exist', 'skipOnError' => true, 'targetClass' => Instructor::className(), 'targetAttribute' => ['instructor' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseType::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['instructor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Instructor::className(), 'targetAttribute' => ['instructor_id' => 'id']],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function fields()
+    {
+        $parent = parent::fields();
+        return $parent;
     }
 
     /**
@@ -66,9 +75,9 @@ class Course extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'num' => '编号',
+            'type_id' => '类型',
+            'instructor_id' => '导师ID',
             'price' => '价格',
-            'instructor' => '导师',
-            'type' => '类型',
             'name' => '名称',
             'image' => '封面',
             'level' => '难度',
@@ -87,17 +96,17 @@ class Course extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType0()
+    public function getType()
     {
-        return $this->hasOne(CourseType::className(), ['id' => 'type']);
+        return $this->hasOne(CourseType::className(), ['id' => 'type_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInstructor0()
+    public function getInstructor()
     {
-        return $this->hasOne(Instructor::className(), ['id' => 'instructor']);
+        return $this->hasOne(Instructor::className(), ['id' => 'instructor_id']);
     }
 
     /**

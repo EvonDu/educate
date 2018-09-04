@@ -5,15 +5,15 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\teacher\Teacher */
+/* @var $model common\models\user\UserFavorite */
 
-$this->title = 'Create Teacher';
+$this->title = 'Create User Favorite';
 $this->params['small'] = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'Teachers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'User Favorites', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 vuelte\tools\VarConvert::run($this, $model, "data");
-echo $this->render('_form', ['model' => $model]);
+print $this->render('_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -46,7 +46,7 @@ echo $this->render('_form', ['model' => $model]);
     new Vue({
         el:'#app',
         data:{
-            data:data,
+            data:data
         }
     })
 </script>

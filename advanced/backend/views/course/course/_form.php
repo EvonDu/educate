@@ -36,10 +36,10 @@ print $this->render('@app/views/components/avatar');
         <el-input v-model="data.name"></el-input>
     </el-form-item>
 
-    <el-form-item prop="instructor"
-                  label="<?= ActiveElementForm::getFieldLabel($model,"instructor")?>"
-                  error="<?= ActiveElementForm::getFieldError($model,"instructor")?>">
-        <el-select v-model="data.instructor" placeholder="请选择">
+    <el-form-item prop="instructor_id"
+                  label="<?= ActiveElementForm::getFieldLabel($model,"instructor_id")?>"
+                  error="<?= ActiveElementForm::getFieldError($model,"instructor_id")?>">
+        <el-select v-model="data.instructor_id" placeholder="请选择">
             <el-option
                     v-for="(item,index) in instructorMap"
                     :key="index"
@@ -49,10 +49,10 @@ print $this->render('@app/views/components/avatar');
         </el-select>
     </el-form-item> 
 
-    <el-form-item prop="type"
-                  label="<?= ActiveElementForm::getFieldLabel($model,"type")?>"
-                  error="<?= ActiveElementForm::getFieldError($model,"type")?>">
-        <el-select v-model="data.type" placeholder="请选择">
+    <el-form-item prop="type_id"
+                  label="<?= ActiveElementForm::getFieldLabel($model,"type_id")?>"
+                  error="<?= ActiveElementForm::getFieldError($model,"type_id")?>">
+        <el-select v-model="data.type_id" placeholder="请选择">
             <el-option
                     v-for="(item,index) in typeMap"
                     :key="index"

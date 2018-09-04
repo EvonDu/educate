@@ -2,18 +2,15 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\teacher\Teacher */
+/* @var $model common\models\user\UserFavorite */
 
-$this->title = 'Update Teacher: {nameAttribute}';
-$this->params['small'] = 'Update';
-$this->params['breadcrumbs'][] = ['label' => 'Teachers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
-
-vuelte\tools\VarConvert::run($this, $model, "data");
-echo $this->render('_form', ['model' => $model]);
+$this->title = $model->user_id;
+$this->params['small'] = 'View';
+$this->params['breadcrumbs'][] = ['label' => 'User Favorites', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="app">
     <lte-row>
@@ -30,15 +27,21 @@ echo $this->render('_form', ['model' => $model]);
                     "block"=>true,
                     "type"=>"info"
                 ])?>
+                <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-edit'></i> 修改",[
+                    "href"=>Url::to(["update", 'user_id' => $model->user_id, 'course_id' => $model->course_id]),
+                    "a"=>true,
+                    "block"=>true,
+                    "type"=>"success"
+                ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-remove'></i> 删除",[
-                    "href"=>Url::to(["delete", 'id' => $model->id]),
+                    "href"=>Url::to(["delete", 'user_id' => $model->user_id, 'course_id' => $model->course_id]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"danger",
                     'data' => [
-                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                        'method' => 'post',
-                    ]
+                    'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                    'method' => 'post',
+                ]
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-share-alt'></i> 返回",[
                     "href"=>"javascript:history.go(-1)",
@@ -49,9 +52,16 @@ echo $this->render('_form', ['model' => $model]);
             </lte-box>
         </lte-col>
         <lte-col col="9">
-            <lte-box title="编辑" icon="fa fa-edit">
+            <lte-box title="详情" icon="fa fa-eye">
 
-                <model-form :data="data"></model-form>
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        'user_id',
+                        'course_id',
+                        'created_at',
+                    ],
+                ]) ?>
 
             </lte-box>
         </lte-col>
@@ -61,13 +71,6 @@ echo $this->render('_form', ['model' => $model]);
 <script>
     new Vue({
         el:'#app',
-        data:{
-            data:data
-        },
-        methods:{
-            submit:function(event){
-                YiiFormSubmit(this.data,"<?= $model->formName()?>");
-            }
-        }
+        data:{}
     })
 </script>

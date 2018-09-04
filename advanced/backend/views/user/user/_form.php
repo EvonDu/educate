@@ -39,7 +39,13 @@ print $this->render('@app/views/components/avatar');
                   label="<?= ActiveElementForm::getFieldLabel($model,"avatar")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"avatar")?>">
         <avatar v-model="data.avatar"></avatar>
-    </el-form-item> 
+    </el-form-item>
+
+    <el-form-item prop="sex"
+                  label="<?= ActiveElementForm::getFieldLabel($model,"sex")?>"
+                  error="<?= ActiveElementForm::getFieldError($model,"sex")?>">
+        <el-switch v-model="data.sex" :active-value="1" :inactive-value="2"></el-switch>
+    </el-form-item>
 
     <el-form-item prop="phone"
                   label="<?= ActiveElementForm::getFieldLabel($model,"phone")?>"

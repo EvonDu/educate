@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiRequest;
 use common\models\course\Course;
 use common\models\course\CourseLesson;
 use common\models\course\CourseSearch;
@@ -21,8 +22,8 @@ use api\lib\ModelErrors;
  *     definition="Course",
  *     @SWG\Property(property="num",description="课程号",type="string"),
  *     @SWG\Property(property="price",description="课程价格",type="integer"),
- *     @SWG\Property(property="instructor",description="导师ID",type="integer"),
- *     @SWG\Property(property="type",description="分类ID",type="integer"),
+ *     @SWG\Property(property="instructor_id",description="导师ID",type="integer"),
+ *     @SWG\Property(property="type_id",description="分类ID",type="integer"),
  *     @SWG\Property(property="image",description="封面",type="string"),
  *     @SWG\Property(property="level",description="课程难度",type="integer"),
  *     @SWG\Property(property="abstract",description="课程简介",type="string"),
@@ -91,7 +92,12 @@ class CoursesController extends ActiveController
      *     description="获取所有课程列表(所有字段均可作为参数作模糊查询)",
      *     consumes={"application/json"},
      *     produces={"application/json"},
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="页码" ),
+     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="分页" ),
+     *     @SWG\Parameter( name="pageSize",type="integer", required=false, in="query",description="查询数量" ),
+     *     @SWG\Parameter( name="type_id",type="integer", required=false, in="query",description="课程类型ID" ),
+     *     @SWG\Parameter( name="instructor_id",type="integer", required=false, in="query",description="课程导师ID" ),
+     *     @SWG\Parameter( name="name",type="string", required=false, in="query",description="课程名称(模糊查询)" ),
+     *     @SWG\Parameter( name="level",type="string", required=false, in="query",description="课程难度" ),
      *     @SWG\Response( response="return",description="课程列表")
      * )
      */
@@ -100,6 +106,9 @@ class CoursesController extends ActiveController
         $searchModel = new CourseSearch();
         $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
 
+        //设置分页
+        $pagination = ApiRequest::injectionPage($dataProvider);
+
         //获取items
         $models = $dataProvider->getModels();
         $items = [];
@@ -107,32 +116,20 @@ class CoursesController extends ActiveController
             $item = [
                 "num" => $model->num,
                 "name" => $model->name,
-                "image" => Url::to(["upload/get","src"=>$model->image],true),
+                "image" => $model->image,
                 "price" => $model->price,
                 "type" => $model->type,
-                "type_name" => $model->type0 ? $model->type0->name : null,
-                "instructor" => $model->type,
-                "instructor_name" => $model->instructor0 ? $model->instructor0->name : null,
+                "instructor" => $model->instructor,
                 "level" => $model->level,
                 "abstract" => $model->abstract,
             ];
             $items[] = $item;
         }
 
-        //分页数据
-        $totalCount = $dataProvider->totalCount;
-        $page = (int)Yii::$app->request->get("page",1);
-        $pageSize = $dataProvider->pagination->pageSize;
-        $pageCount = $dataProvider->pagination->pageCount;
-
         //构建返回
-        $result = [
-            "page" => $page,
-            "pageCount" => $pageCount,
-            "pageSize" => $pageSize,
-            "totalCount" => $totalCount,
-            "items" => $items,
-        ];
+        $result = array_merge($pagination,[
+            "items" => $items
+        ]);
         return $result;
     }
 
@@ -196,45 +193,5 @@ class CoursesController extends ActiveController
         $model->doc = Url::to(["upload/get","src"=>$model->doc],true);
         $model->video = Url::to(["upload/get","src"=>$model->video],true);
         return $model;
-    }
-
-    /**
-     * 课程类型
-     * @SWG\GET(
-     *     path="/v1/courses/types",
-     *     tags={"Course"},
-     *     summary="课程类型",
-     *     description="获取所有课程类型",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="页码" ),
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="查询数量" ),
-     *     @SWG\Response( response="return",description="课程类型列表")
-     * )
-     */
-    public function actionTypes(){
-        //查询类
-        $searchModel = new CourseTypeSearch();
-        $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
-
-        //获取items
-        $models = $dataProvider->getModels();
-        $items = ArrayHelper::toArray($models);
-
-        //分页数据
-        $totalCount = $dataProvider->totalCount;
-        $page = (int)Yii::$app->request->get("page",1);
-        $pageSize = $dataProvider->pagination->pageSize;
-        $pageCount = $dataProvider->pagination->pageCount;
-
-        //构建返回
-        $result = [
-            "page" => $page,
-            "pageCount" => $pageCount,
-            "pageSize" => $pageSize,
-            "totalCount" => $totalCount,
-            "items" => $items,
-        ];
-        return $result;
     }
 }

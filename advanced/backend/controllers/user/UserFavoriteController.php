@@ -1,18 +1,18 @@
 <?php
 
-namespace backend\controllers\course;
+namespace backend\controllers\user;
 
 use Yii;
-use common\models\course\CourseType;
-use common\models\course\CourseTypeSearch;
+use common\models\user\UserFavorite;
+use common\models\user\UserFavoriteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CourseTypeController implements the CRUD actions for CourseType model.
+ * UserFavoriteController implements the CRUD actions for UserFavorite model.
  */
-class CourseTypeController extends Controller
+class UserFavoriteController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class CourseTypeController extends Controller
     }
 
     /**
-     * Lists all CourseType models.
+     * Lists all UserFavorite models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CourseTypeSearch();
+        $searchModel = new UserFavoriteSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,29 +45,30 @@ class CourseTypeController extends Controller
     }
 
     /**
-     * Displays a single CourseType model.
-     * @param integer $id
+     * Displays a single UserFavorite model.
+     * @param integer $user_id
+     * @param integer $course_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($user_id, $course_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($user_id, $course_id),
         ]);
     }
 
     /**
-     * Creates a new CourseType model.
+     * Creates a new UserFavorite model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new CourseType();
+        $model = new UserFavorite();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'user_id' => $model->user_id, 'course_id' => $model->course_id]);
         }
 
         return $this->render('create', [
@@ -76,18 +77,19 @@ class CourseTypeController extends Controller
     }
 
     /**
-     * Updates an existing CourseType model.
+     * Updates an existing UserFavorite model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $user_id
+     * @param integer $course_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($user_id, $course_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($user_id, $course_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'user_id' => $model->user_id, 'course_id' => $model->course_id]);
         }
 
         return $this->render('update', [
@@ -96,29 +98,31 @@ class CourseTypeController extends Controller
     }
 
     /**
-     * Deletes an existing CourseType model.
+     * Deletes an existing UserFavorite model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $user_id
+     * @param integer $course_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($user_id, $course_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($user_id, $course_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the CourseType model based on its primary key value.
+     * Finds the UserFavorite model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return CourseType the loaded model
+     * @param integer $user_id
+     * @param integer $course_id
+     * @return UserFavorite the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($user_id, $course_id)
     {
-        if (($model = CourseType::findOne($id)) !== null) {
+        if (($model = UserFavorite::findOne(['user_id' => $user_id, 'course_id' => $course_id])) !== null) {
             return $model;
         }
 

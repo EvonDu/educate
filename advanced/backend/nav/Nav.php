@@ -21,7 +21,7 @@ class Nav
             array(
                 'url' => '#',
                 'title' => "管理员",
-                'icon' => 'fa fa-users',
+                'icon' => 'fa fa-address-card',
                 'auth' => '',
                 'tags' => array(array('content' => 'system','class'=>'bg-teal'),),
                 'nodes' => array(
@@ -37,6 +37,7 @@ class Nav
                 'auth' => '',
                 'nodes' => array(
                     array('title' => "用户管理", 'url' => Url::to(['user/user/index'])),
+                    array('title' => "用户收藏", 'url' => Url::to(['user/user-favorite/index'])),
                 )
             ),
             array(
@@ -73,7 +74,7 @@ class Nav
                 'header' => true
             ),
             array(
-                'url' => dirname(dirname(dirname(Url::home(true))))."/api/web/swagger",
+                'url' => dirname(dirname(Url::home(true)))."/api/web/swagger",
                 'title' => "接口文档",
                 'icon' => 'fa fa-file-text-o',
                 'auth' => '',
