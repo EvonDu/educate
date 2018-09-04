@@ -50,7 +50,7 @@ class Nav
                     array('title' => "课程类型", 'url' => Url::to(['course/course-type/index'])),
                 )
             ),
-            /*array(
+            array(
                 'url' => '#',
                 'title' => "资料管理",
                 'icon' => 'fa fa-address-book',
@@ -58,8 +58,8 @@ class Nav
                 'nodes' => array(
                     array('title' => "教师管理", 'url' => Url::to(['instructor/instructor/index'])),
                 )
-            ),*/
-            /*array(
+            ),
+            array(
                 'url' => '#',
                 'title' => "媒体库",
                 'icon' => 'fa fa-youtube-play',
@@ -67,7 +67,7 @@ class Nav
                 'nodes' => array(
                     array('title' => "单词发音", 'url' => Url::to(['media/pronunciation/index'])),
                 )
-            ),*/
+            ),
             //相关接口
             array(
                 'title' => '系统接口',

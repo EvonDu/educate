@@ -3,6 +3,7 @@ namespace common\lib;
 
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
+use yii\web\ServerErrorHttpException;
 
 class QiniuUpload{
     /**
@@ -57,8 +58,10 @@ class QiniuUpload{
         //上传到七牛
         $uploadMgr = new UploadManager();
         list($ret, $err) = $uploadMgr->putFile($token, $uploadname, $filename);
-        if ($err !== null)
-            return null;
+        if ($err !== null){
+            $error_msg = empty($err->response->error) ? "" : $err->response->error;
+            throw new ServerErrorHttpException($error_msg);
+        }
         else
             return self::$config['Url']."/$uploadname";
     }
