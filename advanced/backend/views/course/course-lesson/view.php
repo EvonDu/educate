@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'raw',
                             'value' => function($model){
                                 if(isset($model->video)){
-                                    $source = HTML::tag("source",'',["src"=>Url::to(["/upload/get","src"=>$model->video])]);
+                                    $source = HTML::tag("source",'',["src"=>$model->video]);
                                     return HTML::tag("video",$source,["style"=>"max-width: 100%;width: 500px;"]);
                                 }
                                 else{
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'raw',
                             'value' => function($model){
                                 return $model->doc ?
-                                    HTML::tag("a",Url::to(["/upload/get","src"=>$model->doc]),["href"=>Url::to(["/upload/get","src"=>$model->doc]), "target"=>"_black"]) :
+                                    HTML::tag("a",$model->doc,["href"=>$model->doc, "target"=>"_black"]) :
                                     null;
                             }
                         ],

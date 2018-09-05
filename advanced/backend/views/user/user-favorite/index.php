@@ -8,7 +8,7 @@ use vuelte\widgets\GridView;
 /* @var $searchModel common\models\user\UserFavoriteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Favorites';
+$this->title = '用户收藏';
 $this->params['small'] = 'List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

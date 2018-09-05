@@ -26,8 +26,8 @@ class Nav
                 'tags' => array(array('content' => 'system','class'=>'bg-teal'),),
                 'nodes' => array(
                     array('title' => "系统用户", 'url' => Url::to(['user/admin/index'])),
-                    array('title' => "角色管理", 'url' => Url::to(['user/role/index'])),
-                    array('title' => "权限管理", 'url' => Url::to(['user/auth/index'])),
+                    //array('title' => "角色管理", 'url' => Url::to(['user/role/index'])),
+                    //array('title' => "权限管理", 'url' => Url::to(['user/auth/index'])),
                 )
             ),
             array(

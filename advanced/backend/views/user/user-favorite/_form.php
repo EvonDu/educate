@@ -25,13 +25,7 @@ use vuelte\widgets\ActiveElementForm;
                   label="<?= ActiveElementForm::getFieldLabel($model,"course_id")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"course_id")?>">
         <el-input v-model="data.course_id"></el-input>
-    </el-form-item> 
-
-    <el-form-item prop="created_at"
-                  label="<?= ActiveElementForm::getFieldLabel($model,"created_at")?>"
-                  error="<?= ActiveElementForm::getFieldError($model,"created_at")?>">
-        <el-input v-model="data.created_at"></el-input>
-    </el-form-item> 
+    </el-form-item>
 
     <el-form-item>
         <lte-btn type="info" @click="submit"><i class='glyphicon glyphicon-floppy-disk'></i> 保存</lte-btn>

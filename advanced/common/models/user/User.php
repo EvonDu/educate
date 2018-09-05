@@ -130,6 +130,13 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getAvatarUrl(){
+        return $this->avatar;
+    }
+
+    /**
      * @return array
      */
     static public function getStatusMap(){

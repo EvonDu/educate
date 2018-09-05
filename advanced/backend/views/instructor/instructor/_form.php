@@ -28,7 +28,7 @@ print $this->render('@app/views/components/tags');
         <el-form-item prop="avatar"
                       label="<?= ActiveElementForm::getFieldLabel($model,"avatar")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"avatar")?>">
-            <avatar v-model="data.avatar"></avatar>
+            <avatar v-model="data.avatar" path="instructor"></avatar>
         </el-form-item>
 
         <el-form-item prop="title"
@@ -62,8 +62,6 @@ print $this->render('@app/views/components/tags');
         template: `<?= $template($model) ?>`,
         props:{
             data:{ type: Object, default: function(){ return {}; }},
-            statusMap:<?=json_encode($model->statusMap()) ?>,
-            typeMap:<?=json_encode($model->typeMap()) ?>,
         },
         methods: {
             submit: function (event) {

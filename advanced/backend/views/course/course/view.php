@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute'=>'image',
                             'format' => 'raw',
-                            'value' => function($model){return isset($model->image)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->image]),['style'=>'width: 100px;']):null;}
+                            'value' => function($model){return Html::img($model->image,['style'=>'width: 100px;']);}
                         ],
                         'level',
                         'abstract:raw',

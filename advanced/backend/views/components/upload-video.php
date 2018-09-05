@@ -28,18 +28,18 @@ use yii\helpers\Url;
         template: `<?= $template(); ?>`,
         model: { prop: 'value', event: 'change'},
         props:{
-            'value':{ type: String, default: ""}
+            'value':{ type: String, default: ""},
+            'path':{ type: String, default: ""},
         },
         data:function(){
             return {
-                baseUrl:"<?=Url::to(["upload/get",'src'=>''],true)?>",
-                uploadUrl:"<?=Url::to(["upload/file",'src'=>''],true)?>",
+                uploadUrl:"<?=Url::to(["upload/qiniu","path"=>""],true)?>" + this.path,
             }
         },
         computed: {
             videoUrl: function () {
                 if(this.value)
-                    return this.baseUrl + "/" + this.value;
+                    return this.value;
                 else
                     return null;
             }

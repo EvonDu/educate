@@ -38,13 +38,18 @@ print $this->render('@app/views/components/avatar');
     <el-form-item prop="avatar"
                   label="<?= ActiveElementForm::getFieldLabel($model,"avatar")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"avatar")?>">
-        <avatar v-model="data.avatar"></avatar>
+        <avatar v-model="data.avatar" path="user"></avatar>
     </el-form-item>
 
     <el-form-item prop="sex"
                   label="<?= ActiveElementForm::getFieldLabel($model,"sex")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"sex")?>">
-        <el-switch v-model="data.sex" :active-value="1" :inactive-value="2"></el-switch>
+        <el-option
+                v-for="(item,index) in sexMap"
+                :key="index"
+                :label="item"
+                :value="parseInt(index)">
+        </el-option>
     </el-form-item>
 
     <el-form-item prop="phone"
@@ -107,7 +112,8 @@ print $this->render('@app/views/components/avatar');
         },
         data:function(){
             return {
-                statusMap:<?=json_encode(\common\models\user\User::getStatusMap()) ?>
+                statusMap:<?=json_encode(\common\models\user\User::getStatusMap()) ?>,
+                sexMap:{"0":"女", "1":"男"}
             }
         },
         methods: {

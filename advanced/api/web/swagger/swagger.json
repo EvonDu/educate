@@ -5,7 +5,7 @@
         "description": "\u63a5\u53e3\u76f8\u5173\u7684Swagger\u6587\u6863",
         "version": "1.0"
     },
-    "host": "localhost/github/educate/advanced/api/web",
+    "host": "test.evon-sky.bid/educate/api/web",
     "schemes": [
         "http"
     ],

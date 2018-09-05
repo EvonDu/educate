@@ -7,9 +7,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\user\UserFavorite */
 
-$this->title = 'Create User Favorite';
+$this->title = '添加收藏';
 $this->params['small'] = 'Create';
-$this->params['breadcrumbs'][] = ['label' => 'User Favorites', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '用户收藏', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 vuelte\tools\VarConvert::run($this, $model, "data");

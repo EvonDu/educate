@@ -60,4 +60,8 @@ class AdminInfo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Admin::className(), ['id' => 'user_id']);
     }
+
+    public function getAvatarUrl(){
+        return $this->avatar;
+    }
 }

@@ -60,7 +60,7 @@ print $this->render('@app/views/components/avatar');
                 <el-form-item prop="avatar"
                               label="<?= ActiveElementForm::getFieldLabel($model,"avatar")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"avatar")?>">
-                    <avatar v-model="data.avatar"></avatar>
+                    <avatar v-model="data.avatar" path="admin"></avatar>
                 </el-form-item>
 
                 <el-form-item prop="nickname"

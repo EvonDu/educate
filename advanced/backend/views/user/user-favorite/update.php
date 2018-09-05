@@ -6,11 +6,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\user\UserFavorite */
 
-$this->title = 'Update User Favorite: {nameAttribute}';
+$this->title = '更新收藏';
 $this->params['small'] = 'Update';
-$this->params['breadcrumbs'][] = ['label' => 'User Favorites', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '用户收藏', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->user_id, 'url' => ['view', 'user_id' => $model->user_id, 'course_id' => $model->course_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = '更新';
 
 vuelte\tools\VarConvert::run($this, $model, "data");
 print $this->render('_form', ['model' => $model]);

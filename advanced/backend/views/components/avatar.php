@@ -37,7 +37,7 @@
     <el-upload
         class="avatar-uploader"
         :action="uploadUrl"
-        :show-file-list="false"
+        :show-file-list="true"
         :on-success="upload">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -49,18 +49,18 @@
         template: `<?= $template(); ?>`,
         model: { prop: 'value', event: 'change'},
         props:{
-            'value':{ type: String, default: ""}
+            'value':{ type: String, default: ""},
+            'path':{ type: String, default: ""},
         },
         data:function(){
             return {
-                baseUrl:"<?=Url::to(["upload/get",'src'=>''],true)?>",
-                uploadUrl:"<?=Url::to(["upload/file",'src'=>''],true)?>",
+                uploadUrl:"<?=Url::to(["upload/qiniu","path"=>""],true)?>" + this.path,
             }
         },
         computed: {
             imageUrl: function () {
                 if(this.value)
-                    return this.baseUrl + "/" + this.value;
+                    return this.value;
                 else
                     return null;
             }
@@ -69,8 +69,7 @@
             //头像相关方法
             upload:function(res, file) {
                 if(res.state.code == 0 && res.data){
-                    this.value = res.data;
-                    this.$emit('change', this.value);
+                    this.$emit('change', res.data);
                 }
             },
         }

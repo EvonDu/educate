@@ -65,7 +65,7 @@ print $this->render('@app/views/components/avatar');
     <el-form-item prop="image"
                   label="<?= ActiveElementForm::getFieldLabel($model,"image")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"image")?>">
-        <avatar v-model="data.image"></avatar>
+        <avatar v-model="data.image" path="course"></avatar>
     </el-form-item>
 
     <el-form-item prop="level"

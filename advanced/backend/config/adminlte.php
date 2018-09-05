@@ -7,7 +7,7 @@ return [
     //配置用户
     'user' => [
         'name'=> Yii::$app->user->identity->info->nickname,
-        'image'=> Url::to(["upload/get","src"=>Yii::$app->user->identity->info->avatar]),
+        'image'=> Yii::$app->user->identity->info->avatarUrl,
         'job'=> "开发者",
         'abstract'=> 'PHP后端开发者',
     ],

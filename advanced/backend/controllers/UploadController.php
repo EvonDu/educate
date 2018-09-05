@@ -87,11 +87,17 @@ class UploadController extends Controller
         $response->stream = fopen($fullname, 'r');
     }
 
-
+    /**
+     * 上传文件到七牛
+     */
     public function actionQiniu(){
+        //获取参数
+        $path = Yii::$app->request->get("path","");
+
+        //进行保存
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
-            $src = QiniuUpload::upload($file,"pronunciation");
+            $src = QiniuUpload::upload($file,$path);
             Upload::sentApiResult(0,"",$src);
         }
         else{

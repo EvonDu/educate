@@ -42,7 +42,8 @@ class QiniuUpload{
     /**
      * @param $filename
      * @param $uploadname
-     * @return null|string
+     * @return string
+     * @throws ServerErrorHttpException
      */
     static private function run($filename,$uploadname){
         //初始化
@@ -60,7 +61,8 @@ class QiniuUpload{
         list($ret, $err) = $uploadMgr->putFile($token, $uploadname, $filename);
         if ($err !== null){
             $error_msg = empty($err->response->error) ? "" : $err->response->error;
-            throw new ServerErrorHttpException($error_msg);
+            $error_code = empty($err->response->statusCode) ? "" : $err->response->statusCode;
+            throw new ServerErrorHttpException("qiniu uoload fail,$error_code:$error_msg");
         }
         else
             return self::$config['Url']."/$uploadname";

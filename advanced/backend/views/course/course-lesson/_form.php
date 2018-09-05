@@ -40,13 +40,13 @@ print $this->render('@app/views/components/upload-video');
     <el-form-item prop="video"
                   label="<?= ActiveElementForm::getFieldLabel($model,"video")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"video")?>">
-        <upload-video v-model="data.video"></upload-video>
+        <upload-video v-model="data.video" path="video"></upload-video>
     </el-form-item> 
 
     <el-form-item prop="doc"
                   label="<?= ActiveElementForm::getFieldLabel($model,"doc")?>"
                   error="<?= ActiveElementForm::getFieldError($model,"doc")?>">
-        <upload-file v-model="data.doc"></upload-file>
+        <upload-file v-model="data.doc" path="doc"></upload-file>
     </el-form-item> 
 
     <el-form-item prop="is_public"

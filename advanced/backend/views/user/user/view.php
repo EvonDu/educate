@@ -69,7 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute'=>'avatar',
                             'format' => 'raw',
-                            'value' => function($model){return isset($model->avatar)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->avatar]),['style'=>'width: 100px;']):null;}
+                            'value' => function($model){
+                                return Html::img($model->avatarUrl,['style'=>'width: 100px;']);
+                            }
                         ],
                         'phone',
                         'country',
