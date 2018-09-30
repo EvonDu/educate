@@ -13,7 +13,7 @@ $this->params['small'] = 'Authority';
 $this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-vuelte\tools\VarConvert::run($this, $model, "data")
+vuelte\lib\Import::value($this, $model, "data")
 ?>
 <div id="app">
     <lte-row>

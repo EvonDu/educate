@@ -4,15 +4,16 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use vuelte\widgets\ActiveElementForm;
 
-vuelte\assets\PluginComponentsAsset::register($this);
-print $this->render('@app/views/components/avatar');
-print $this->render('@app/views/components/tags');
 /* @var $this yii\web\View */
 /* @var $model common\models\instructor\Instructor */
 /* @var $form yii\widgets\ActiveForm */
+
+vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model' => $model]);
+vuelte\lib\Import::component($this, '@app/views/components/avatar', ['model' => $model]);
+vuelte\lib\Import::component($this, '@app/views/components/tags', ['model' => $model]);
 ?>
 
-<?php $template = function($model){ ?>
+<component-template>
     <div class="teacher-form">
         <?php ActiveElementForm::begin(["options"=>[
             "label-width" => "100px",
@@ -50,16 +51,16 @@ print $this->render('@app/views/components/tags');
         </el-form-item>
 
         <el-form-item>
-            <lte-btn type="info" @click="submit"><i class='glyphicon glyphicon-floppy-disk'></i> 保存</lte-btn>
+            <lte-btn type="info" @click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> 保存</lte-btn>
         </el-form-item>
 
         <?php ActiveElementForm::end(); ?>
     </div>
-<?php  }?>
+</component-template>
 
 <script>
     Vue.component('model-form', {
-        template: `<?= $template($model) ?>`,
+        template: '{{component-template}}',
         props:{
             data:{ type: Object, default: function(){ return {}; }},
         },

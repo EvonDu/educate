@@ -4,16 +4,16 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\user\User */
+/* @var $model common\models\admin\Admin */
 
-$this->title = "更新：$model->firstname";
-$this->params['small'] = '用户管理';
-$this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->firstname, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = '更新';
+$this->title = 'Update Admin: {nameAttribute}';
+$this->params['small'] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Update';
 
-vuelte\tools\VarConvert::run($this, $model, "data");
-print $this->render('_form', ['model' => $model]);
+vuelte\lib\Import::value($this, $model, "data");
+vuelte\lib\Import::component($this, '_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>

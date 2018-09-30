@@ -11,12 +11,11 @@ use yii\web\AssetBundle;
  */
 class VueAsset extends AssetBundle
 {
-    public $sourcePath = __DIR__.'/../resource/vue';
+    public $sourcePath = __DIR__.'/resource/vue';
     public $css = [];
     public $js = [
         //'https://unpkg.com/vue/dist/vue.js',
         //'https://unpkg.com/vuex@3.0.1/dist/vuex.js',
-        'form-submit.js',
         'vue.js',
         'vuex.js',
     ];

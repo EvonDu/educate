@@ -5,9 +5,9 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\user\User */
+/* @var $model common\models\admin\Admin */
 
-$this->title = $model->firstname;
+$this->title = $model->info->nickname;
 $this->params['small'] = 'View';
 $this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -22,13 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     "block"=>true,
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
-                    "href"=>Url::to(["create"]),
+                    "href"=>Url::to(["signup"]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"info"
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-edit'></i> 修改",[
-                    "href"=>Url::to(["update", 'id' => $model->id]),
+                    "href"=>Url::to(["info", 'id' => $model->id]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"success"
@@ -58,26 +58,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'attributes' => [
                         'id',
-                        'email:email',
-                        //'auth_key',
+                        [
+                            'attribute'=>'userInfo.avatar',
+                            'format' => 'raw',
+                            'value' => function($model){return isset($model->userInfo->avatar)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->userInfo->avatar]),['style'=>'width: 100px;']):null;}
+                        ],
+                        'username',
+                        'userInfo.nickname',
+                        'userInfo.phone',
+                        'auth_key',
                         //'password_hash',
                         //'password_reset_token',
-                        'statusName',
-                        'firstname',
-                        'lastname',
-                        'sexName',
-                        [
-                            'attribute'=>'avatar',
-                            'format' => 'raw',
-                            'value' => function($model){
-                                return Html::img($model->avatarUrl,['style'=>'width: 100px;']);
-                            }
-                        ],
-                        'phone',
-                        'country',
-                        'city',
-                        'adderss_1',
-                        'adderss_2',
+                        'email:email',
+                        'status',
                         'created_at:datetime',
                         'updated_at:datetime',
                     ],

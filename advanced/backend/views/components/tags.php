@@ -1,7 +1,3 @@
-<?php
-use yii\helpers\Url;
-?>
-
 <style>
     .el-tag{
         margin-right: 10px;
@@ -20,7 +16,7 @@ use yii\helpers\Url;
     }
 </style>
 
-<?php $template = function(){ ?>
+<component-template>
     <span>
         <el-tag
             :key="tag"
@@ -41,11 +37,11 @@ use yii\helpers\Url;
         </el-input>
         <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
     </span>
-<?php  }?>
+</component-template>
 
 <script>
     Vue.component('tags', {
-        template: `<?= $template(); ?>`,
+        template: '{{component-template}}',
         model: { prop: 'value', event: 'change'},
         props:{
             'value':{ type: String, default: ""}

@@ -33,7 +33,7 @@
     }
 </style>
 
-<?php $template = function(){ ?>
+<component-template>
     <el-upload
         class="avatar-uploader"
         :action="uploadUrl"
@@ -42,11 +42,11 @@
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
-<?php  }?>
+</component-template>
 
 <script>
     Vue.component('avatar', {
-        template: `<?= $template(); ?>`,
+        template: '{{component-template}}',
         model: { prop: 'value', event: 'change'},
         props:{
             'value':{ type: String, default: ""},
@@ -66,7 +66,6 @@
             }
         },
         methods: {
-            //头像相关方法
             upload:function(res, file) {
                 if(res.state.code == 0 && res.data){
                     this.$emit('change', res.data);

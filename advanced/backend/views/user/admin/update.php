@@ -12,8 +12,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 
-vuelte\tools\VarConvert::run($this, $model, "data");
-print $this->render('_form', ['model' => $model]);
+vuelte\lib\Import::value($this, $model, "data");
+vuelte\lib\Import::component($this, '_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>

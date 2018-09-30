@@ -12,8 +12,8 @@ $this->params['small'] = 'Create';
 $this->params['breadcrumbs'][] = ['label' => '教师管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-vuelte\tools\VarConvert::run($this, $model, "data");
-echo $this->render('_form', ['model' => $model]);
+vuelte\lib\Import::value($this, $model, "data");
+vuelte\lib\Import::component($this, '_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>

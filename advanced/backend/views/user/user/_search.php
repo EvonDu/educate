@@ -4,14 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vuelte\widgets\ActiveElementForm;
 
-vuelte\assets\PluginComponentsAsset::register($this);
-
 /* @var $this yii\web\View */
-/* @var $model common\models\user\UserSearch */
+/* @var $model common\models\admin\AdminSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-search">
+<div class="admin-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -20,25 +18,17 @@ vuelte\assets\PluginComponentsAsset::register($this);
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'email') ?>
+    <?= $form->field($model, 'username') ?>
+
+    <?= $form->field($model, 'auth_key') ?>
+
+    <?= $form->field($model, 'password_hash') ?>
+
+    <?= $form->field($model, 'password_reset_token') ?>
+
+    <?php // echo $form->field($model, 'email') ?>
 
     <?php // echo $form->field($model, 'status') ?>
-
-    <?= $form->field($model, 'firstname') ?>
-
-    <?= $form->field($model, 'lastname') ?>
-
-    <?php // echo $form->field($model, 'avatar') ?>
-
-    <?= $form->field($model, 'phone') ?>
-
-    <?php // echo $form->field($model, 'country') ?>
-
-    <?php // echo $form->field($model, 'city') ?>
-
-    <?php // echo $form->field($model, 'adderss_1') ?>
-
-    <?php // echo $form->field($model, 'adderss_2') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

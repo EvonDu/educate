@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use vuelte\widgets\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\user\UserSearch */
+/* @var $searchModel common\models\admin\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '用户管理';
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <lte-col col="3">
             <lte-box title="选项" icon="fa fa-edit">
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
-                    "href"=>Url::to(["create"]),
+                    "href"=>Url::to(["signup"]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"info"
@@ -43,23 +43,45 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
 
                         'id',
+                        'username',
                         'email:email',
-                        //'auth_key',
-                        //'password_hash',
-                        //'password_reset_token',
-                        //'status',
-                        'firstname',
-                        'lastname',
-                        //'avatar',
-                        'phone',
-                        //'country',
-                        //'city',
-                        //'adderss_1',
-                        //'adderss_2',
-                        //'created_at',
-                        //'updated_at',
+                        'status',
+                        ['attribute' => 'created_at', 'value'=> function($model){return  date('Y-m-d H:i:s',$model->created_at);},],
+                        ['attribute' => 'updated_at', 'value'=> function($model){return  date('Y-m-d H:i:s',$model->updated_at);},],
 
-                        ['class' => 'vuelte\widgets\ActionColumn'],
+                        [
+                            'class' => 'vuelte\widgets\ActionColumn',
+                            //'template' => '{view} {info} {delete} {assign}',
+                            'template' => '{view} {info} {delete}',
+                            'buttons' => [
+                                'info' => function ($url, $model, $key) {
+                                    $options = array_merge([
+                                        'title' => Yii::t('yii', 'Update'),
+                                        'aria-label' => Yii::t('yii', 'Update'),
+                                        'data-pjax' => '0',
+                                        'type'=> 'info',
+                                        'size'=> 'xs',
+                                        'href'=> $url,
+                                        'a'=>true,
+                                    ]);
+                                    $content = " <i class='glyphicon glyphicon-pencil'></i> ".Yii::t('yii', 'Update');
+                                    return Html::tag("lte-btn",$content, $options);
+                                },
+                                'assign' => function ($url, $model, $key) {
+                                    $options = array_merge([
+                                        'title' => '角色',
+                                        'aria-label' => '角色',
+                                        'data-pjax' => '0',
+                                        'type'=> 'warning',
+                                        'size'=> 'xs',
+                                        'href'=> $url,
+                                        'a'=>true,
+                                    ]);
+                                    $content = " <i class='glyphicon glyphicon-user'></i> 角色";
+                                    return Html::tag("lte-btn",$content, $options);
+                                },
+                            ],
+                        ],
                     ],
                 ]); ?>
 

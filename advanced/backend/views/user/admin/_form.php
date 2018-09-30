@@ -7,32 +7,33 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $model common\models\admin\Admin */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php $template = function($model){ ?>
-<div class="admin-form">
 
-    <?php ActiveElementForm::begin(["options"=>[
-        "label-width" => "100px",
-        "status-icon" => true,
-    ]]); ?>
+<component-template>
+    <div class="admin-form">
 
-    <el-form-item prop="status"
-                  label="<?= ActiveElementForm::getFieldLabel($model,"status")?>"
-                  error="<?= ActiveElementForm::getFieldError($model,"status")?>">
-        <el-input v-model="data.status"></el-input>
-    </el-form-item>
+        <?php ActiveElementForm::begin(["options"=>[
+            "label-width" => "100px",
+            "status-icon" => true,
+        ]]); ?>
 
-    <el-form-item>
-        <lte-btn type="info" @click="submit"><i class='glyphicon glyphicon-floppy-disk'></i> 保存</lte-btn>
-    </el-form-item>
+        <el-form-item prop="status"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"status")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"status")?>">
+            <el-input v-model="data.status"></el-input>
+        </el-form-item>
 
-    <?php ActiveElementForm::end(); ?>
+        <el-form-item>
+            <lte-btn type="info" @click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> 保存</lte-btn>
+        </el-form-item>
 
-</div>
-<?php  }?>
+        <?php ActiveElementForm::end(); ?>
+
+    </div>
+</component-template>
 
 <script>
     Vue.component('model-form', {
-        template: `<?= $template($model); ?>`,
+        template: '{{component-template}}',
         props:{
             'data':{ type: Object, default: function(){ return {}; }}
         },

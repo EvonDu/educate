@@ -61,9 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute'=>'adminInfo.avatar',
                             'format' => 'raw',
-                            'value' => function($model){
-                                return Html::img($model->adminInfo->avatarUrl,['style'=>'width: 100px;']);
-                            }
+                            'value' => function($model){return isset($model->adminInfo->avatar)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->adminInfo->avatar]),['style'=>'width: 100px;']):null;}
                         ],
                         'username',
                         'adminInfo.nickname',

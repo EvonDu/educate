@@ -4,8 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vuelte\widgets\ActiveElementForm;
 
-vuelte\assets\PluginComponentsAsset::register($this);
-
 /* @var $this yii\web\View */
 /* @var $model common\models\auth\AuthItemSearch */
 /* @var $form yii\widgets\ActiveForm */

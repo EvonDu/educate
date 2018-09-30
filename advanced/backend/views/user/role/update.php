@@ -12,8 +12,8 @@ $this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']]
 $this->params['breadcrumbs'][] = ['label' => $model->description, 'url' => ['view', 'id' => $model->name]];
 $this->params['breadcrumbs'][] = '更新';
 
-vuelte\tools\VarConvert::run($this, $model, "data");
-print $this->render('_form', ['model' => $model]);
+vuelte\lib\Import::value($this, $model, "data");
+vuelte\lib\Import::component($this,'_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
