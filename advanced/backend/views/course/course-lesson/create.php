@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = ['label' => $model->course->name, 'url' => Url:
 $this->params['breadcrumbs'][] = ['label' => '课程章节', 'url' => ['list',"course_id"=>$model->course_id]];
 $this->params['breadcrumbs'][] = $this->title;
 
-vuelte\tools\VarConvert::run($this, $model, "data");
-print $this->render('_form', ['model' => $model]);
+vuelte\lib\Import::value($this, $model, "data");
+vuelte\lib\Import::component($this,'_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -27,10 +27,10 @@ print $this->render('_form', ['model' => $model]);
                     "block"=>true,
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-share-alt'></i> 返回",[
-                "href"=>"javascript:history.go(-1)",
-                "a"=>true,
-                "block"=>true,
-                "type"=>"warning"
+                    "href"=>"javascript:history.go(-1)",
+                    "a"=>true,
+                    "block"=>true,
+                    "type"=>"warning"
                 ])?>
             </lte-box>
         </lte-col>

@@ -5,11 +5,11 @@ use yii\widgets\ActiveForm;
 use vuelte\widgets\ActiveElementForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\admin\AdminSearch */
+/* @var $model common\models\user\UserSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="admin-search">
+<div class="user-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -18,17 +18,25 @@ use vuelte\widgets\ActiveElementForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'username') ?>
+    <?= $form->field($model, 'email') ?>
 
-    <?= $form->field($model, 'auth_key') ?>
-
-    <?= $form->field($model, 'password_hash') ?>
-
-    <?= $form->field($model, 'password_reset_token') ?>
-
-    <?php // echo $form->field($model, 'email') ?>
+    <?= $form->field($model, 'nickname') ?>
 
     <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'sex') ?>
+
+    <?php // echo $form->field($model, 'avatar') ?>
+
+    <?php // echo $form->field($model, 'phone') ?>
+
+    <?php // echo $form->field($model, 'country') ?>
+
+    <?php // echo $form->field($model, 'city') ?>
+
+    <?php // echo $form->field($model, 'adderss_1') ?>
+
+    <?php // echo $form->field($model, 'adderss_2') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

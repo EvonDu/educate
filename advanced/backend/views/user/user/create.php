@@ -5,7 +5,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\admin\Admin */
+/* @var $model common\models\user\User */
 
 $this->title = 'Create Admin';
 $this->params['small'] = 'Create';

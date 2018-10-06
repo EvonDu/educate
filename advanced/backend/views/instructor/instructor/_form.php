@@ -8,9 +8,9 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $model common\models\instructor\Instructor */
 /* @var $form yii\widgets\ActiveForm */
 
-vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model' => $model]);
-vuelte\lib\Import::component($this, '@app/views/components/avatar', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/tags', ['model' => $model]);
+vuelte\lib\Import::component($this, '@app/views/components/avatar', ['model' => $model]);
+vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model' => $model]);
 ?>
 
 <component-template>

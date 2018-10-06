@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\admin\Admin */
 
-$this->title = $model->info->nickname;
+$this->title = $model->nickname;
 $this->params['small'] = 'View';
 $this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     "type"=>"info"
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-edit'></i> 修改",[
-                    "href"=>Url::to(["info", 'id' => $model->id]),
+                    "href"=>Url::to(["update", 'id' => $model->id]),
                     "a"=>true,
                     "block"=>true,
                     "type"=>"success"
@@ -59,18 +59,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         [
-                            'attribute'=>'userInfo.avatar',
+                            'attribute'=>'avatar',
                             'format' => 'raw',
-                            'value' => function($model){return isset($model->userInfo->avatar)?Html::img(yii\helpers\Url::to(['/upload/get','src'=>$model->userInfo->avatar]),['style'=>'width: 100px;']):null;}
+                            'value' => function($model){return isset($model->avatar)?Html::img($model->avatar,['style'=>'width: 100px;']):null;}
                         ],
-                        'username',
-                        'userInfo.nickname',
-                        'userInfo.phone',
-                        'auth_key',
-                        //'password_hash',
-                        //'password_reset_token',
+                        'nickname',
                         'email:email',
                         'status',
+                        'sex',
+                        'phone',
+                        'country',
+                        'city',
+                        'adderss_1',
+                        'adderss_2',
                         'created_at:datetime',
                         'updated_at:datetime',
                     ],

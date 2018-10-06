@@ -12,10 +12,10 @@ use Yii;
  * @property int $lesson 课号
  * @property string $title 标题
  * @property string $abstract 简介
- * @property string $video 视频
- * @property string $doc 课件
  * @property bool $is_public 是否公开
- * @property bool $is_homework 是否有作业
+ * @property string $video 视频
+ * @property string $content 内容
+ * @property string $task 作业
  *
  * @property Course $course
  */
@@ -37,10 +37,10 @@ class CourseLesson extends \yii\db\ActiveRecord
         return [
             [['course_id', 'title'], 'required'],
             [['course_id', 'lesson'], 'integer'],
-            [['abstract'], 'string'],
-            [['is_public', 'is_homework'], 'boolean'],
+            [['abstract', 'content', 'task'], 'string'],
+            [['is_public'], 'boolean'],
             [['title'], 'string', 'max' => 120],
-            [['video', 'doc'], 'string', 'max' => 250],
+            [['video'], 'string', 'max' => 256],
             [['course_id', 'lesson'], 'unique', 'targetAttribute' => ['course_id', 'lesson']],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['course_id' => 'id']],
         ];
@@ -52,15 +52,16 @@ class CourseLesson extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+
             'id' => 'ID',
             'course_id' => '课程',
             'lesson' => '章节',
             'title' => '标题',
             'abstract' => '简介',
-            'video' => '教程',
-            'doc' => '课件',
             'is_public' => '是否免费',
-            'is_homework' => '是否有作业',
+            'video' => '视频',
+            'content' => '内容',
+            'task' => '作业',
         ];
     }
 

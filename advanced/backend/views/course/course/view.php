@@ -12,11 +12,6 @@ $this->params['small'] = 'View';
 $this->params['breadcrumbs'][] = ['label' => '课程管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<style>
-    th{
-        width: 120px;
-    }
-</style>
 <div id="app">
     <lte-row>
         <lte-col col="3">
@@ -25,12 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     "href"=>Url::to(["index"]),
                     "a"=>true,
                     "block"=>true,
-                ])?>
-                <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-book'></i> 章节",[
-                    "href"=>Url::to(["course/course-lesson/list","course_id"=>$model->id]),
-                    "a"=>true,
-                    "block"=>true,
-                    "type"=>"warning"
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-plus'></i> 添加",[
                     "href"=>Url::to(["create"]),

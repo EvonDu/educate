@@ -4,18 +4,19 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\admin\Admin */
+/* @var $model common\models\user\User */
 
-$this->title = 'Update Admin: {nameAttribute}';
+$this->title = '更新';
 $this->params['small'] = 'Update';
-$this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = ['label' => '用户管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->nickname, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = '更新';
 
 vuelte\lib\Import::value($this, $model, "data");
 vuelte\lib\Import::component($this, '_form', ['model' => $model]);
 ?>
 <div id="app">
+
     <lte-row>
         <lte-col col="3">
             <lte-box title="选项" icon="fa fa-edit">

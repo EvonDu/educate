@@ -15,8 +15,7 @@ use yii\helpers\Url;
  * @property string $password_reset_token
  * @property int $status
  * @property int $sex 性别
- * @property string $firstname 名
- * @property string $lastname 姓
+ * @property string $nickname 名
  * @property string $avatar 头像
  * @property string $phone 电话
  * @property string $country 国家
@@ -42,11 +41,11 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'firstname', 'lastname'], 'required'],
+            [['email', 'nickname'], 'required'],
             [['status', 'sex', 'created_at', 'updated_at'], 'integer'],
             [['email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
-            [['firstname', 'lastname', 'phone'], 'string', 'max' => 20],
+            [['nickname', 'phone'], 'string', 'max' => 20],
             [['avatar', 'adderss_1', 'adderss_2'], 'string', 'max' => 256],
             [['country', 'city'], 'string', 'max' => 50],
             [['email'], 'unique'],
@@ -81,8 +80,7 @@ class User extends \yii\db\ActiveRecord
             'statusName' => '状态',
             'sex' => '性别',
             'sexName' => '性别',
-            'firstname' => '名称',
-            'lastname' => '姓氏',
+            'nickname' => '昵称',
             'avatar' => '头像',
             'phone' => '电话',
             'country' => '国家',

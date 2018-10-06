@@ -41,9 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     "block"=>true,
                     "type"=>"danger",
                     'data' => [
-                    'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                    'method' => 'post',
-                ]
+                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ]
                 ])?>
                 <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-share-alt'></i> 返回",[
                     "href"=>"javascript:history.go(-1)",
@@ -67,6 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'lesson',
                         'title',
                         'abstract:raw',
+                        'is_public:boolean',
                         [
                             'attribute'=>'video',
                             'format' => 'raw',
@@ -80,17 +81,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                             }
                         ],
-                        [
-                            'attribute'=>'doc',
-                            'format' => 'raw',
-                            'value' => function($model){
-                                return $model->doc ?
-                                    HTML::tag("a",$model->doc,["href"=>$model->doc, "target"=>"_black"]) :
-                                    null;
-                            }
-                        ],
-                        'is_public:boolean',
-                        'is_homework:boolean',
+                        'content:ntext',
+                        'task:raw',
                     ],
                 ]) ?>
 
