@@ -62,20 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute'=>'audio',
                             'format' => 'raw',
-                            'label' => '地址',
-                            'value' => function($model){
-                                return $model->audio;
-                            }
-                        ],
-                        [
-                            'attribute'=>'audio',
-                            'format' => 'raw',
                             'value' => function($model){
                                 return isset($model->audio)? '<audio controls="controls"><source src="'.$model->audio.'" type="audio/ogg">您的浏览器不支持 audio 元素</audio>' :null;
                             }
                         ],
-                        'created_at:datetime',
-                        'updated_at:datetime',
+                        'created_at',
+                        'updated_at',
                     ],
                 ]) ?>
 

@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         'id',
                         'word',
-                        'created_at:datetime',
-                        'updated_at:datetime',
+                        //'created_at:datetime',
+                        //'updated_at:datetime',
 
                         ['class' => 'vuelte\widgets\ActionColumn'],
                     ],

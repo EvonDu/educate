@@ -12,7 +12,8 @@ $this->params['small'] = 'Create';
 $this->params['breadcrumbs'][] = ['label' => '发音词库', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-vuelte\tools\VarConvert::run($this, $model, "data");
+vuelte\lib\Import::value($this, $model, "data");
+vuelte\lib\Import::component($this,'_form', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -34,9 +35,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
         <lte-col col="9">
             <lte-box title="新增" icon="fa fa-plus">
 
-                <?= $this->render('_form', [
-                'model' => $model,
-                ]) ?>
+                <model-form :data="data"></model-form>
 
             </lte-box>
         </lte-col>
@@ -47,24 +46,7 @@ vuelte\tools\VarConvert::run($this, $model, "data");
     new Vue({
         el:'#app',
         data:{
-            data:data,
-            showMessage:false,
-        },
-        methods:{
-            submit:function(event){
-                YiiFormSubmit(this.data,"<?= $model->formName()?>");
-            },
-            upload:function(res, file){
-                if(res.state.code == 0 && res.data){
-                    //设置属性
-                    this.data.audio = res.data;
-                    this.data = Object.assign({}, this.data);
-
-                    //音频重新加载
-                    var audio=document.getElementById("audio");
-                    audio.load();
-                }
-            }
+            data:data
         }
     })
 </script>

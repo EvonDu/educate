@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'name',
                         [
-                            'attribute'=>'image',
+                            'attribute'=>'avatar',
                             'format' => 'raw',
                             'value' => function($model){return Html::img($model->avatar,['style'=>'width: 100px;']);}
                         ],

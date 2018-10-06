@@ -3,35 +3,53 @@
 use yii\helpers\Html;
 use vuelte\widgets\ActiveElementForm;
 
-vuelte\assets\PluginComponentsAsset::register($this);
-
 /* @var $this yii\web\View */
 /* @var $model common\models\media\Pronunciation */
 /* @var $form yii\widgets\ActiveForm */
+
+vuelte\lib\Import::component($this, '@app/views/components/upload-video.php', ['model' => $model]);
 ?>
+<component-template>
+    <div class="pronunciation-form">
 
-<div class="pronunciation-form">
+        <?php ActiveElementForm::begin(["options"=>[
+            "label-width" => "100px",
+            "status-icon" => true,
+        ]]); ?>
 
-    <?php $form = ActiveElementForm::begin(["options"=>[
-        "label-width" => "100px",
-        "status-icon" => true,
-    ]]); ?>
+        <el-form-item prop="word"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"word")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"word")?>">
+            <el-input v-model="data.word"></el-input>
+        </el-form-item> 
 
-    <?= $form->field($model, 'word')->el_input(['v-model' => 'data.word', 'maxlength' => true]) ?>
+        <el-form-item prop="audio"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"audio")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"audio")?>">
+            <upload-video v-model="data.audio"></upload-video>
+        </el-form-item>
 
-    <?= $form->field($model, 'audio')->el_upload([
-            'content' => Html::tag("lte-btn","上传音频",["type" => "info"]),
-            'show'=>'<audio id="audio" controls="controls" v-show="data.audio"><source :src="data.audio" type="audio/ogg">您的浏览器不支持 audio 元素</audio>',
-            'action' => \yii\helpers\Url::to(["upload/qiniu",'src'=>''],true),
-            ':on-success' => "upload",
-            ':show-file-list' => "false"
-    ]) ?>
+        <el-form-item>
+            <lte-btn type="info" @click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> 保存</lte-btn>
+        </el-form-item>
 
-    <el-form-item>
-        <?= Html::tag("lte-btn","<i class='glyphicon glyphicon-floppy-disk'></i> 保存",["type" => "info", "@click" => "submit"]) ?>
-    </el-form-item>
+        <?php ActiveElementForm::end(); ?>
 
-    <?php ActiveElementForm::end(); ?>
+    </div>
+</component-template>
 
-</div>
+<script>
+    Vue.component('model-form', {
+        template: '{{component-template}}',
+        props:{
+            data:{ type: Object, default: function(){ return {}; }}
+        },
+        methods: {
+            submit: function (event) {
+                YiiFormSubmit(this.data, "Pronunciation");
+            }
+        }
+    });
+</script>
+
 

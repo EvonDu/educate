@@ -15,5 +15,9 @@ class SummernoteAsset extends AssetBundle
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $cssOptions = [];
-    public $depends = [];
+    public $depends = [
+        'yii\web\JqueryAsset',                  //依赖jquery
+        'yii\bootstrap\BootstrapAsset',         //依赖Bootstrap
+        'yii\bootstrap\BootstrapPluginAsset',   //依赖BootstrapJs
+    ];
 }
