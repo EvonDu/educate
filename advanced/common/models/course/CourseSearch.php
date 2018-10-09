@@ -19,7 +19,7 @@ class CourseSearch extends Course
     {
         return [
             [['id', 'price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'created_at', 'updated_at'], 'integer'],
-            [['num', 'name', 'image', 'abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
+            [['num', 'name', 'image', 'synopsis', 'abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
         ];
     }
 
@@ -72,6 +72,7 @@ class CourseSearch extends Course
         $query->andFilterWhere(['like', 'num', $this->num])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'synopsis', $this->synopsis])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'requirements_prerequisites', $this->requirements_prerequisites])
@@ -122,6 +123,7 @@ class CourseSearch extends Course
         $query->andFilterWhere(['like', 'num', $this->num])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'synopsis', $this->synopsis])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'requirements_prerequisites', $this->requirements_prerequisites])

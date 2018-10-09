@@ -72,6 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function($model){return Html::img($model->image,['style'=>'width: 100px;']);}
                         ],
                         'level',
+                        'synopsis:ntext',
                         'abstract:raw',
                         'content:raw',
                         'requirements_prerequisites:raw',

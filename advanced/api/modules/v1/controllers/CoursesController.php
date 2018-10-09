@@ -121,7 +121,7 @@ class CoursesController extends ActiveController
                 "type" => $model->type,
                 "instructor" => $model->instructor,
                 "level" => $model->level,
-                "abstract" => $model->abstract,
+                "synopsis"=>$model->synopsis,
             ];
             $items[] = $item;
         }

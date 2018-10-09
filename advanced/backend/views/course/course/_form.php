@@ -81,6 +81,12 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
             </el-select>
         </el-form-item>
 
+        <el-form-item prop="synopsis"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"synopsis")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"synopsis")?>">
+            <el-input v-model="data.synopsis" type="textarea" rows="16"></el-input>
+        </el-form-item>
+
         <el-form-item prop="abstract"
                       label="<?= ActiveElementForm::getFieldLabel($model,"abstract")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"abstract")?>">

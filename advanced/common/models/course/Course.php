@@ -4,7 +4,7 @@ namespace common\models\course;
 
 use Yii;
 use common\models\instructor\Instructor;
-//use common\mo
+
 
 /**
  * This is the model class for table "course".
@@ -17,6 +17,7 @@ use common\models\instructor\Instructor;
  * @property string $name 课程名称
  * @property string $image 课程封面
  * @property int $level 课程难度
+ * @property string $synopsis 课程摘要
  * @property string $abstract 课程简介
  * @property string $content 课程内容
  * @property string $requirements_prerequisites 前提
@@ -49,7 +50,7 @@ class Course extends \yii\db\ActiveRecord
         return [
             [['num'], 'required'],
             [['price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'created_at', 'updated_at'], 'integer'],
-            [['abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'string'],
+            [['synopsis', 'abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'string'],
             [['num', 'name'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 256],
             [['num'], 'unique'],
@@ -81,6 +82,7 @@ class Course extends \yii\db\ActiveRecord
             'name' => '名称',
             'image' => '封面',
             'level' => '难度',
+            'synopsis' => '摘要',
             'abstract' => '简介',
             'content' => '内容',
             'requirements_prerequisites' => '课程要求 - 前提',
