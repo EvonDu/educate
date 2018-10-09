@@ -5,7 +5,7 @@
         "description": "\u63a5\u53e3\u76f8\u5173\u7684Swagger\u6587\u6863",
         "version": "1.0"
     },
-    "host": "test.evon-sky.bid/educate/api/web",
+    "host": "dev2.people71.com//github/educate/advanced/api/web",
     "schemes": [
         "http"
     ],
@@ -352,6 +352,13 @@
                         "type": "string"
                     },
                     {
+                        "name": "nickname",
+                        "in": "formData",
+                        "description": "\u6635\u79f0",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "name": "password",
                         "in": "formData",
                         "description": "\u5bc6\u7801",
@@ -359,16 +366,9 @@
                         "type": "string"
                     },
                     {
-                        "name": "firstname",
+                        "name": "nickname",
                         "in": "formData",
-                        "description": "\u540d\u79f0",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "lastname",
-                        "in": "formData",
-                        "description": "\u59d3\u6c0f",
+                        "description": "\u6635\u79f0",
                         "required": true,
                         "type": "string"
                     },
@@ -434,8 +434,8 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "\u7528\u6237\u5217\u8868",
-                "description": "\u83b7\u53d6\u7528\u6237\u5217\u8868\u8868\uff08\u6570\u636e\u4e2d\u7684\u5b57\u6bb5\u5747\u53ef\u7528\u4f5c\u7b5b\u9009\u548c\u6392\u5e8f\uff09",
+                "summary": "\u7528\u6237\u4fe1\u606f",
+                "description": "\u7528\u6237\u4fe1\u606f",
                 "consumes": [
                     "application/json"
                 ],
@@ -478,17 +478,10 @@
                         "type": "integer"
                     },
                     {
-                        "name": "firstname",
+                        "name": "nickname",
                         "in": "formData",
-                        "description": "\u540d\u79f0",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "lastname",
-                        "in": "formData",
-                        "description": "\u59d3\u6c0f",
-                        "required": true,
+                        "description": "\u6635\u79f0",
+                        "required": false,
                         "type": "string"
                     },
                     {
@@ -616,6 +609,69 @@
                 ],
                 "summary": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
                 "description": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            }
+        },
+        "/v1/users/courses": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "\u7528\u6237\u8bfe\u7a0b",
+                "description": "\u83b7\u53d6\u7528\u6237\u8bfe\u7a0b\u5217\u8868(\u62e5\u6709\u7684\u8bfe\u7a0b\u5217\u8868)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u8bfe\u7a0b\u5217\u8868"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "\u6dfb\u52a0\u7528\u6237\u8bfe\u7a0b\uff08\u8d2d\u4e70\uff09",
+                "description": "\u6dfb\u52a0\u7528\u6237\u8bfe\u7a0b\uff0c\u5373\u76f8\u5f53\u4e8e\u8d2d\u4e70\u76ee\u524d",
                 "consumes": [
                     "application/x-www-form-urlencoded"
                 ],

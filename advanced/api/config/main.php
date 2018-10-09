@@ -59,6 +59,8 @@ return [
                         'GET <id:\d+>' => 'view',
                         'POST favorites' => 'favorites-create',
                         'DELETE favorites' => 'favorites-delete',
+                        'POST courses' => 'courses-create',
+                        'DELETE courses' => 'courses-delete',
                     ],
                 ],
                 //媒体

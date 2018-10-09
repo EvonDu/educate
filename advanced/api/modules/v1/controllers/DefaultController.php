@@ -6,7 +6,7 @@ use yii\web\Controller;
 
 /**
  * @SWG\Swagger(
- *     host="localhost/github/educate/advanced/api/web",
+ *     host="dev2.people71.com//github/educate/advanced/api/web",
  *     schemes={"http"},
  *     consumes={"application/json"},
  *     produces={"application/json"},

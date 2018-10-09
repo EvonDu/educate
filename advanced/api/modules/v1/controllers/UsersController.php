@@ -2,6 +2,8 @@
 namespace api\modules\v1\controllers;
 
 use api\lib\ApiRequest;
+use common\models\user\UserCourse;
+use common\models\user\UserCourseSearch;
 use common\models\user\UserFavorite;
 use common\models\user\UserFavoriteSearch;
 use common\models\user\UserSearch;
@@ -98,8 +100,8 @@ class UsersController extends ActiveController
      * @SWG\GET(
      *     path="/v1/users/{id}",
      *     tags={"User"},
-     *     summary="用户列表",
-     *     description="获取用户列表表（数据中的字段均可用作筛选和排序）",
+     *     summary="用户信息",
+     *     description="用户信息",
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter( name="id",type="integer", required=true, in="path",description="用户ID" ),
@@ -124,9 +126,9 @@ class UsersController extends ActiveController
      *     consumes={"application/x-www-form-urlencoded"},
      *     produces={"application/json"},
      *     @SWG\Parameter( name="email",type="string", required=true, in="formData",description="注册邮箱" ),
+     *     @SWG\Parameter( name="nickname",type="string", required=true, in="formData",description="昵称" ),
      *     @SWG\Parameter( name="password",type="string", required=true, in="formData",description="密码" ),
-     *     @SWG\Parameter( name="firstname",type="string", required=true, in="formData",description="名称" ),
-     *     @SWG\Parameter( name="lastname",type="string", required=true, in="formData",description="姓氏" ),
+     *     @SWG\Parameter( name="nickname",type="string", required=true, in="formData",description="昵称" ),
      *     @SWG\Parameter( name="sex",type="integer", required=false, in="formData",description="性别(1:男，0:女)" ),
      *     @SWG\Parameter( name="avatar",type="string", required=false, in="formData",description="头像(URL)" ),
      *     @SWG\Parameter( name="phone",type="string", required=false, in="formData",description="电话" ),
@@ -139,7 +141,7 @@ class UsersController extends ActiveController
      */
     public function actionCreate(){
         //参数检测
-        ApiRequest::checkPost(["email","firstname","lastname"]);
+        ApiRequest::checkPost(["email","nickname"]);
 
         //创建用户
         $model = new SignupForm();
@@ -161,8 +163,7 @@ class UsersController extends ActiveController
      *     consumes={"application/x-www-form-urlencoded"},
      *     produces={"application/json"},
      *     @SWG\Parameter( name="id",type="integer", required=true, in="path",description="用户ID" ),
-     *     @SWG\Parameter( name="firstname",type="string", required=true, in="formData",description="名称" ),
-     *     @SWG\Parameter( name="lastname",type="string", required=true, in="formData",description="姓氏" ),
+     *     @SWG\Parameter( name="nickname",type="string", required=false, in="formData",description="昵称" ),
      *     @SWG\Parameter( name="sex",type="integer", required=false, in="formData",description="性别(1:男，0:女)" ),
      *     @SWG\Parameter( name="avatar",type="string", required=false, in="formData",description="头像(URL)" ),
      *     @SWG\Parameter( name="phone",type="string", required=false, in="formData",description="电话" ),
@@ -277,5 +278,64 @@ class UsersController extends ActiveController
 
         //进行删除
         if($model) $model->delete();
+    }
+
+    /**
+     * 获取用户课程
+     * @SWG\GET(
+     *     path="/v1/users/courses",
+     *     tags={"User"},
+     *     summary="用户课程",
+     *     description="获取用户课程列表(拥有的课程列表)",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="user_id",type="integer", required=true, in="query",description="用户ID" ),
+     *     @SWG\Response( response="return",description="课程列表")
+     * )
+     */
+    public function actionCourses(){
+        //参数检测
+        ApiRequest::checkGet(["user_id"]);
+
+        //进行查询
+        $searchModel = new UserCourseSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        //设置分页
+        $pagination = ApiRequest::injectionPage($dataProvider);
+
+        //构建返回
+        $result = array_merge($pagination,[
+            "items" => $dataProvider->getModels()
+        ]);
+        return $result;
+    }
+
+    /**
+     * 添加用户课程
+     * @SWG\POST(
+     *     path="/v1/users/courses",
+     *     tags={"User"},
+     *     summary="添加用户课程（购买）",
+     *     description="添加用户课程，即相当于购买目前",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="user_id",type="string", required=true, in="formData",description="用户ID" ),
+     *     @SWG\Parameter( name="course_id",type="string", required=true, in="formData",description="课程ID" ),
+     *     @SWG\Response( response="return",description="用户信息")
+     * )
+     */
+    public function actionCoursesCreate(){
+        //参数检测
+        ApiRequest::checkPost(["user_id","course_id"]);
+
+        //保存并返回
+        $model = new UserCourse();
+        if($model->load(Yii::$app->request->post(),"") && $model->save()){
+            return null;
+        }
+        else{
+            throw new BadRequestHttpException(ModelErrors::getError($model));
+        }
     }
 }

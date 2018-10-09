@@ -37,7 +37,8 @@ class Nav
                 'auth' => '',
                 'nodes' => array(
                     array('title' => "用户管理", 'url' => Url::to(['user/user/index'])),
-                    array('title' => "用户收藏", 'url' => Url::to(['user/user-favorite/index'])),
+                    array('title' => "用户收藏", 'url' => Url::to(['user/user-favorite/index']),'tags'=>array(array('content' => '暂时','class'=>'bg-teal'))),
+                    array('title' => "用户课程", 'url' => Url::to(['user/user-course/index']),'tags'=>array(array('content' => '暂时','class'=>'bg-teal'))),
                 )
             ),
             array(
@@ -47,6 +48,7 @@ class Nav
                 'auth' => '',
                 'nodes' => array(
                     array('title' => "课程列表", 'url' => Url::to(['course/course/index'])),
+                    array('title' => "首推课程", 'url' => Url::to(['course/course/recommend'])),
                     array('title' => "课程类型", 'url' => Url::to(['course/course-type/index'])),
                 )
             ),

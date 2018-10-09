@@ -156,6 +156,7 @@ class CoursesController extends ActiveController
         $lessons = [];
         foreach ($model->courseLessons as $lesson){
             $item = [
+                "id"=>$lesson->id,
                 "lesson"=>$lesson->lesson,
                 "title"=>$lesson->title,
                 "abstract"=>$lesson->abstract,
@@ -190,8 +191,6 @@ class CoursesController extends ActiveController
             throw new NotFoundHttpException("Not found:$id");
 
         //返回
-        $model->doc = Url::to(["upload/get","src"=>$model->doc],true);
-        $model->video = Url::to(["upload/get","src"=>$model->video],true);
         return $model;
     }
 }

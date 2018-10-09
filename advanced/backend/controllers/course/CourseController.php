@@ -2,6 +2,7 @@
 
 namespace backend\controllers\course;
 
+use common\models\setting\Setting;
 use Yii;
 use common\models\course\Course;
 use common\models\course\CourseSearch;
@@ -109,8 +110,25 @@ class CourseController extends Controller
         return $this->redirect(['index']);
     }
 
+    /**
+     * @param $id
+     */
     public function actionLesson($id){
         $model = $this->findModel($id);
+    }
+
+    public function actionRecommend(){
+        /*$model =
+        $value = Yii::$app->request->post("value",null);
+
+        if ($value != null && Setting::setItem('course_recommend',$value)) {
+            return $this->redirect(['index']);
+        }
+        else{
+            return $this->render('recommend', [
+                'model' => $model,
+            ]);
+        }*/
     }
 
     /**
