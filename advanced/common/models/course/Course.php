@@ -65,6 +65,7 @@ class Course extends \yii\db\ActiveRecord
     public function fields()
     {
         $parent = parent::fields();
+        $parent["instructor"] = "instructor";
         return $parent;
     }
 
