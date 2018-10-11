@@ -61,6 +61,7 @@ return [
                         'DELETE favorites' => 'favorites-delete',
                         'POST courses' => 'courses-create',
                         'DELETE courses' => 'courses-delete',
+                        'POST login' => 'login',
                     ],
                 ],
                 //媒体

@@ -26,6 +26,16 @@ class UserCourse extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function fields()
+    {
+        $parent = parent::fields();
+        $parent["course"] = "course";
+        return $parent;
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()

@@ -66,6 +66,7 @@ class Course extends \yii\db\ActiveRecord
     {
         $parent = parent::fields();
         $parent["instructor"] = "instructor";
+        $parent["courseCatalog"] = "courseCatalog";
         return $parent;
     }
 
@@ -128,5 +129,22 @@ class Course extends \yii\db\ActiveRecord
     public function getCourseLessons()
     {
         return $this->hasMany(CourseLesson::className(), ['course_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCourseCatalog(){
+        $result = [];
+        $lessons = $this->courseLessons;
+        if($lessons){
+            foreach($lessons as $item){
+                $result[] = [
+                    "id" => $item->id,
+                    "title" => $item->title
+                ];
+            }
+        }
+        return $result;
     }
 }

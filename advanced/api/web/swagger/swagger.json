@@ -541,6 +541,42 @@
                 }
             }
         },
+        "/v1/users/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "\u7528\u6237\u767b\u5f55",
+                "description": "\u7528\u6237\u767b\u5f55",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "\u90ae\u7bb1",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "formData",
+                        "description": "\u5bc6\u7801",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            }
+        },
         "/v1/users/favorites": {
             "get": {
                 "tags": [

@@ -195,6 +195,38 @@ class UsersController extends ActiveController
     }
 
     /**
+     * 用户登录
+     * @SWG\POST(
+     *     path="/v1/users/login",
+     *     tags={"User"},
+     *     summary="用户登录",
+     *     description="用户登录",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="email",type="string", required=true, in="formData",description="邮箱" ),
+     *     @SWG\Parameter( name="password",type="string", required=true, in="formData",description="密码" ),
+     *     @SWG\Response( response="return",description="用户信息")
+     * )
+     */
+    public function actionLogin(){
+        //参数检测
+        ApiRequest::checkPost(["email","password"]);
+        $email = Yii::$app->request->post("email",null);
+        $password = Yii::$app->request->post("password",null);
+
+        //获取用户
+        $model = User::findOne(["email"=>$email]);
+
+        //判断密码并返回
+        if ($model && Yii::$app->security->validatePassword($password, $model->password_hash)) {
+            return $model;
+        }
+        else{
+            throw new BadRequestHttpException('username or password is wrong');
+        }
+    }
+
+    /**
      * 获取用户收藏
      * @SWG\GET(
      *     path="/v1/users/favorites",
@@ -299,7 +331,7 @@ class UsersController extends ActiveController
 
         //进行查询
         $searchModel = new UserCourseSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
 
         //设置分页
         $pagination = ApiRequest::injectionPage($dataProvider);

@@ -19,7 +19,7 @@ use common\models\user\User;
 use common\models\user\SignupForm;
 
 /**
- * @SWG\Tag(name="Test",description="测试")
+ * !!!!!@SWG\Tag(name="Test",description="测试")
  */
 class TestController extends ActiveController
 {
