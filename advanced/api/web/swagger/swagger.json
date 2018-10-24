@@ -239,6 +239,126 @@
                 }
             }
         },
+        "/v1/pages": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u5168\u90e8\u9875\u9762",
+                "description": "\u5168\u90e8\u9875\u9762",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u9875\u9762\u5217\u8868"
+                    }
+                }
+            }
+        },
+        "/v1/pages/about-us": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u5173\u4e8e\u6211\u4eec",
+                "description": "\u5173\u4e8e\u6211\u4eec",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u5173\u4e8e\u6211\u4eec"
+                    }
+                }
+            }
+        },
+        "/v1/pages/company-profile": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u516c\u53f8\u7b80\u4ecb",
+                "description": "\u516c\u53f8\u7b80\u4ecb",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u516c\u53f8\u7b80\u4ecb"
+                    }
+                }
+            }
+        },
+        "/v1/pages/user-agreement": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u7528\u6237\u534f\u8bae",
+                "description": "\u7528\u6237\u534f\u8bae",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u534f\u8bae"
+                    }
+                }
+            }
+        },
+        "/v1/pages/payment-agreement": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u652f\u4ed8\u534f\u8bae",
+                "description": "\u652f\u4ed8\u534f\u8bae",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u652f\u4ed8\u534f\u8bae"
+                    }
+                }
+            }
+        },
+        "/v1/pages/tutorial": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u5b66\u4e60\u6559\u7a0b",
+                "description": "\u5b66\u4e60\u6559\u7a0b",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u5b66\u4e60\u6559\u7a0b"
+                    }
+                }
+            }
+        },
         "/v1/types": {
             "get": {
                 "tags": [
@@ -992,6 +1112,10 @@
         {
             "name": "Media",
             "description": "\u5a92\u4f53\u5e93"
+        },
+        {
+            "name": "Page",
+            "description": "\u9875\u9762"
         },
         {
             "name": "User",

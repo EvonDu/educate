@@ -63,6 +63,19 @@ class Nav
             ),
             array(
                 'url' => '#',
+                'title' => "页面设置",
+                'icon' => 'fa fa-file-powerpoint-o',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "关于我们", 'url' => Url::to(['page/page/about-us'])),
+                    array('title' => "公司介绍", 'url' => Url::to(['page/page/company-profile'])),
+                    array('title' => "用户协议", 'url' => Url::to(['page/page/user-agreement'])),
+                    array('title' => "支付协议", 'url' => Url::to(['page/page/payment-agreement'])),
+                    array('title' => "学习教程", 'url' => Url::to(['page/page/tutorial'])),
+                )
+            ),
+            array(
+                'url' => '#',
                 'title' => "媒体库",
                 'icon' => 'fa fa-youtube-play',
                 'auth' => '',
