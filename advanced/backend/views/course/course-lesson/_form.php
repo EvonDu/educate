@@ -34,13 +34,19 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['mode
                       label="<?= ActiveElementForm::getFieldLabel($model,"abstract")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"abstract")?>">
             <summernote v-model="data.abstract"></summernote>
-        </el-form-item> 
+        </el-form-item>
 
-        <el-form-item prop="is_public"
-                      label="<?= ActiveElementForm::getFieldLabel($model,"is_public")?>"
-                      error="<?= ActiveElementForm::getFieldError($model,"is_public")?>">
-            <el-switch v-model="data.is_public" active-value="1" inactive-value="0"></el-switch>
-        </el-form-item> 
+        <el-form-item prop="try"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"try")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"try")?>">
+            <el-switch v-model="data.try" active-value="1" inactive-value="0"></el-switch>
+        </el-form-item>
+
+        <el-form-item prop="free"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"free")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"free")?>">
+            <el-switch v-model="data.free" active-value="1" inactive-value="0"></el-switch>
+        </el-form-item>
 
         <el-form-item prop="video"
                       label="<?= ActiveElementForm::getFieldLabel($model,"video")?>"

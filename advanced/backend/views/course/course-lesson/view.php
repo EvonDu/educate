@@ -67,7 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'lesson',
                         'title',
                         'abstract:raw',
-                        'is_public:boolean',
+                        'try:boolean',
+                        'free:boolean',
                         [
                             'attribute'=>'video',
                             'format' => 'raw',

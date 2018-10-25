@@ -53,38 +53,61 @@ $this->params['breadcrumbs'][] = $this->title;
         </lte-col>
         <lte-col col="9">
             <lte-box title="详情" icon="fa fa-eye">
-
-                <?= DetailView::widget([
-                    'model' => $model,
-                    'attributes' => [
-                        'id',
-                        'num',
-                        [
-                            'attribute'=>'price',
-                            'value' => function($model){return isset($model->price)?$model->price/100:0;}
-                        ],
-                        'instructor.name',
-                        'type.name',
-                        'name',
-                        [
-                            'attribute'=>'image',
-                            'format' => 'raw',
-                            'value' => function($model){return Html::img($model->image,['style'=>'width: 100px;']);}
-                        ],
-                        'level',
-                        'synopsis:ntext',
-                        'abstract:raw',
-                        'content:raw',
-                        'requirements_prerequisites:raw',
-                        'requirements_textbooks:raw',
-                        'requirements_software:raw',
-                        'requirements_hardware:raw',
-                        'next_term_at:datetime',
-                        'created_at:datetime',
-                        'updated_at:datetime',
-                    ],
-                ]) ?>
-
+                <el-tabs value="base">
+                    <el-tab-pane label="课程信息" name="base">
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                'id',
+                                'num',
+                                'instructor.name',
+                                'type.name',
+                                'name',
+                                [
+                                    'attribute'=>'image',
+                                    'format' => 'raw',
+                                    'value' => function($model){return Html::img($model->image,['style'=>'width: 100px;']);}
+                                ],
+                                'level',
+                                'synopsis:ntext',
+                                'abstract:raw',
+                                'created_at:datetime',
+                                'updated_at:datetime',
+                            ],
+                        ]) ?>
+                    </el-tab-pane>
+                    <el-tab-pane label="课程要求" name="requirements">
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                'requirements_prerequisites:raw',
+                                'requirements_textbooks:raw',
+                                'requirements_software:raw',
+                                'requirements_hardware:raw',
+                            ],
+                        ]) ?>
+                    </el-tab-pane>
+                    <el-tab-pane label="课程收费" name="price">
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                [
+                                    'attribute'=>'price',
+                                    'value' => function($model){return isset($model->price)?$model->price/100:0;}
+                                ],
+                                'try:boolean'
+                            ],
+                        ]) ?>
+                    </el-tab-pane>
+                    <el-tab-pane label="其他信息" name="other">
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                'next_term_at:datetime',
+                            ],
+                        ]) ?>
+                    </el-tab-pane>
+                </el-tabs>
             </lte-box>
         </lte-col>
     </lte-row>

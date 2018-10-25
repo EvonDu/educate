@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'username',
                         'email:email',
-                        'status',
+                        //'status',
                         ['attribute' => 'created_at', 'value'=> function($model){return  date('Y-m-d H:i:s',$model->created_at);},],
                         ['attribute' => 'updated_at', 'value'=> function($model){return  date('Y-m-d H:i:s',$model->updated_at);},],
 
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $content = " <i class='glyphicon glyphicon-pencil'></i> ".Yii::t('yii', 'Update');
                                     return Html::tag("lte-btn",$content, $options);
                                 },
-                                'assign' => function ($url, $model, $key) {
+                                /*'assign' => function ($url, $model, $key) {
                                     $options = array_merge([
                                         'title' => '角色',
                                         'aria-label' => '角色',
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                     $content = " <i class='glyphicon glyphicon-user'></i> 角色";
                                     return Html::tag("lte-btn",$content, $options);
-                                },
+                                },*/
                             ],
                         ],
                     ],

@@ -12,10 +12,11 @@ use Yii;
  * @property int $lesson 课号
  * @property string $title 标题
  * @property string $abstract 简介
- * @property bool $is_public 是否公开
  * @property string $video 视频
  * @property string $content 内容
  * @property string $task 作业
+ * @property bool $try 是否试用
+ * @property bool $free 是否免费
  *
  * @property Course $course
  */
@@ -38,7 +39,7 @@ class CourseLesson extends \yii\db\ActiveRecord
             [['course_id', 'title'], 'required'],
             [['course_id', 'lesson'], 'integer'],
             [['abstract', 'content', 'task'], 'string'],
-            [['is_public'], 'boolean'],
+            [['try','free'], 'boolean'],
             [['title'], 'string', 'max' => 120],
             [['video'], 'string', 'max' => 256],
             [['course_id', 'lesson'], 'unique', 'targetAttribute' => ['course_id', 'lesson']],
@@ -58,10 +59,11 @@ class CourseLesson extends \yii\db\ActiveRecord
             'lesson' => '章节',
             'title' => '标题',
             'abstract' => '简介',
-            'is_public' => '是否免费',
             'video' => '视频',
             'content' => '内容',
             'task' => '作业',
+            'try' => '试用',
+            'free' => '免费',
         ];
     }
 

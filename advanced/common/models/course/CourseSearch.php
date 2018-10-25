@@ -18,8 +18,9 @@ class CourseSearch extends Course
     public function rules()
     {
         return [
-            [['id', 'price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'created_at', 'updated_at'], 'integer'],
-            [['num', 'name', 'image', 'synopsis', 'abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
+            [['id', 'price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'try_day', 'created_at', 'updated_at'], 'integer'],
+            [['num', 'name', 'image', 'synopsis', 'abstract', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
+            [['try'], 'boolean'],
         ];
     }
 
@@ -74,7 +75,6 @@ class CourseSearch extends Course
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'synopsis', $this->synopsis])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
-            ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'requirements_prerequisites', $this->requirements_prerequisites])
             ->andFilterWhere(['like', 'requirements_textbooks', $this->requirements_textbooks])
             ->andFilterWhere(['like', 'requirements_software', $this->requirements_software])
@@ -125,7 +125,6 @@ class CourseSearch extends Course
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'synopsis', $this->synopsis])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
-            ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'requirements_prerequisites', $this->requirements_prerequisites])
             ->andFilterWhere(['like', 'requirements_textbooks', $this->requirements_textbooks])
             ->andFilterWhere(['like', 'requirements_software', $this->requirements_software])

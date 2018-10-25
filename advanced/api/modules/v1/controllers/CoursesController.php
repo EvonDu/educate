@@ -160,7 +160,8 @@ class CoursesController extends ActiveController
                 "lesson"=>$lesson->lesson,
                 "title"=>$lesson->title,
                 "abstract"=>$lesson->abstract,
-                "is_public"=>$lesson->is_public,
+                "try"=>$lesson->try,
+                "free"=>$lesson->free,
             ];
             $lessons[] = $item;
         }

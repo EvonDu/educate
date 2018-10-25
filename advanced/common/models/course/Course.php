@@ -19,12 +19,13 @@ use common\models\instructor\Instructor;
  * @property int $level 课程难度
  * @property string $synopsis 课程摘要
  * @property string $abstract 课程简介
- * @property string $content 课程内容
  * @property string $requirements_prerequisites 前提
  * @property string $requirements_textbooks 教科书
  * @property string $requirements_software 软件要求
  * @property string $requirements_hardware 硬件要求
  * @property int $next_term_at 下学期
+ * @property bool $try 支持试用
+ * @property int $try_day 试用天数
  * @property int $created_at 创建时间
  * @property int $updated_at 更新时间
  *
@@ -49,8 +50,9 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             [['num'], 'required'],
-            [['price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'created_at', 'updated_at'], 'integer'],
-            [['synopsis', 'abstract', 'content', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'string'],
+            [['price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'try_day', 'created_at', 'updated_at'], 'integer'],
+            [['synopsis', 'abstract', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'string'],
+            [['try'], 'boolean'],
             [['num', 'name'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 256],
             [['num'], 'unique'],
@@ -86,12 +88,13 @@ class Course extends \yii\db\ActiveRecord
             'level' => '难度',
             'synopsis' => '摘要',
             'abstract' => '简介',
-            'content' => '内容',
             'requirements_prerequisites' => '课程要求 - 前提',
             'requirements_textbooks' => '课程要求 - 教材',
             'requirements_software' => '课程要求 - 软件',
             'requirements_hardware' => '课程要求 - 硬件',
             'next_term_at' => '下学期开课时间',
+            'try' => '试用',
+            'try_day' => '试用时间',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
@@ -113,6 +116,10 @@ class Course extends \yii\db\ActiveRecord
         return $this->hasOne(Instructor::className(), ['id' => 'instructor_id']);
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
         if($insert){
