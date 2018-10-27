@@ -24,8 +24,6 @@ use vuelte\widgets\ActiveElementForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'abstract') ?>
-
     <?php // echo $form->field($model, 'try')->checkbox() ?>
 
     <?php // echo $form->field($model, 'free')->checkbox() ?>

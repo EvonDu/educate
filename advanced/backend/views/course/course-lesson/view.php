@@ -56,36 +56,51 @@ $this->params['breadcrumbs'][] = $this->title;
         <lte-col col="9">
             <lte-box title="详情" icon="fa fa-eye">
 
-                <?= DetailView::widget([
-                    'model' => $model,
-                    'attributes' => [
-                        'id',
-                        [
-                            "label"=>"课程",
-                            "attribute"=>'course.name',
-                        ],
-                        'lesson',
-                        'title',
-                        'abstract:raw',
-                        'try:boolean',
-                        'free:boolean',
-                        [
-                            'attribute'=>'video',
-                            'format' => 'raw',
-                            'value' => function($model){
-                                if(isset($model->video)){
-                                    $source = HTML::tag("source",'',["src"=>$model->video]);
-                                    return HTML::tag("video",$source,["style"=>"max-width: 100%;width: 500px;"]);
-                                }
-                                else{
-                                    return null;
-                                }
-                            }
-                        ],
-                        'content:ntext',
-                        'task:raw',
-                    ],
-                ]) ?>
+                <el-tabs value="base">
+                    <el-tab-pane label="章节信息" name="base">
+
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                'id',
+                                [
+                                    "label"=>"课程",
+                                    "attribute"=>'course.name',
+                                ],
+                                'lesson',
+                                'title',
+                                'abstract:raw',
+                                'try:boolean',
+                            ],
+                        ]) ?>
+
+                    </el-tab-pane>
+
+                    <el-tab-pane label="章节内容" name="content">
+
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                [
+                                    'attribute'=>'video',
+                                    'format' => 'raw',
+                                    'value' => function($model){
+                                        if(isset($model->video)){
+                                            $source = HTML::tag("source",'',["src"=>$model->video]);
+                                            return HTML::tag("video",$source,["style"=>"max-width: 100%;width: 500px;"]);
+                                        }
+                                        else{
+                                            return null;
+                                        }
+                                    }
+                                ],
+                                'content:ntext',
+                                'task:raw',
+                            ],
+                        ]) ?>
+
+                    </el-tab-pane>
+                </el-tabs>
 
             </lte-box>
         </lte-col>
