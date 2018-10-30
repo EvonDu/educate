@@ -138,6 +138,175 @@
                 }
             }
         },
+        "/v1/courses/try": {
+            "post": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u8bfe\u7a0b\u8bd5\u7528",
+                "description": "\u8bfe\u7a0b\u8bd5\u7528",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u8fd4\u56de\u4fe1\u606f"
+                    }
+                }
+            }
+        },
+        "/v1/courses/buy": {
+            "post": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u8bfe\u7a0b\u8d2d\u4e70",
+                "description": "\u8bfe\u7a0b\u8d2d\u4e70",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u8fd4\u56de\u4fe1\u606f"
+                    }
+                }
+            }
+        },
+        "/v1/favorites": {
+            "get": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "\u7528\u6237\u6536\u85cf",
+                "description": "\u83b7\u53d6\u7528\u6237\u6536\u85cf\u8bfe\u7a0b\u5217\u8868",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u6536\u85cf\u5217\u8868"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "\u6dfb\u52a0\u7528\u6237\u6536\u85cf",
+                "description": "\u6dfb\u52a0\u7528\u6237\u6536\u85cf",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
+                "description": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            }
+        },
         "/v1/instructors": {
             "get": {
                 "tags": [
@@ -697,103 +866,6 @@
                 }
             }
         },
-        "/v1/users/favorites": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u7528\u6237\u6536\u85cf",
-                "description": "\u83b7\u53d6\u7528\u6237\u6536\u85cf\u8bfe\u7a0b\u5217\u8868",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "query",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "return": {
-                        "description": "\u6536\u85cf\u5217\u8868"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u6dfb\u52a0\u7528\u6237\u6536\u85cf",
-                "description": "\u6dfb\u52a0\u7528\u6237\u6536\u85cf",
-                "consumes": [
-                    "application/x-www-form-urlencoded"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "formData",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "course_id",
-                        "in": "formData",
-                        "description": "\u8bfe\u7a0bID",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "return": {
-                        "description": "\u7528\u6237\u4fe1\u606f"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
-                "description": "\u79fb\u9664\u7528\u6237\u6536\u85cf",
-                "consumes": [
-                    "application/x-www-form-urlencoded"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "formData",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "course_id",
-                        "in": "formData",
-                        "description": "\u8bfe\u7a0bID",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "return": {
-                        "description": "\u7528\u6237\u4fe1\u606f"
-                    }
-                }
-            }
-        },
         "/v1/users/courses": {
             "get": {
                 "tags": [
@@ -819,40 +891,6 @@
                 "responses": {
                     "return": {
                         "description": "\u8bfe\u7a0b\u5217\u8868"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "\u6dfb\u52a0\u7528\u6237\u8bfe\u7a0b\uff08\u8d2d\u4e70\uff09",
-                "description": "\u6dfb\u52a0\u7528\u6237\u8bfe\u7a0b\uff0c\u5373\u76f8\u5f53\u4e8e\u8d2d\u4e70\u76ee\u524d",
-                "consumes": [
-                    "application/x-www-form-urlencoded"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "formData",
-                        "description": "\u7528\u6237ID",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "course_id",
-                        "in": "formData",
-                        "description": "\u8bfe\u7a0bID",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "return": {
-                        "description": "\u7528\u6237\u4fe1\u606f"
                     }
                 }
             }
@@ -1104,6 +1142,10 @@
         {
             "name": "Course",
             "description": "\u8bfe\u7a0b"
+        },
+        {
+            "name": "Favorite",
+            "description": "\u6536\u85cf"
         },
         {
             "name": "Instructor",

@@ -18,7 +18,8 @@ class UserCourseSearch extends UserCourse
     public function rules()
     {
         return [
-            [['user_id', 'course_id', 'created_at'], 'integer'],
+            [['user_id', 'course_id', 'tryed_at', 'created_at'], 'integer'],
+            [['try'], 'boolean'],
         ];
     }
 
@@ -60,6 +61,8 @@ class UserCourseSearch extends UserCourse
         $query->andFilterWhere([
             'user_id' => $this->user_id,
             'course_id' => $this->course_id,
+            'try' => $this->try,
+            'tryed_at' => $this->tryed_at,
             'created_at' => $this->created_at,
         ]);
 
@@ -95,6 +98,8 @@ class UserCourseSearch extends UserCourse
         $query->andFilterWhere([
             'user_id' => $this->user_id,
             'course_id' => $this->course_id,
+            'try' => $this->try,
+            'tryed_at' => $this->tryed_at,
             'created_at' => $this->created_at,
         ]);
 

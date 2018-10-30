@@ -8,6 +8,7 @@ use common\models\course\CourseSearch;
 use common\models\course\CourseTypeSearch;
 use common\models\instructor\Instructor;
 use common\models\media\Pronunciation;
+use common\models\user\UserCourse;
 use Yii;
 use yii\helpers\Url;
 use yii\rest\ActiveController;
@@ -193,5 +194,65 @@ class CoursesController extends ActiveController
 
         //返回
         return $model;
+    }
+
+    /**
+     * 课程试用
+     * @SWG\POST(
+     *     path="/v1/courses/try",
+     *     tags={"Course"},
+     *     summary="课程试用",
+     *     description="课程试用",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="user_id",type="integer", required=false, in="formData",description="用户ID" ),
+     *     @SWG\Parameter( name="course_id",type="integer", required=false, in="formData",description="课程ID" ),
+     *     @SWG\Response( response="return",description="返回信息")
+     * )
+     */
+    public function actionTry(){
+        //参数检测
+        ApiRequest::checkPost(["user_id","course_id"]);
+        $user_id = Yii::$app->request->post("user_id");
+        $course_id = Yii::$app->request->post("course_id");
+
+        //调用试用
+        $bool = UserCourse::tryCourse($user_id, $course_id);
+
+        //返回
+        if($bool)
+            return null;
+        else
+            throw new ServerErrorHttpException("create try fail.");
+    }
+
+    /**
+     * 课程购买
+     * @SWG\POST(
+     *     path="/v1/courses/buy",
+     *     tags={"Course"},
+     *     summary="课程购买",
+     *     description="课程购买",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="user_id",type="integer", required=false, in="formData",description="用户ID" ),
+     *     @SWG\Parameter( name="course_id",type="integer", required=false, in="formData",description="课程ID" ),
+     *     @SWG\Response( response="return",description="返回信息")
+     * )
+     */
+    public function actionBuy(){
+        //参数检测
+        ApiRequest::checkPost(["user_id","course_id"]);
+        $user_id = Yii::$app->request->post("user_id");
+        $course_id = Yii::$app->request->post("course_id");
+
+        //购买课程
+        $bool = UserCourse::buyCourse($user_id, $course_id);
+
+        //返回
+        if($bool)
+            return null;
+        else
+            throw new ServerErrorHttpException("create try fail.");
     }
 }

@@ -57,8 +57,6 @@ return [
                     'controller' => ['v1/users'],
                     'extraPatterns' => [
                         'GET <id:\d+>' => 'view',
-                        'POST favorites' => 'favorites-create',
-                        'DELETE favorites' => 'favorites-delete',
                         'POST courses' => 'courses-create',
                         'DELETE courses' => 'courses-delete',
                         'POST login' => 'login',
@@ -92,6 +90,16 @@ return [
                         'GET ' => 'index',
                         'GET <course_num:\w+>' => 'view',
                         'GET lessons/<id:\d+>' => 'lessons',
+                    ],
+                ],
+                //收藏
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => ['v1/favorites'],
+                    'extraPatterns' => [
+                        'POST ' => 'create',
+                        'DELETE ' => 'delete',
                     ],
                 ],
             ],
