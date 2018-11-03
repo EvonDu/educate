@@ -7,7 +7,7 @@ $params = array_merge(
 );
 
 return [
-    'layout' => vuelte\Assets::layout('main'),//设置布局
+    'layout' => 'lte',//设置布局
     'defaultRoute'=>"site/home",//默认控制器
 
     'id' => 'app-backend',
