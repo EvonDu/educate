@@ -63,7 +63,7 @@ class FavoritesController extends ActiveController
 
         //进行查询
         $searchModel = new UserFavoriteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search_api(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize = 0;
         $list = $dataProvider->getModels();
 
