@@ -227,6 +227,49 @@ class UsersController extends ActiveController
     }
 
     /**
+     * 修改密码
+     * @SWG\PUT(
+     *     path="/v1/users/modify-password",
+     *     tags={"User"},
+     *     summary="修改密码",
+     *     description="修改密码",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="email",type="string", required=true, in="formData",description="邮箱" ),
+     *     @SWG\Parameter( name="password",type="string", required=true, in="formData",description="旧密码" ),
+     *     @SWG\Parameter( name="password_new",type="string", required=true, in="formData",description="新密码" ),
+     *     @SWG\Parameter( name="password_again",type="string", required=true, in="formData",description="再次输入密码" ),
+     *     @SWG\Response( response="return",description="用户信息")
+     * )
+     */
+    public function actionModifyPassword(){
+        //参数检测
+        ApiRequest::checkPost(["email","password","password_new","password_again"]);
+        $email = Yii::$app->request->post("email",null);
+        $password = Yii::$app->request->post("password",null);
+        $password_new = Yii::$app->request->post("password_new",null);
+        $password_again = Yii::$app->request->post("password_again",null);
+
+        //密码认证
+        $model = User::findOne(["email"=>$email]);
+        if (!($model && Yii::$app->security->validatePassword($password, $model->password_hash))) {
+            throw new BadRequestHttpException('username or password is wrong');
+        }
+
+        //验证两次输出
+        if($password_new != $password_again)
+            throw new BadRequestHttpException('two input password must be consistent');
+
+        //设置新密码
+        $model->password_hash = Yii::$app->security->generatePasswordHash($password_new);
+
+        //保存修改
+        if(!$model->save()){
+            throw new BadRequestHttpException(ModelErrors::getError($model));
+        }
+    }
+
+    /**
      * 获取用户课程
      * @SWG\GET(
      *     path="/v1/users/courses",
