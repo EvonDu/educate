@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiController;
 use api\lib\ApiRequest;
 use common\models\user\UserCourse;
 use common\models\user\UserCourseSearch;
@@ -39,24 +40,9 @@ use common\models\user\SignupForm;
 /**
  * @SWG\Tag(name="User",description="用户")
  */
-class UsersController extends ActiveController
+class UsersController extends ApiController
 {
     public $modelClass = 'common\models\user\User';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {

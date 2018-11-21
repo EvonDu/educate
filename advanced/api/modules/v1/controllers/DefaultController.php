@@ -2,7 +2,7 @@
 
 namespace api\modules\v1\controllers;
 
-use yii\web\Controller;
+use api\lib\ApiController;
 
 /**
  * @SWG\Swagger(
@@ -13,7 +13,7 @@ use yii\web\Controller;
  * ),
  * @SWG\Info(version="1.0",title="接口文档",description="接口相关的Swagger文档"),
  */
-class DefaultController extends Controller
+class DefaultController extends ApiController
 {
     /**
      * Renders the index view for the module

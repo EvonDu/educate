@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiController;
 use api\lib\ApiRequest;
 use common\models\page\Page;
 use common\models\setting\Setting;
@@ -22,24 +23,9 @@ use common\models\user\SignupForm;
 /**
  * @SWG\Tag(name="Page",description="页面")
  */
-class PagesController extends ActiveController
+class PagesController extends ApiController
 {
     public $modelClass = 'common\models\page\Page';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {

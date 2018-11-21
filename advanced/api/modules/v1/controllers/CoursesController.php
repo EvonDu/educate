@@ -1,13 +1,9 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use api\lib\ApiRequest;
 use common\models\course\Course;
 use common\models\course\CourseLesson;
 use common\models\course\CourseSearch;
-use common\models\course\CourseTypeSearch;
-use common\models\instructor\Instructor;
-use common\models\media\Pronunciation;
 use common\models\user\UserCourse;
 use Yii;
 use yii\helpers\Url;
@@ -17,6 +13,8 @@ use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use api\lib\ModelErrors;
+use api\lib\ApiRequest;
+use api\lib\ApiController;
 
 /**
  * @SWG\Definition(
@@ -57,24 +55,9 @@ use api\lib\ModelErrors;
 /**
  * @SWG\Tag(name="Course",description="课程")
  */
-class CoursesController extends ActiveController
+class CoursesController extends ApiController
 {
     public $modelClass = 'common\models\course\Course';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {

@@ -20,11 +20,6 @@ return [
         'request' => [
             'csrfParam' => '_csrf-api',
         ],
-        //配置RESTful返回格式
-        'response' => [
-            'class' => 'yii\web\Response',
-            'on beforeSend' => \api\lib\ApiResponse::beforeSend(),
-        ],
         'user' => [
             'identityClass' => 'common\models\user\User',
             'enableAutoLogin' => true,

@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiController;
 use api\lib\ApiRequest;
 use common\models\user\UserCourse;
 use common\models\user\UserCourseSearch;
@@ -20,24 +21,9 @@ use common\models\user\SignupForm;
 /**
  * @SWG\Tag(name="Favorite",description="收藏")
  */
-class FavoritesController extends ActiveController
+class FavoritesController extends ApiController
 {
     public $modelClass = 'common\models\user\UserFavorite';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {

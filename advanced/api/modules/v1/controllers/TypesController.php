@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiController;
 use api\lib\ApiRequest;
 use common\models\course\CourseTypeSearch;
 use common\models\user\UserFavorite;
@@ -26,24 +27,9 @@ use common\models\user\SignupForm;
  * )
  */
 
-class TypesController extends ActiveController
+class TypesController extends ApiController
 {
     public $modelClass = 'common\models\course\CourseType';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {

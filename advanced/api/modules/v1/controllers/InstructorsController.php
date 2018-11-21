@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiController;
 use api\lib\ApiRequest;
 use common\models\instructor\Instructor;
 use common\models\instructor\InstructorSearch;
@@ -31,24 +32,9 @@ use common\models\user\SignupForm;
 /**
  * @SWG\Tag(name="Instructor",description="导师")
  */
-class InstructorsController extends ActiveController
+class InstructorsController extends ApiController
 {
     public $modelClass = 'common\models\instructor\Instructor';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {

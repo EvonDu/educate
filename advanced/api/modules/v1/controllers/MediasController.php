@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use api\lib\ApiController;
 use common\models\media\Pronunciation;
 use Yii;
 use yii\rest\ActiveController;
@@ -26,24 +27,9 @@ use common\models\user\SignupForm;
 /**
  * @SWG\Tag(name="Media",description="媒体库")
  */
-class MediasController extends ActiveController
+class MediasController extends ApiController
 {
     public $modelClass = 'common\models\media\Pronunciation';
-
-    public function behaviors()
-    {
-        return ArrayHelper::merge([
-            //配置跨域
-            'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                ],
-            ],
-        ], parent::behaviors());
-    }
 
     public function actions()
     {
