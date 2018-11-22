@@ -1,10 +1,6 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use common\models\course\Course;
-use common\models\course\CourseLesson;
-use common\models\course\CourseSearch;
-use common\models\user\UserCourse;
 use Yii;
 use yii\helpers\Url;
 use yii\rest\ActiveController;
@@ -15,6 +11,10 @@ use yii\web\ServerErrorHttpException;
 use api\lib\ModelErrors;
 use api\lib\ApiRequest;
 use api\lib\ApiController;
+use common\models\course\Course;
+use common\models\course\CourseLesson;
+use common\models\course\CourseSearch;
+use common\models\user\UserCourse;
 
 /**
  * @SWG\Definition(

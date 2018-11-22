@@ -1,24 +1,15 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use api\lib\ApiController;
-use api\lib\ApiRequest;
-use common\models\page\Page;
-use common\models\setting\Setting;
-use common\models\user\UserCourse;
-use common\models\user\UserCourseSearch;
-use common\models\user\UserFavorite;
-use common\models\user\UserFavoriteSearch;
-use common\models\user\UserSearch;
 use Yii;
 use yii\rest\ActiveController;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
+use api\lib\ApiController;
 use api\lib\ModelErrors;
-use common\models\user\User;
-use common\models\user\SignupForm;
+use common\models\page\Page;
 
 /**
  * @SWG\Tag(name="Page",description="页面")

@@ -1,19 +1,17 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use api\lib\ApiController;
-use api\lib\ApiRequest;
-use common\models\instructor\Instructor;
-use common\models\instructor\InstructorSearch;
 use Yii;
 use yii\rest\ActiveController;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
+use api\lib\ApiRequest;
+use api\lib\ApiController;
 use api\lib\ModelErrors;
-use common\models\user\User;
-use common\models\user\SignupForm;
+use common\models\instructor\Instructor;
+use common\models\instructor\InstructorSearch;
 
 /**
  * @SWG\Definition(
