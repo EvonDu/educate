@@ -78,6 +78,12 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                     </el-select>
                 </el-form-item>
 
+                <el-form-item prop="period"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"period")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"period")?>">
+                    <el-input-number v-model="data.period" path="course" :min="0"></el-input-number>
+                </el-form-item>
+
                 <el-form-item prop="synopsis"
                               label="<?= ActiveElementForm::getFieldLabel($model,"synopsis")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"synopsis")?>">

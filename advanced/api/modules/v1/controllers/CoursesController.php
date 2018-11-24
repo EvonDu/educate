@@ -105,6 +105,7 @@ class CoursesController extends ApiController
                 "type" => $model->type,
                 "instructor" => $model->instructor,
                 "level" => $model->level,
+                "period" => $model->period,
                 "synopsis"=>$model->synopsis,
             ];
             $items[] = $item;

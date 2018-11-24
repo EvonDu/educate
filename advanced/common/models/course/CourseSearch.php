@@ -18,7 +18,7 @@ class CourseSearch extends Course
     public function rules()
     {
         return [
-            [['id', 'price', 'instructor_id', 'type_id', 'level', 'next_term_at', 'try_day', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'price', 'instructor_id', 'type_id', 'level', 'period', 'next_term_at', 'try_day', 'created_at', 'updated_at'], 'integer'],
             [['num', 'name', 'image', 'synopsis', 'abstract', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
             [['try'], 'boolean'],
         ];
