@@ -239,4 +239,36 @@ class CoursesController extends ApiController
         else
             throw new ServerErrorHttpException("create try fail.");
     }
+
+    /**
+     * 判断用户课程状态
+     * @SWG\GET(
+     *     path="/v1/courses/hash",
+     *     tags={"Course"},
+     *     summary="判断用户课程状态",
+     *     description="判断用户课程状态（0：未拥有、1：已试用、2：已购买）",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="user_id",type="string", required=true, in="query",description="用户ID" ),
+     *     @SWG\Parameter( name="course_id",type="string", required=true, in="query",description="课程ID" ),
+     *     @SWG\Response( response="return",description="返回信息")
+     * )
+     */
+    public function actionHash(){
+        //参数检测
+        ApiRequest::checkGet(["user_id","course_id"]);
+        $user_id = Yii::$app->request->get("user_id");
+        $course_id = Yii::$app->request->get("course_id");
+
+        //调用试用
+        $model = UserCourse::findOne(["user_id"=>$user_id,"course_id"=>$course_id]);
+
+        //返回
+        if(empty($model))
+            return 0;
+        else if($model->try)
+            return 1;
+        else
+            return 2;
+    }
 }

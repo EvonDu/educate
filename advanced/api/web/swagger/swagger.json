@@ -210,6 +210,42 @@
                 }
             }
         },
+        "/v1/courses/hash": {
+            "get": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u5224\u65ad\u7528\u6237\u8bfe\u7a0b\u72b6\u6001",
+                "description": "\u5224\u65ad\u7528\u6237\u8bfe\u7a0b\u72b6\u6001\uff080\uff1a\u672a\u62e5\u6709\u30011\uff1a\u5df2\u8bd5\u7528\u30012\uff1a\u5df2\u8d2d\u4e70\uff09",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u8fd4\u56de\u4fe1\u606f"
+                    }
+                }
+            }
+        },
         "/v1/favorites": {
             "get": {
                 "tags": [
@@ -295,6 +331,42 @@
                     {
                         "name": "course_id",
                         "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u7528\u6237\u4fe1\u606f"
+                    }
+                }
+            }
+        },
+        "/v1/favorites/hash": {
+            "get": {
+                "tags": [
+                    "Favorite"
+                ],
+                "summary": "\u5224\u65ad\u662f\u5426\u6536\u85cf",
+                "description": "\u5224\u65ad\u662f\u5426\u6536\u85cf",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
                         "description": "\u8bfe\u7a0bID",
                         "required": true,
                         "type": "string"

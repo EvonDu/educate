@@ -104,4 +104,34 @@ class FavoritesController extends ApiController
         //进行删除
         if($model) $model->delete();
     }
+
+    /**
+     * 判断是否收藏
+     * @SWG\GET(
+     *     path="/v1/favorites/hash",
+     *     tags={"Favorite"},
+     *     summary="判断是否收藏",
+     *     description="判断是否收藏",
+     *     consumes={"application/x-www-form-urlencoded"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter( name="user_id",type="string", required=true, in="query",description="用户ID" ),
+     *     @SWG\Parameter( name="course_id",type="string", required=true, in="query",description="课程ID" ),
+     *     @SWG\Response( response="return",description="用户信息")
+     * )
+     */
+    public function actionHash(){
+        //参数检测
+        ApiRequest::checkGet(["user_id","course_id"]);
+        $user_id = Yii::$app->request->get("user_id");
+        $course_id = Yii::$app->request->get("course_id");
+
+        //查询模型
+        $model = UserFavorite::findOne(["user_id"=>$user_id,"course_id"=>$course_id]);
+
+        //返回
+        if($model)
+            return true;
+        else
+            return false;
+    }
 }
