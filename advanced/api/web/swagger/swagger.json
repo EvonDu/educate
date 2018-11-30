@@ -246,6 +246,119 @@
                 }
             }
         },
+        "/v1/courses/tasks": {
+            "get": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u4f5c\u4e1a\u5217\u8868",
+                "description": "user_id\u548clesson_id\u4e0d\u80fd\u540c\u65f6\u4e3a\u7a7a",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u7528\u6237ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "lesson_id",
+                        "in": "query",
+                        "description": "\u7ae0\u8282ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "\u72b6\u6001(1\uff1a\u672a\u56de\u590d\uff0c2\uff1a\u5df2\u56de\u590d)",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u4f5c\u4e1a\u5217\u8868"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u4f5c\u4e1a\u63d0\u4ea4",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "lesson_id",
+                        "in": "formData",
+                        "description": "\u7ae0\u8282ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "content",
+                        "in": "formData",
+                        "description": "\u63d0\u4ea4\u5185\u5bb9",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u4f5c\u4e1aID"
+                    }
+                }
+            }
+        },
+        "/v1/courses/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Course"
+                ],
+                "summary": "\u4f5c\u4e1a\u8be6\u60c5",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "\u4f5c\u4e1aID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u4f5c\u4e1a\u8be6\u60c5"
+                    }
+                }
+            }
+        },
         "/v1/favorites": {
             "get": {
                 "tags": [

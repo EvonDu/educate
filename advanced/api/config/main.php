@@ -84,6 +84,9 @@ return [
                     'extraPatterns' => [
                         'GET ' => 'index',
                         'GET hash' => 'hash',
+                        'GET tasks' => 'tasks',
+                        'GET tasks/<id:\d+>' => 'task',
+                        'POST tasks' => 'task-submit',
                         'GET <course_num:\w+>' => 'view',
                         'GET lessons/<id:\d+>' => 'lessons',
                     ],

@@ -95,6 +95,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                 ],
                                 'content:ntext',
+                            ],
+                        ]) ?>
+
+                    </el-tab-pane>
+
+                    <el-tab-pane label="章节作业" name="task">
+
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
                                 'task:raw',
                             ],
                         ]) ?>

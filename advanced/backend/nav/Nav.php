@@ -50,6 +50,8 @@ class Nav
                     array('title' => "课程列表", 'url' => Url::to(['course/course/index'])),
                     //array('title' => "课程章节", 'url' => Url::to(['course/course-lesson/index'])),
                     array('title' => "课程类型", 'url' => Url::to(['course/course-type/index'])),
+                    array('title' => "作业提交", 'url' => Url::to(['course/task/index'])),
+
                 )
             ),
             array(

@@ -69,7 +69,8 @@ vuelte\tools\VarConvert::run($this, $lessons, "lessons");
                         </template>
                         <!-- 操作栏 -->
                         <el-row class="action-bar">
-                            <el-button type="primary" size="mini" @click="view(item.id)">查看</el-button>
+                            <el-button size="mini" @click="view(item.id)">查看</el-button>
+                            <el-button type="primary" size="mini" @click="task(item.id)">作业</el-button>
                             <el-button type="success" size="mini" @click="update(item.id)">编辑</el-button>
                             <el-button type="danger" size="mini" @click="remove(item.id)">删除</el-button>
                         </el-row>
@@ -98,6 +99,9 @@ vuelte\tools\VarConvert::run($this, $lessons, "lessons");
             },
             update:function(id){
                 location.href = "<?=Url::to(["update",'id'=>''])?>"+id;
+            },
+            task:function(id){
+                location.href = "<?=Url::to(["tasks",'id'=>''])?>"+id;
             },
             remove:function(id){
                 if( window.confirm('确实要删除该内容吗?') ){

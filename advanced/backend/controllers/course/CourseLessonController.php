@@ -3,6 +3,7 @@
 namespace backend\controllers\course;
 
 use common\models\course\Course;
+use common\models\course\Task;
 use Yii;
 use common\models\course\CourseLesson;
 use common\models\course\CourseLessonSearch;
@@ -119,6 +120,21 @@ class CourseLessonController extends Controller
 
         //跳转
         return $this->redirect(['list',"course_id"=>$course_id]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionTasks($id){
+        //获取作业列表
+        $list = Task::getTasks(null,$id);
+        var_dump($list);
+
+        //显示到视图
+        return $this->render('tasks', [
+            'list' => $list,
+        ]);
     }
 
     /**

@@ -61,6 +61,10 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['mode
                     <el-input v-model="data.content" type="textarea" rows="16"></el-input>
                 </el-form-item>
 
+            </el-tab-pane>
+
+            <el-tab-pane label="章节作业" name="task">
+
                 <el-form-item prop="task"
                               label="<?= ActiveElementForm::getFieldLabel($model,"task")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"task")?>">
