@@ -8,7 +8,7 @@ use yii\helpers\Url;
     }
 </style>
 
-<?php $template = function(){ ?>
+<component-template>
     <span>
         <a v-if="fileUrl" :href="fileUrl" target="_black"><i class="el-icon-document">{{fileUrl}}</i></a>
         <el-upload
@@ -18,11 +18,11 @@ use yii\helpers\Url;
             <el-button size="small" type="primary" v-else>点击上传</el-button>
         </el-upload>
     </span>
-<?php  }?>
+</component-template>
 
 <script>
     Vue.component('upload-file', {
-        template: `<?= $template(); ?>`,
+        template: '{{component-template}}',
         model: { prop: 'value', event: 'change'},
         props:{
             'value':{ type: String, default: ""},
