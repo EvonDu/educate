@@ -43,12 +43,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'content:ntext',
                         //'file',
                         //'audio',
-                        //'create_at',
+                        //'created_at',
                         //'finish_at',
 
                         [
                             'class' => 'vuelte\widgets\ActionColumn',
-                            'template' => '{view} {update}',
+                            'template' => '{view} {update} {submits}',
+                            'buttons' => [
+                                'submits' => function ($url, $model, $key) {
+                                    $options = array_merge([
+                                        'title' => '批改作业',
+                                        'aria-label' => '批改作业',
+                                        'data-pjax' => '0',
+                                        'type'=> 'success',
+                                        'size'=> 'xs',
+                                        'href'=> $url,
+                                        'a'=>true,
+                                    ]);
+                                    $content = " <i class='glyphicon glyphicon-pencil'></i> 批改作业";
+                                    return Html::tag("lte-btn",$content, $options);
+                                },
+                            ],
                         ],
                     ],
                 ]); ?>

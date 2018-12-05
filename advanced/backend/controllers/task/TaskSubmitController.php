@@ -2,17 +2,18 @@
 
 namespace backend\controllers\task;
 
-use Yii;
 use common\models\task\Task;
-use common\models\task\TaskSearch;
+use Yii;
+use common\models\task\TaskSubmit;
+use common\models\task\TaskSubmitSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TaskController implements the CRUD actions for Task model.
+ * TaskSubmitController implements the CRUD actions for TaskSubmit model.
  */
-class TaskController extends Controller
+class TaskSubmitController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +31,12 @@ class TaskController extends Controller
     }
 
     /**
-     * Lists all Task models.
+     * Lists all TaskSubmit models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TaskSearch();
+        $searchModel = new TaskSubmitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +46,40 @@ class TaskController extends Controller
     }
 
     /**
-     * Displays a single Task model.
+     * @param $id
+     * @return string
+     */
+    public function actionList($id){
+        $list = TaskSubmit::getSubmits($id);
+
+        return $this->render('list', [
+            'list' => $list,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     */
+    public function actionReply($id){
+        $model = $this->findModel($id);
+        $task = Task::findOne($model->task_id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->status = 2;
+            $model->reply_at = time();
+            if($model->save())
+                return $this->redirect(['list', 'id' => $model->task_id]);
+        }
+
+        return $this->render('reply', [
+            'model' => $model,
+            'task' => $task
+        ]);
+    }
+
+    /**
+     * Displays a single TaskSubmit model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,15 +92,13 @@ class TaskController extends Controller
     }
 
     /**
-     * Creates a new Task model.
+     * Creates a new TaskSubmit model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($course_id, $lesson_id)
+    public function actionCreate()
     {
-        $model = new Task();
-        $model->course_id = $course_id;
-        $model->lesson_id = $lesson_id;
+        $model = new TaskSubmit();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +110,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Updates an existing Task model.
+     * Updates an existing TaskSubmit model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +130,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Deletes an existing Task model.
+     * Deletes an existing TaskSubmit model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,23 +144,15 @@ class TaskController extends Controller
     }
 
     /**
-     * @param $id
-     * @return \yii\web\Response
-     */
-    public function actionSubmits($id){
-        return $this->redirect(['/task/task-submit/list',"id"=>$id]);
-    }
-
-    /**
-     * Finds the Task model based on its primary key value.
+     * Finds the TaskSubmit model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Task the loaded model
+     * @return TaskSubmit the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Task::findOne($id)) !== null) {
+        if (($model = TaskSubmit::findOne($id)) !== null) {
             return $model;
         }
 

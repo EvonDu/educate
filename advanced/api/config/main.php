@@ -94,6 +94,8 @@ return [
                     'pluralize' => false,
                     'controller' => ['v1/tasks'],
                     'extraPatterns' => [
+                        'GET submits' => 'submits-view',
+                        'POST submits' => 'submits-create',
                     ],
                 ],
                 //收藏

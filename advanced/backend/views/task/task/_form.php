@@ -40,12 +40,14 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model
         </el-form-item> 
 
         <el-form-item prop="file"
+                      v-if="data.type == 3"
                       label="<?= ActiveElementForm::getFieldLabel($model,"file")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"file")?>">
             <upload-file v-model="data.file" path="task"></upload-file>
         </el-form-item> 
 
         <el-form-item prop="audio"
+                      v-if="data.type != 0"
                       label="<?= ActiveElementForm::getFieldLabel($model,"audio")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"audio")?>">
             <upload-file v-model="data.audio" path="task"></upload-file>

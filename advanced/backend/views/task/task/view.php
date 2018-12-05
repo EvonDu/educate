@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'content:raw',
                         'file',
                         'audio',
-                        'create_at:date',
+                        'created_at:date',
                         'finish_at:date',
                     ],
                 ]) ?>
