@@ -2,7 +2,6 @@
 
 namespace backend\controllers\course;
 
-use common\models\setting\Setting;
 use Yii;
 use common\models\course\Course;
 use common\models\course\CourseSearch;

@@ -6,10 +6,15 @@ use api\lib\ApiController;
 
 /**
  * @SWG\Swagger(
- *     host="dev2.people71.com//github/educate/advanced/api/web",
- *     schemes={"http"},
- *     consumes={"application/json"},
+ *     host={"192.168.1.12/github/educate/advanced/api/web"},
+ *     schemes={"http","https"},
+ *     consumes={"application/x-www-form-urlencoded","application/json"},
  *     produces={"application/json"},
+ *     apiEnvs={
+ *          { "name": "本地", "baseUrl": "http://localhost/github/educate/advanced/api/web", "sortWeight": 1, "mock": false, "status": "on"},
+ *          { "name": "局域网", "baseUrl": "http://192.168.1.12/github/educate/advanced/api/web", "sortWeight": 2, "mock": false, "status": "on"},
+ *          { "name": "服务器", "baseUrl": "http://47.244.63.58/educate/advanced/api/web", "sortWeight": 3, "mock": false, "status": "on"}
+ *     }
  * ),
  * @SWG\Info(version="1.0",title="接口文档",description="接口相关的Swagger文档"),
  */
