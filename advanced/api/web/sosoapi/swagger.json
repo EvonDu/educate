@@ -875,6 +875,93 @@
                 }
             }
         },
+        "/v1/upload/file": {
+            "post": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "\u6587\u4ef6\u4e0a\u4f20",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "\u4e0a\u4f20\u6587\u4ef6",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8bbf\u95ee\u5730\u5740"
+                    }
+                }
+            }
+        },
+        "/v1/upload/base64": {
+            "post": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "\u5355\u4e0a\u4f20\u6587\u4ef6(Base64\u5b57\u7b26\u4e32)",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "base64",
+                        "in": "formData",
+                        "description": "\u4e0a\u4f20\u6587\u4ef6\u7684Base64\u5b57\u7b26\u4e32",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u8bbf\u95ee\u5730\u5740"
+                    }
+                }
+            }
+        },
+        "/v1/upload/get/{src}": {
+            "get": {
+                "tags": [
+                    "Common"
+                ],
+                "summary": "\u83b7\u53d6\u6587\u4ef6",
+                "description": "",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "src",
+                        "in": "path",
+                        "description": "\u6587\u4ef6\u670d\u52a1\u5668\u8def\u5f84",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "\u6587\u4ef6\u5185\u5bb9"
+                    }
+                }
+            }
+        },
         "/v1/users": {
             "get": {
                 "tags": [
@@ -1523,6 +1610,10 @@
         {
             "name": "Task",
             "description": "\u4f5c\u4e1a"
+        },
+        {
+            "name": "Common",
+            "description": "\u901a\u7528"
         },
         {
             "name": "User",

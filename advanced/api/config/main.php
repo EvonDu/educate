@@ -57,6 +57,15 @@ return [
                         'POST login' => 'login',
                     ],
                 ],
+                //公共
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => ['v1/upload'],
+                    'extraPatterns' => [
+                        'GET get/<src:.*>' => 'get',
+                    ],
+                ],
                 //媒体
                 [
                     'class' => 'yii\rest\UrlRule',

@@ -1,5 +1,5 @@
 <?php
-namespace common\lib;
+namespace common\lib\base;
 
 use Yii;
 use yii\helpers\Url;
