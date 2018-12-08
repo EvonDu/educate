@@ -60,6 +60,9 @@ class CoursesController extends ApiController
 {
     public $modelClass = 'common\models\course\Course';
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         $parent = parent::actions();

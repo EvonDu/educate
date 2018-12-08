@@ -96,6 +96,7 @@ return [
                     'extraPatterns' => [
                         'GET submits' => 'submits-view',
                         'POST submits' => 'submits-create',
+                        'GET user/<task_id:\d+>' => 'user-view',
                     ],
                 ],
                 //收藏

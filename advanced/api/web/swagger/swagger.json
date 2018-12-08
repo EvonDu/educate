@@ -640,49 +640,6 @@
                 }
             }
         },
-        "/v1/tasks/user": {
-            "get": {
-                "tags": [
-                    "Task"
-                ],
-                "summary": "\u4f5c\u4e1a\u5217\u8868",
-                "description": "\u83b7\u53d6\u6240\u6709\u4f5c\u4e1a\u5217\u8868",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "user_id",
-                        "in": "query",
-                        "description": "\u5b66\u751fID",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "course_id",
-                        "in": "query",
-                        "description": "\u8bfe\u7a0bID",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "lesson_id",
-                        "in": "query",
-                        "description": "\u7ae0\u8282ID",
-                        "required": false,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "return": {
-                        "description": "\u4f5c\u4e1a\u5217\u8868"
-                    }
-                }
-            }
-        },
         "/v1/tasks/{id}": {
             "get": {
                 "tags": [
@@ -717,8 +674,8 @@
                 "tags": [
                     "Task"
                 ],
-                "summary": "\u4f5c\u4e1a\u63d0\u4ea4\u8be6\u60c5",
-                "description": "\u4f5c\u4e1a\u63d0\u4ea4\u8be6\u60c5",
+                "summary": "\u63d0\u4ea4\u8be6\u60c5",
+                "description": "\u4f5c\u4e1a\u63d0\u4ea4\u7684\u8be6\u60c5",
                 "consumes": [
                     "application/json"
                 ],
@@ -799,6 +756,85 @@
                 "responses": {
                     "return": {
                         "description": "\u63d0\u4ea4ID"
+                    }
+                }
+            }
+        },
+        "/v1/tasks/user": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "\u4f5c\u4e1a\u5217\u8868",
+                "description": "\u4f5c\u4e1a\u5217\u8868(\u542b\u7528\u6237\u72b6\u6001)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u5b66\u751fID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "query",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "lesson_id",
+                        "in": "query",
+                        "description": "\u7ae0\u8282ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u4f5c\u4e1a\u5217\u8868"
+                    }
+                }
+            }
+        },
+        "/v1/tasks/user/{task_id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "\u4f5c\u4e1a\u8be6\u60c5",
+                "description": "\u4f5c\u4e1a\u8be6\u60c5(\u542b\u7528\u6237\u72b6\u6001)",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "task_id",
+                        "in": "path",
+                        "description": "\u4f5c\u4e1aID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "\u5b66\u751fID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u4f5c\u4e1a\u5217\u8868"
                     }
                 }
             }
