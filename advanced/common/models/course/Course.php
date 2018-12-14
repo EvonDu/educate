@@ -5,7 +5,6 @@ namespace common\models\course;
 use Yii;
 use common\models\instructor\Instructor;
 
-
 /**
  * This is the model class for table "course".
  *
@@ -27,6 +26,7 @@ use common\models\instructor\Instructor;
  * @property int $next_term_at 下学期
  * @property bool $try 支持试用
  * @property int $try_day 试用天数
+ * @property int $buy_day 购买天数(购买后可以使用的天数)
  * @property int $created_at 创建时间
  * @property int $updated_at 更新时间
  *
@@ -42,6 +42,7 @@ class Course extends \yii\db\ActiveRecord
     public function init()
     {
         //初始值
+        $this->buy_day = 180;
         $this->try_day = 30;
         $this->period = 18;
         //父函数
@@ -63,7 +64,7 @@ class Course extends \yii\db\ActiveRecord
     {
         return [
             [['num'], 'required'],
-            [['price', 'instructor_id', 'type_id', 'level', 'period', 'next_term_at', 'try_day', 'created_at', 'updated_at'], 'integer'],
+            [['price', 'instructor_id', 'type_id', 'level', 'period', 'next_term_at', 'try_day', 'buy_day', 'created_at', 'updated_at'], 'integer'],
             [['synopsis', 'abstract', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'string'],
             [['try'], 'boolean'],
             [['num', 'name'], 'string', 'max' => 50],
@@ -108,7 +109,8 @@ class Course extends \yii\db\ActiveRecord
             'requirements_hardware' => '课程要求 - 硬件',
             'next_term_at' => '下学期开课时间',
             'try' => '试用',
-            'try_day' => '试用时间',
+            'try_day' => '试用天数',
+            'buy_day' => '购买天数',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
