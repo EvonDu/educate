@@ -130,6 +130,18 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                     <el-input v-model.number="price"></el-input>
                 </el-form-item>
 
+                <el-form-item prop="buy_day"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"buy_day")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"buy_day")?>">
+                    <el-select v-model="data.buy_day" placeholder="请选择">
+                        <el-option key="30" label="30天" :value="30"></el-option>
+                        <el-option key="90" label="90天" :value="90"></el-option>
+                        <el-option key="180" label="180天" :value="180"></el-option>
+                        <el-option key="360" label="360天" :value="360"></el-option>
+                        <el-option key="3600" label="3600天" :value="3600"></el-option>
+                    </el-select>
+                </el-form-item>
+
                 <el-form-item prop="try"
                               label="<?= ActiveElementForm::getFieldLabel($model,"try")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"try")?>">
