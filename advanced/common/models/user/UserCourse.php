@@ -13,7 +13,8 @@ use yii\base\Exception;
  * @property int $user_id 用户
  * @property int $course_id 课程
  * @property bool $try 是否为试用
- * @property int $tryed_at 使用结束时间
+ * @property int $tryed_at 试用结束时间
+ * @property int $used_at 使用结束时间
  * @property int $created_at 开始时间
  *
  * @property Course $course
@@ -46,7 +47,7 @@ class UserCourse extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'course_id'], 'required'],
-            [['user_id', 'course_id', 'tryed_at', 'created_at'], 'integer'],
+            [['user_id', 'course_id', 'tryed_at', 'used_at', 'created_at'], 'integer'],
             [['try'], 'boolean'],
             [['user_id', 'course_id'], 'unique', 'targetAttribute' => ['user_id', 'course_id']],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['course_id' => 'id']],
@@ -64,6 +65,7 @@ class UserCourse extends \yii\db\ActiveRecord
             'course_id' => 'Course ID',
             'try' => 'Try',
             'tryed_at' => 'Tryed At',
+            'used_at' => 'Used At',
             'created_at' => 'Created At',
         ];
     }
@@ -137,22 +139,35 @@ class UserCourse extends \yii\db\ActiveRecord
      * @throws Exception
      */
     static function buyCourse($user_id, $course_id){
+        //获取课程
+        $course = Course::findOne($course_id);
+        if(!$course)
+            throw new Exception("not fount course.");
+
         //查询是否已经购买或者试用
         $model = self::findOne(["user_id"=>$user_id, "course_id"=>$course_id]);
-        if(!$model){
+
+        //如果有旧记录(试用或者购买)，则叠加时间
+        if($model){
+            $old_time = max(time(),$model->tryed_at,$model->used_at);
+            $model->try = false;
+            $model->used_at = $old_time + ($course->buy_day * 24 * 60 * 60);
+        }
+        //如果没有旧记录，则全新记录
+        else{
             $model = new self();
+            $model->try = false;
             $model->user_id = $user_id;
             $model->course_id = $course_id;
+            $model->used_at = time() + ($course->buy_day * 24 * 60 * 60);
+            $model->used_at += ($course->try_day * 24 * 60 * 60);//一并领取所有试用时间
         }
-
-        //修改记录
-        $model->try = false;
 
         //保存信息
         if($model->save())
             return true;
         else
-            return $model->errors;
+            return false;
     }
 
     /**
@@ -162,8 +177,7 @@ class UserCourse extends \yii\db\ActiveRecord
      */
     static function getHaveCourse($user_id){
         $query = self::find()
-            ->andWhere(["user_id"=>$user_id, "try"=>false])
-            ->orWhere('user_id=:user_id and try=:try and tryed_at>:tryed_at', [":user_id"=>$user_id, ":try"=>true, ":tryed_at"=>time()]);
+            ->andWhere('user_id=:user_id AND (tryed_at>:time OR used_at>:time)', [":user_id"=>$user_id, ":time"=>time()]);
 
         $list = $query->all();
 
