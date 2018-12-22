@@ -6,8 +6,8 @@ return [
     'productName' => 'YII Admin 3',
     //配置用户
     'user' => [
-        'name'=> Yii::$app->user->identity->info->nickname,
-        'image'=> Yii::$app->user->identity->info->avatarUrl,
+        'name'=> isset(Yii::$app->user->identity->info->nickname) ? Yii::$app->user->identity->info->nickname : null,
+        'image'=> isset(Yii::$app->user->identity->info->avatarUrl) ? Yii::$app->user->identity->info->avatarUrl : null,
         'job'=> "开发者",
         'abstract'=> 'PHP后端开发者',
     ],
