@@ -43,6 +43,16 @@ class Nav
             ),
             array(
                 'url' => '#',
+                'title' => "首页设置",
+                'icon' => 'fa fa-home',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "主页内容", 'url' => Url::to(['home/homepage/index'])),
+                    array('title' => "主页扩展", 'url' => Url::to(['home/homepage-items/index'])),
+                )
+            ),
+            array(
+                'url' => '#',
                 'title' => "课程管理",
                 'icon' => 'fa fa-book',
                 'auth' => '',

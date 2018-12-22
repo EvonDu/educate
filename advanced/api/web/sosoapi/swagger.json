@@ -383,6 +383,26 @@
                 }
             }
         },
+        "/v1/homepage": {
+            "get": {
+                "tags": [
+                    "Homepage"
+                ],
+                "summary": "\u9996\u9875\u4fe1\u606f",
+                "description": "\u83b7\u53d6\u9996\u9875\u4fe1\u606f",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u9996\u9875\u4fe1\u606f\u5217\u8868"
+                    }
+                }
+            }
+        },
         "/v1/instructors": {
             "get": {
                 "tags": [
@@ -1594,6 +1614,10 @@
         {
             "name": "Favorite",
             "description": "\u6536\u85cf"
+        },
+        {
+            "name": "Homepage",
+            "description": "\u4e3b\u9875"
         },
         {
             "name": "Instructor",
