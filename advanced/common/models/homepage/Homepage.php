@@ -23,6 +23,9 @@ class Homepage extends \yii\db\ActiveRecord
         return 'homepage';
     }
 
+    /**
+     * @return array
+     */
     public function fields()
     {
         $parent = parent::fields();

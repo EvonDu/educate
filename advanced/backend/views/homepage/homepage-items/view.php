@@ -59,8 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         'order',
-                        'image',
-                        'content:ntext',
+                        [
+                            'attribute'=>'image',
+                            'format' => 'raw',
+                            'value' => function($model){return isset($model->image)?Html::img($model->image,['style'=>'width: 360px;']):null;}
+                        ],
+                        'content:raw',
                     ],
                 ]) ?>
 

@@ -47,8 +47,8 @@ class Nav
                 'icon' => 'fa fa-home',
                 'auth' => '',
                 'nodes' => array(
-                    array('title' => "主页内容", 'url' => Url::to(['home/homepage/index'])),
-                    array('title' => "主页扩展", 'url' => Url::to(['home/homepage-items/index'])),
+                    array('title' => "主页内容", 'url' => Url::to(['homepage/homepage/index'])),
+                    array('title' => "主页扩展", 'url' => Url::to(['homepage/homepage-items/index'])),
                 )
             ),
             array(

@@ -42,10 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
-                        'id',
+                        //'id',
                         'order',
-                        'image',
-                        'content:ntext',
+                        [
+                            'attribute' => 'image',
+                            'format' => 'raw',
+                            'value'=>function($model){return isset($model->image)?Html::img($model->image,['style'=>'width: 360px;']):null;}
+                        ],
+                        //'content:ntext',
 
                         ['class' => 'vuelte\widgets\ActionColumn'],
                     ],
