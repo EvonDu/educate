@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\lib\QiniuUpload;
-use common\lib\Base\Upload;
+use common\lib\base\Upload;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
