@@ -54,15 +54,13 @@
         },
         data:function(){
             return {
-                uploadUrl:"<?=Url::to(["upload/qiniu","path"=>""],true)?>" + this.path,
+                uploadUrl:"<?=Url::to(["upload/file"],true)?>",
+                //uploadUrl:"<?=Url::to(["upload/qiniu","path"=>""],true)?>" + this.path,
             }
         },
         computed: {
             imageUrl: function () {
-                if(this.value)
-                    return this.value;
-                else
-                    return null;
+                return this.value ? this.value : null;
             }
         },
         methods: {

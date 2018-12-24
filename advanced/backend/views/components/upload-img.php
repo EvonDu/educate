@@ -52,14 +52,13 @@
         },
         data:function(){
             return {
-                uploadUrl:"<?=Url::to(["upload/file",'src'=>''],true)?>",
-                //baseUrl:"<?=Url::to(["upload/get",'src'=>''],true)?>",
+                uploadUrl:"<?=Url::to(["upload/file"],true)?>",
             }
         },
         computed: {
             imageUrl: function () {
-                return this.value;
-                //return this.value ? this.baseUrl + "/" + this.value : null;
+                return this.value ? this.value : null;
+                //return this.value ? "<?=Url::to(["upload/get",'src'=>''],true)?>" + "/" + this.value : null;
             }
         },
         methods: {
