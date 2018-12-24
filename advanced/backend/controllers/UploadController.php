@@ -49,7 +49,8 @@ class UploadController extends Controller
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
             list($path,$src) = Upload::upload_file($file,$this->uploadPath());
-            Upload::sentApiResult(0,"",$src);
+            $url = Url::to(["get"],true)."/$src";
+            Upload::sentApiResult(0,"",$url);
         }
         else{
             Upload::sentApiResult(0,"image could not be saved.",null);

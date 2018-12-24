@@ -52,16 +52,14 @@
         },
         data:function(){
             return {
-                baseUrl:"<?=Url::to(["upload/get",'src'=>''],true)?>",
                 uploadUrl:"<?=Url::to(["upload/file",'src'=>''],true)?>",
+                //baseUrl:"<?=Url::to(["upload/get",'src'=>''],true)?>",
             }
         },
         computed: {
             imageUrl: function () {
-                if(this.value)
-                    return this.baseUrl + "/" + this.value;
-                else
-                    return null;
+                return this.value;
+                //return this.value ? this.baseUrl + "/" + this.value : null;
             }
         },
         methods: {

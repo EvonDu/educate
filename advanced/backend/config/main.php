@@ -56,6 +56,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'GET upload/get/<src:.*>' => 'upload/get',
             ],
         ],
     ],
