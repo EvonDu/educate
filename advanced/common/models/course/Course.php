@@ -70,6 +70,7 @@ class Course extends \yii\db\ActiveRecord
             [['num', 'name'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 256],
             [['num'], 'unique'],
+            [['num'], 'ruleCheckLegitimate' ,'params'=>[]],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseType::className(), 'targetAttribute' => ['type_id' => 'id']],
             [['instructor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Instructor::className(), 'targetAttribute' => ['instructor_id' => 'id']],
         ];
@@ -169,5 +170,16 @@ class Course extends \yii\db\ActiveRecord
             }
         }
         return $result;
+    }
+
+    /**
+     * @param $attribute
+     * @param $params
+     */
+    public function ruleCheckLegitimate($attribute, $params){
+        $check = preg_match("/[\s]/",$this->$attribute);
+
+        if($check)
+            $this->addError($attribute, "请勿使用空格等特殊符号");
     }
 }
