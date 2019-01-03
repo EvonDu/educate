@@ -78,11 +78,11 @@ class Nav
                 'icon' => 'fa fa-file-powerpoint-o',
                 'auth' => '',
                 'nodes' => array(
+                    array('title' => "学习模式", 'url' => Url::to(['page/page/methods'])),
+                    array('title' => "使用条款", 'url' => Url::to(['page/page/terms-of-use'])),
+                    array('title' => "私隐", 'url' => Url::to(['page/page/privacy'])),
+                    array('title' => "服务支持", 'url' => Url::to(['page/page/support'])),
                     array('title' => "关于我们", 'url' => Url::to(['page/page/about-us'])),
-                    array('title' => "公司介绍", 'url' => Url::to(['page/page/company-profile'])),
-                    array('title' => "用户协议", 'url' => Url::to(['page/page/user-agreement'])),
-                    array('title' => "支付协议", 'url' => Url::to(['page/page/payment-agreement'])),
-                    array('title' => "学习教程", 'url' => Url::to(['page/page/tutorial'])),
                 )
             ),
             array(

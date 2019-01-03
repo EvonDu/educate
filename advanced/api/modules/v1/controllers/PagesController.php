@@ -37,11 +37,12 @@ class PagesController extends ApiController
      */
     public function actionIndex(){
         $list = [];
+        $list[] = Page::getPage("Methods");
+        $list[] = Page::getPage("TermsOfUse");
+        $list[] = Page::getPage("Privacy");
+        $list[] = Page::getPage("Support");
+        $list[] = Page::getPage("CopyrightPolicy");
         $list[] = Page::getPage("AboutUs");
-        $list[] = Page::getPage("CompanyProfile");
-        $list[] = Page::getPage("UserAgreement");
-        $list[] = Page::getPage("PaymentAgreement");
-        $list[] = Page::getPage("Tutorial");
         return $list;
     }
 
@@ -127,6 +128,74 @@ class PagesController extends ApiController
      */
     public function actionTutorial(){
         $model = Page::getPage("Tutorial");
+        return $model;
+    }
+
+    /**
+     * 学习模式
+     * @SWG\GET(
+     *     path="/v1/pages/methods",
+     *     tags={"Page"},
+     *     summary="学习模式",
+     *     description="学习模式",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Response( response="return",description="学习模式")
+     * )
+     */
+    public function actionMethods(){
+        $model = Page::getPage("Methods");
+        return $model;
+    }
+
+    /**
+     * 使用条款
+     * @SWG\GET(
+     *     path="/v1/pages/terms-of-use",
+     *     tags={"Page"},
+     *     summary="使用条款",
+     *     description="使用条款",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Response( response="return",description="使用条款")
+     * )
+     */
+    public function actionTermsOfUse(){
+        $model = Page::getPage("TermsOfUse");
+        return $model;
+    }
+
+    /**
+     * 私隐
+     * @SWG\GET(
+     *     path="/v1/pages/privacy",
+     *     tags={"Page"},
+     *     summary="私隐",
+     *     description="私隐",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Response( response="return",description="私隐")
+     * )
+     */
+    public function actionPrivacy(){
+        $model = Page::getPage("Privacy");
+        return $model;
+    }
+
+    /**
+     * 服务支持
+     * @SWG\GET(
+     *     path="/v1/pages/support",
+     *     tags={"Page"},
+     *     summary="服务支持",
+     *     description="服务支持",
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Response( response="return",description="服务支持")
+     * )
+     */
+    public function actionSupport(){
+        $model = Page::getPage("Support");
         return $model;
     }
 }

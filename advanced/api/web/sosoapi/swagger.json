@@ -624,6 +624,86 @@
                 }
             }
         },
+        "/v1/pages/methods": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u5b66\u4e60\u6a21\u5f0f",
+                "description": "\u5b66\u4e60\u6a21\u5f0f",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u5b66\u4e60\u6a21\u5f0f"
+                    }
+                }
+            }
+        },
+        "/v1/pages/terms-of-use": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u4f7f\u7528\u6761\u6b3e",
+                "description": "\u4f7f\u7528\u6761\u6b3e",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u4f7f\u7528\u6761\u6b3e"
+                    }
+                }
+            }
+        },
+        "/v1/pages/privacy": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u79c1\u9690",
+                "description": "\u79c1\u9690",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u79c1\u9690"
+                    }
+                }
+            }
+        },
+        "/v1/pages/support": {
+            "get": {
+                "tags": [
+                    "Page"
+                ],
+                "summary": "\u670d\u52a1\u652f\u6301",
+                "description": "\u670d\u52a1\u652f\u6301",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u670d\u52a1\u652f\u6301"
+                    }
+                }
+            }
+        },
         "/v1/tasks": {
             "get": {
                 "tags": [

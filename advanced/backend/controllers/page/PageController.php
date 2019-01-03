@@ -108,4 +108,68 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * 学习模式
+     * @return string|\yii\web\Response
+     */
+    public function actionMethods(){
+        $model = Page::getPage("Methods");
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * 使用条款
+     * @return string|\yii\web\Response
+     */
+    public function actionTermsOfUse(){
+        $model = Page::getPage("TermsOfUse");
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * 私隐条款
+     * @return string|\yii\web\Response
+     */
+    public function actionPrivacy(){
+        $model = Page::getPage("Privacy");
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * 服务支持
+     * @return string|\yii\web\Response
+     */
+    public function actionSupport(){
+        $model = Page::getPage("Support");
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
 }

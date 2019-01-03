@@ -73,6 +73,11 @@ class Page extends \yii\db\ActiveRecord
             "PaymentAgreement"  => "支付协议",
             "UserAgreement"     => "用户协议",
             "Tutorial"          => "学习教程",
+            "Methods"           => "学习模式",
+            "TermsOfUse"        => "使用条款",
+            "Privacy"           => "私隐",
+            "Support"           => "服务支持",
+            "CopyrightPolicy"   => "版权政策",
         ];
     }
 }
