@@ -7,7 +7,7 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $model common\models\page\Page */
 /* @var $form yii\widgets\ActiveForm */
 
-vuelte\lib\Import::component($this,"@app/views/components/summernote");
+vuelte\lib\Import::component($this,"@app/views/components/ueditor");
 ?>
 <component-template>
     <div class="page-form">
@@ -20,8 +20,8 @@ vuelte\lib\Import::component($this,"@app/views/components/summernote");
         <el-form-item prop="content"
                       label2="<?= ActiveElementForm::getFieldLabel($model,"content")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"content")?>">
-            <summernote v-model="data.content"></summernote>
-        </el-form-item> 
+            <ueditor v-model="data.content"></ueditor>
+        </el-form-item>
 
         <el-form-item>
             <lte-btn type="info" @click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> 保存</lte-btn>

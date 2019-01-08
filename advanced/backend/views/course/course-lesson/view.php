@@ -99,17 +99,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]) ?>
 
                     </el-tab-pane>
-
-                    <el-tab-pane label="章节作业" name="task">
-
-                        <?= DetailView::widget([
-                            'model' => $model,
-                            'attributes' => [
-                                'task:raw',
-                            ],
-                        ]) ?>
-
-                    </el-tab-pane>
                 </el-tabs>
 
             </lte-box>

@@ -8,7 +8,8 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $form yii\widgets\ActiveForm */
 
 vuelte\lib\Import::component($this,"@app/views/components/upload-img");
-vuelte\lib\Import::component($this,"@app/views/components/summernote");
+//vuelte\lib\Import::component($this,"@app/views/components/summernote");
+vuelte\lib\Import::component($this,"@app/views/components/ueditor");
 ?>
 <component-template>
     <div class="page-form">
@@ -39,7 +40,7 @@ vuelte\lib\Import::component($this,"@app/views/components/summernote");
         <el-form-item prop="content"
                       label="<?= ActiveElementForm::getFieldLabel($model,"content")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"content")?>">
-            <summernote v-model="data.content"></summernote>
+            <ueditor v-model="data.content"></ueditor>
         </el-form-item>
 
         <el-form-item>

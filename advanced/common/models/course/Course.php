@@ -177,9 +177,9 @@ class Course extends \yii\db\ActiveRecord
      * @param $params
      */
     public function ruleCheckLegitimate($attribute, $params){
-        $check = preg_match("/[\s]/",$this->$attribute);
-
-        if($check)
+        if(preg_match("/[\s]/",$this->$attribute))
+            $this->addError($attribute, "请勿使用空格等特殊符号");
+        if(preg_match("/[-]/",$this->$attribute))
             $this->addError($attribute, "请勿使用空格等特殊符号");
     }
 }

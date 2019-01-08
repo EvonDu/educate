@@ -93,7 +93,7 @@ return [
                     'extraPatterns' => [
                         'GET ' => 'index',
                         'GET hash' => 'hash',
-                        'GET <course_num:.*>' => 'view',
+                        'GET <course_num:\w+>' => 'view',
                         'GET lessons/<id:\d+>' => 'lessons',
                     ],
                 ],

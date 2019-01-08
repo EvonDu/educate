@@ -62,16 +62,6 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['mode
                 </el-form-item>
 
             </el-tab-pane>
-
-            <el-tab-pane label="章节作业" name="task">
-
-                <el-form-item prop="task"
-                              label="<?= ActiveElementForm::getFieldLabel($model,"task")?>"
-                              error="<?= ActiveElementForm::getFieldError($model,"task")?>">
-                    <summernote v-model="data.task"></summernote>
-                </el-form-item>
-
-            </el-tab-pane>
         </el-tabs>
 
         <el-form-item>
