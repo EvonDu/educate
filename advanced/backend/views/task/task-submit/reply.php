@@ -52,13 +52,13 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model
 
                 <?php if(!empty($model->submit_file)):?>
                     <el-form-item label="提交文件">
-                        <a type="button" class="btn btn-primary btn-flat" href="<?=$task->submit_file?>" target="_blank">文件下载</a>
+                        <a type="button" class="btn btn-primary btn-flat" href="<?=$model->submit_file?>" target="_blank">文件下载</a>
                     </el-form-item>
                 <?php endif;?>
 
                 <?php if(!empty($model->submit_audio)):?>
                     <el-form-item label="提交音频">
-                        <a type="button" class="btn btn-primary btn-flat" href="<?=$task->submit_audio?>" target="_blank">文件下载</a>
+                        <a type="button" class="btn btn-primary btn-flat" href="<?=$model->submit_audio?>" target="_blank">文件下载</a>
                     </el-form-item>
                 <?php endif;?>
 

@@ -176,18 +176,12 @@ class Task extends \yii\db\ActiveRecord
                 "IFNULL($from2.status, 0) AS status"
             ])
             ->from($from1)
-            ->leftJoin($from2,"$from1.id = $from2.task_id")
-            ->where([
-                "or",
-                "$from2.user_id IS NULL",
-                "$from2.user_id=:user_id",
-            ],["user_id"=>$user_id]);
+            ->leftJoin($from2,"$from1.id = $from2.task_id AND $from2.user_id='$user_id'");
         if($course_id != null)
             $find->andWhere(["$from1.course_id"=>$course_id]);
         if($lesson_id != null)
             $find->andWhere(["$from1.lesson_id"=>$lesson_id]);
 
-        //return $find->createCommand()->getRawSql();
         return $find->all();
     }
 }
