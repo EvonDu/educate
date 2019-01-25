@@ -10,6 +10,7 @@ use Yii;
  * @property string $name
  * @property string $title
  * @property string $content
+ * @property string $content_en
  */
 class Page extends \yii\db\ActiveRecord
 {
@@ -28,7 +29,7 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['content'], 'string'],
+            [['content', 'content_en'], 'string'],
             [['name', 'title'], 'string', 'max' => 50],
             [['name'], 'unique'],
         ];
@@ -42,7 +43,8 @@ class Page extends \yii\db\ActiveRecord
         return [
             'name' => 'Name',
             'title' => 'Title',
-            'content' => 'Content',
+            'content' => '中文',
+            'content_en' => '英语',
         ];
     }
 

@@ -11,7 +11,7 @@ use vuelte\widgets\ActiveElementForm;
     <div class="course-type-form">
 
         <?php ActiveElementForm::begin(["options"=>[
-            "label-width" => "100px",
+            "label-width" => "120px",
             "status-icon" => true,
         ]]); ?>
 
@@ -19,6 +19,12 @@ use vuelte\widgets\ActiveElementForm;
                       label="<?= ActiveElementForm::getFieldLabel($model,"name")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"name")?>">
             <el-input v-model="data.name"></el-input>
+        </el-form-item>
+
+        <el-form-item prop="name_en"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"name_en")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"name_en")?>">
+            <el-input v-model="data.name_en"></el-input>
         </el-form-item>
 
         <el-form-item>

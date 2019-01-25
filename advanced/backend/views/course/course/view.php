@@ -62,7 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'num',
                                 'instructor.name',
                                 'type.name',
+                                'type.name_en',
                                 'name',
+                                'name_en',
                                 [
                                     'attribute'=>'image',
                                     'format' => 'raw',
@@ -71,7 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'level',
                                 'period',
                                 'synopsis:ntext',
+                                'synopsis_en:ntext',
                                 'abstract:raw',
+                                'abstract_en:raw',
                                 'created_at:datetime',
                                 'updated_at:datetime',
                             ],
@@ -85,6 +89,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'requirements_textbooks:raw',
                                 'requirements_software:raw',
                                 'requirements_hardware:raw',
+                                'requirements_prerequisites_en:raw',
+                                'requirements_textbooks_en:raw',
+                                'requirements_software_en:raw',
+                                'requirements_hardware_en:raw',
                             ],
                         ]) ?>
                     </el-tab-pane>
@@ -95,6 +103,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'attribute'=>'price',
                                     'value' => function($model){return isset($model->price)?$model->price/100:0;}
+                                ],
+                                [
+                                    'attribute'=>'price_dollar',
+                                    'value' => function($model){return isset($model->price_dollar)?$model->price_dollar/100:0;}
                                 ],
                                 'buy_day',
                                 'try:boolean',

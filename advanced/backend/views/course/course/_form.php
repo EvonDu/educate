@@ -33,6 +33,12 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                     <el-input v-model="data.name"></el-input>
                 </el-form-item>
 
+                <el-form-item prop="name_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"name_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"name_en")?>">
+                    <el-input v-model="data.name_en"></el-input>
+                </el-form-item>
+
                 <el-form-item prop="instructor_id"
                               label="<?= ActiveElementForm::getFieldLabel($model,"instructor_id")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"instructor_id")?>">
@@ -90,10 +96,22 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                     <el-input v-model="data.synopsis" type="textarea" rows="3"></el-input>
                 </el-form-item>
 
+                <el-form-item prop="synopsis_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"synopsis_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"synopsis_en")?>">
+                    <el-input v-model="data.synopsis_en" type="textarea" rows="3"></el-input>
+                </el-form-item>
+
                 <el-form-item prop="abstract"
                               label="<?= ActiveElementForm::getFieldLabel($model,"abstract")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"abstract")?>">
                     <summernote v-model="data.abstract"></summernote>
+                </el-form-item>
+
+                <el-form-item prop="abstract_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"abstract_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"abstract_en")?>">
+                    <summernote v-model="data.abstract_en"></summernote>
                 </el-form-item>
 
             </el-tab-pane>
@@ -121,6 +139,30 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                               error="<?= ActiveElementForm::getFieldError($model,"requirements_hardware")?>">
                     <summernote v-model="data.requirements_hardware"></summernote>
                 </el-form-item>
+
+                <el-form-item prop="requirements_prerequisites_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"requirements_prerequisites_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"requirements_prerequisites_en")?>">
+                    <summernote v-model="data.requirements_prerequisites_en"></summernote>
+                </el-form-item>
+
+                <el-form-item prop="requirements_textbooks_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"requirements_textbooks_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"requirements_textbooks_en")?>">
+                    <summernote v-model="data.requirements_textbooks_en"></summernote>
+                </el-form-item>
+
+                <el-form-item prop="requirements_software_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"requirements_software_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"requirements_software_en")?>">
+                    <summernote v-model="data.requirements_software_en"></summernote>
+                </el-form-item>
+
+                <el-form-item prop="requirements_hardware_en"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"requirements_hardware_en")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"requirements_hardware_en")?>">
+                    <summernote v-model="data.requirements_hardware_en"></summernote>
+                </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="课程收费" name="price">
 
@@ -128,6 +170,12 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                               label="<?= ActiveElementForm::getFieldLabel($model,"price")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"price")?>">
                     <el-input v-model.number="price"></el-input>
+                </el-form-item>
+
+                <el-form-item prop="price_dollar"
+                              label="<?= ActiveElementForm::getFieldLabel($model,"price_dollar")?>"
+                              error="<?= ActiveElementForm::getFieldError($model,"price_dollar")?>">
+                    <el-input v-model.number="price_dollar"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="buy_day"
@@ -208,6 +256,7 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                 instructorMap:<?= json_encode(\common\models\instructor\Instructor::getMap())?>,
                 typeMap:<?= json_encode(\common\models\course\CourseType::getMap())?>,
                 price:0,
+                price_dollar:0,
                 formRule:{
                     price: [
                         { validator: checkPrice, trigger: 'blur' }
@@ -221,13 +270,15 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                 this.nextTerm = new Date(this.data.next_term_at * 1000);
             if(this.data.price)
                 this.price = this.data.price/100;
+            if(this.data.price_dollar)
+                this.price_dollar = this.data.price_dollar/100;
         },
         methods: {
             submit: function (event) {
                 if(this.nextTerm)
                     this.data.next_term_at = Date.parse(this.nextTerm)/1000;
-                if(this.data.price)
-                    this.data.price = this.price * 100;
+                this.data.price = (this.price * 100).toFixed(0);
+                this.data.price_dollar = (this.price_dollar * 100).toFixed(0);
 
                 YiiFormSubmit(this.data, "Course");
             }

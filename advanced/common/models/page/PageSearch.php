@@ -5,7 +5,6 @@ namespace common\models\page;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\page\Page;
 
 /**
  * PageSearch represents the model behind the search form of `common\models\page\Page`.
@@ -18,7 +17,7 @@ class PageSearch extends Page
     public function rules()
     {
         return [
-            [['name', 'title', 'content'], 'safe'],
+            [['name', 'title', 'content', 'content_en'], 'safe'],
         ];
     }
 
@@ -59,7 +58,8 @@ class PageSearch extends Page
         // grid filtering conditions
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'content_en', $this->content_en]);
 
         return $dataProvider;
     }

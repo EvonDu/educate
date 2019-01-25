@@ -17,10 +17,16 @@ vuelte\lib\Import::component($this,"@app/views/components/ueditor");
             "status-icon" => true,
         ]]); ?>
 
+        <h4><b><?= ActiveElementForm::getFieldLabel($model,"content")?>：</b></h4>
         <el-form-item prop="content"
-                      label2="<?= ActiveElementForm::getFieldLabel($model,"content")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"content")?>">
             <ueditor v-model="data.content"></ueditor>
+        </el-form-item>
+
+        <h4><b><?= ActiveElementForm::getFieldLabel($model,"content_en")?>：</b></h4>
+        <el-form-item prop="content_en"
+                      error="<?= ActiveElementForm::getFieldError($model,"content_en")?>">
+            <ueditor v-model="data.content_en"></ueditor>
         </el-form-item>
 
         <el-form-item>

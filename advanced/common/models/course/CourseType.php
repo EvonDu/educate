@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id 聚集索引
  * @property string $name 类型名
+ * @property string $name_en 类型名
  * @property int $created_at 创建时间
  * @property int $updated_at 更新时间
  */
@@ -30,7 +31,7 @@ class CourseType extends \yii\db\ActiveRecord
     {
         return [
             [['created_at', 'updated_at'], 'integer'],
-            [['name'], 'string', 'max' => 50],
+            [['name', 'name_en'], 'string', 'max' => 50],
         ];
     }
 
@@ -42,6 +43,7 @@ class CourseType extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => '课程类型',
+            'name_en' => '课程类型（英）',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
@@ -65,7 +67,10 @@ class CourseType extends \yii\db\ActiveRecord
      */
     static function getMap(){
         $all = self::find()->all();
-        $map = ArrayHelper::map($all,'id','name');
+        $map = [];
+        foreach ($all as $model){
+            $map[$model->id] = "$model->name ($model->name_en)";
+        }
         return $map;
     }
 }

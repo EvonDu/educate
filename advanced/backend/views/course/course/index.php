@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id',
                         'num',
                         'name',
+                        'name_en',
                         'instructor.name',
                         //'synopsis:ntext',
                         //'image',

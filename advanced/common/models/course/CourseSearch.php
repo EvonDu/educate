@@ -18,8 +18,10 @@ class CourseSearch extends Course
     public function rules()
     {
         return [
-            [['id', 'price', 'instructor_id', 'type_id', 'level', 'period', 'next_term_at', 'try_day', 'buy_day', 'created_at', 'updated_at'], 'integer'],
-            [['num', 'name', 'image', 'synopsis', 'abstract', 'requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
+            [['id', 'price', 'price_dollar', 'instructor_id', 'type_id', 'level', 'period', 'next_term_at', 'try_day', 'buy_day', 'created_at', 'updated_at'], 'integer'],
+            [['num', 'name', 'name_en', 'image', 'synopsis', 'synopsis_en', 'abstract', 'abstract_en'], 'safe'],
+            [['requirements_prerequisites', 'requirements_textbooks', 'requirements_software', 'requirements_hardware'], 'safe'],
+            [['requirements_prerequisites_en', 'requirements_textbooks_en', 'requirements_software_en', 'requirements_hardware_en'], 'safe'],
             [['try'], 'boolean'],
         ];
     }
@@ -62,6 +64,7 @@ class CourseSearch extends Course
         $query->andFilterWhere([
             'id' => $this->id,
             'price' => $this->price,
+            'price_dollar' => $this->price_dollar,
             'instructor_id' => $this->instructor_id,
             'type_id' => $this->type_id,
             'level' => $this->level,
@@ -72,13 +75,20 @@ class CourseSearch extends Course
 
         $query->andFilterWhere(['like', 'num', $this->num])
             ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'name_en', $this->name_en])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'synopsis', $this->synopsis])
+            ->andFilterWhere(['like', 'synopsis_en', $this->synopsis_en])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
+            ->andFilterWhere(['like', 'abstract_en', $this->abstract_en])
             ->andFilterWhere(['like', 'requirements_prerequisites', $this->requirements_prerequisites])
             ->andFilterWhere(['like', 'requirements_textbooks', $this->requirements_textbooks])
             ->andFilterWhere(['like', 'requirements_software', $this->requirements_software])
-            ->andFilterWhere(['like', 'requirements_hardware', $this->requirements_hardware]);
+            ->andFilterWhere(['like', 'requirements_hardware', $this->requirements_hardware])
+            ->andFilterWhere(['like', 'requirements_prerequisites_en', $this->requirements_prerequisites_en])
+            ->andFilterWhere(['like', 'requirements_textbooks_en', $this->requirements_textbooks_en])
+            ->andFilterWhere(['like', 'requirements_software_en', $this->requirements_software_en])
+            ->andFilterWhere(['like', 'requirements_hardware_en', $this->requirements_hardware_en]);
 
         return $dataProvider;
     }
@@ -112,6 +122,7 @@ class CourseSearch extends Course
         $query->andFilterWhere([
             'id' => $this->id,
             'price' => $this->price,
+            'price_dollar' => $this->price_dollar,
             'instructor_id' => $this->instructor_id,
             'type_id' => $this->type_id,
             'level' => $this->level,
@@ -122,13 +133,20 @@ class CourseSearch extends Course
 
         $query->andFilterWhere(['like', 'num', $this->num])
             ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'name_en', $this->name_en])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'synopsis', $this->synopsis])
+            ->andFilterWhere(['like', 'synopsis_en', $this->synopsis_en])
             ->andFilterWhere(['like', 'abstract', $this->abstract])
+            ->andFilterWhere(['like', 'abstract_en', $this->abstract_en])
             ->andFilterWhere(['like', 'requirements_prerequisites', $this->requirements_prerequisites])
             ->andFilterWhere(['like', 'requirements_textbooks', $this->requirements_textbooks])
             ->andFilterWhere(['like', 'requirements_software', $this->requirements_software])
-            ->andFilterWhere(['like', 'requirements_hardware', $this->requirements_hardware]);
+            ->andFilterWhere(['like', 'requirements_hardware', $this->requirements_hardware])
+            ->andFilterWhere(['like', 'requirements_prerequisites_en', $this->requirements_prerequisites_en])
+            ->andFilterWhere(['like', 'requirements_textbooks_en', $this->requirements_textbooks_en])
+            ->andFilterWhere(['like', 'requirements_software_en', $this->requirements_software_en])
+            ->andFilterWhere(['like', 'requirements_hardware_en', $this->requirements_hardware_en]);
 
         return $dataProvider;
     }
