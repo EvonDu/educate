@@ -37,6 +37,12 @@ vuelte\lib\Import::component($this,"@app/views/components/ueditor");
             <ueditor v-model="data.content"></ueditor>
         </el-form-item>
 
+        <el-form-item prop="content_en"
+                      label="<?= ActiveElementForm::getFieldLabel($model,"content_en")?>"
+                      error="<?= ActiveElementForm::getFieldError($model,"content_en")?>">
+            <ueditor v-model="data.content_en"></ueditor>
+        </el-form-item>
+
         <el-form-item>
             <lte-btn type="info" @click="submit"><i class="glyphicon glyphicon-floppy-disk"></i> 保存</lte-btn>
         </el-form-item>

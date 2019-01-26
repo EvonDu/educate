@@ -11,6 +11,7 @@ use Yii;
  * @property int $order
  * @property string $image
  * @property string $content
+ * @property string $content_en
  */
 class HomepageItems extends \yii\db\ActiveRecord
 {
@@ -29,7 +30,7 @@ class HomepageItems extends \yii\db\ActiveRecord
     {
         return [
             [['order'], 'integer'],
-            [['content'], 'string'],
+            [['content', 'content_en'], 'string'],
             [['image'], 'string', 'max' => 256],
         ];
     }
@@ -44,6 +45,7 @@ class HomepageItems extends \yii\db\ActiveRecord
             'order' => '排序',
             'image' => '图片',
             'content' => '内容',
+            'content_en' => '内容(英)',
         ];
     }
 

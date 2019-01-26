@@ -19,7 +19,7 @@ class HomepageItemsSearch extends HomepageItems
     {
         return [
             [['id', 'order'], 'integer'],
-            [['image', 'content'], 'safe'],
+            [['image', 'content', 'content_en'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class HomepageItemsSearch extends HomepageItems
         ]);
 
         $query->andFilterWhere(['like', 'image', $this->image])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'content_en', $this->content_en]);
 
         return $dataProvider;
     }
