@@ -104,13 +104,16 @@ class CoursesController extends ApiController
             $item = [
                 "num" => $model->num,
                 "name" => $model->name,
+                "name_en" => $model->name_en,
                 "image" => $model->image,
                 "price" => $model->price,
+                "price_dollar" => $model->price_dollar,
                 "type" => $model->type,
                 "instructor" => $model->instructor,
                 "level" => $model->level,
                 "period" => $model->period,
                 "synopsis"=>$model->synopsis,
+                "synopsis_en"=>$model->synopsis_en,
             ];
             $items[] = $item;
         }
