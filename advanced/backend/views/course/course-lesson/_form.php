@@ -58,7 +58,8 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['mode
                 <el-form-item prop="content"
                               label="<?= ActiveElementForm::getFieldLabel($model,"content")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"content")?>">
-                    <el-input v-model="data.content" type="textarea" rows="16"></el-input>
+                    <!--<el-input v-model="data.content" type="textarea" rows="16"></el-input>-->
+                    <summernote v-model="data.content"></summernote>
                 </el-form-item>
 
             </el-tab-pane>
