@@ -270,12 +270,15 @@ class CoursesController extends ApiController
         //调用试用
         $model = UserCourse::findOne(["user_id"=>$user_id,"course_id"=>$course_id]);
 
-        //返回
+        //判断是否拥有
         if(empty($model))
             return 0;
-        else if($model->try)
-            return 1;
-        else
-            return 2;
+
+        //判断是否过期
+        if($model->used_at < time())
+            return 4;
+
+        //返回
+        return $model->try ? 1 : 2;
     }
 }
