@@ -704,6 +704,26 @@
                 }
             }
         },
+        "/v1/payment/alipay": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "\u652f\u4ed8\u5b9d\u652f\u4ed8",
+                "description": "\u83b7\u53d6\u652f\u4ed8\u5b9d\u652f\u4ed8\u5730\u5740",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "return": {
+                        "description": "\u652f\u4ed8\u5730\u5740"
+                    }
+                }
+            }
+        },
         "/v1/tasks": {
             "get": {
                 "tags": [
@@ -1710,6 +1730,10 @@
         {
             "name": "Page",
             "description": "\u9875\u9762"
+        },
+        {
+            "name": "Payment",
+            "description": "\u652f\u4ed8"
         },
         {
             "name": "Task",
