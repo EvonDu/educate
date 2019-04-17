@@ -58,15 +58,18 @@ class PaymentController extends ApiController
             "course_id" => $course_id
         ];
 
+        //支付价格
+        $price = max(1,$course->price);
+
         //获取支付地址
         $config = include Yii::getAlias("@common/config/alipay.php");
         $client = new AlipayClient($config);
         $notify_url = Url::to(["page-notify"],true);
         $url = $client->trade->payPage([
             "out_trade_no"      => time(),
-            "total_amount"      => "0.01",
-            "subject"           => "标题",
-            "body"              => "支付内容",
+            "total_amount"      => number_format($price/100, 2),
+            "subject"           => $course->name,
+            "body"              => $course->name,
             "passback_params"   => json_encode($data)
         ],$notify_url,$return_url);
 
