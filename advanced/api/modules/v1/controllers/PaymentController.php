@@ -95,7 +95,7 @@ class PaymentController extends ApiController
 
         //完成购买操作
         $bool = UserCourse::buyCourse($order->user_id, $order->course_id);
-        if($bool)
+        if(!$bool)
             throw new ServerErrorHttpException("Buy course error.");
     }
 }

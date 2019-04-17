@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d72b74aa0ae67da2477275176b5644d7",
+    "content-hash": "ebf9b9ccd32e4d8eaad9f3d129d3498f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -306,6 +306,35 @@
                 }
             ],
             "time": "2019-04-01T07:07:08+00:00"
+        },
+        {
+            "name": "evondu/wechat-php-sdk",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EvonDu/wechat-php-sdk.git",
+                "reference": "f59fa33852b772e5d448557c1576cc420b5cb711"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EvonDu/wechat-php-sdk/zipball/f59fa33852b772e5d448557c1576cc420b5cb711",
+                "reference": "f59fa33852b772e5d448557c1576cc420b5cb711",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "evondu\\wechat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "EvonDu",
+                    "email": "298550274@qq.com"
+                }
+            ],
+            "time": "2019-04-12T07:35:14+00:00"
         },
         {
             "name": "evondu/yii2-vue-adminlte",
@@ -2003,6 +2032,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-01-06T05:45:45+00:00"
         },
         {

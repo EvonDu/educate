@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "evondu/yii2-vue-adminlte": "dev-master",
         "qiniu/php-sdk": "^7.2",
-        "evondu/alipay-php-sdk": "^0.1.1"
+        "evondu/alipay-php-sdk": "^0.1.1",
+        "evondu/wechat-php-sdk": "^0.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

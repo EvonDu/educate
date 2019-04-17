@@ -6,6 +6,7 @@ use Yii;
 
 use common\models\course\Course;
 use yii\base\Exception;
+use yii\log\Logger;
 
 /**
  * This is the model class for table "user_course".
@@ -166,8 +167,10 @@ class UserCourse extends \yii\db\ActiveRecord
         //保存信息
         if($model->save())
             return true;
-        else
+        else{
+            Yii::error($model->errors,Logger::LEVEL_ERROR);
             return false;
+        }
     }
 
     /**
