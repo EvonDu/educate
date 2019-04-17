@@ -13,8 +13,8 @@ use api\lib\ApiController;
  *     apiEnvs={
  *          { "name": "本地", "baseUrl": "http://localhost/test/educate/advanced/api/web", "sortWeight": 1, "mock": false, "status": "on"},
  *          { "name": "服务器IP", "baseUrl": "http://47.244.63.58/educate/advanced/api/web", "sortWeight": 2, "mock": false, "status": "on"},
- *          { "name": "服务器域名1", "baseUrl": "http://api.link-en.com", "sortWeight": 3, "mock": false, "status": "on"}
- *          { "name": "服务器域名2", "baseUrl": "http://api.e-l.ink", "sortWeight": 4, "mock": false, "status": "on"}
+ *          { "name": "服务器域名1", "baseUrl": "http://api.link-en.com", "sortWeight": 3, "mock": false, "status": "on"},
+ *          { "name": "服务器域名2", "baseUrl": "http://api.e-l.ink", "sortWeight": 4, "mock": false, "status": "on"},
  *     }
  * ),
  * @SWG\Info(version="1.0",title="接口文档",description="接口相关的Swagger文档"),

@@ -1,5 +1,24 @@
 {
     "swagger": "2.0",
+    "info": {
+        "title": "\u63a5\u53e3\u6587\u6863",
+        "description": "\u63a5\u53e3\u76f8\u5173\u7684Swagger\u6587\u6863",
+        "version": "1.0"
+    },
+    "host": [
+        "192.168.1.12/github/educate/advanced/api/web"
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/x-www-form-urlencoded",
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
     "paths": {
         "/v1/courses": {
             "get": {
@@ -1753,6 +1772,36 @@
         {
             "name": "User",
             "description": "\u7528\u6237"
+        }
+    ],
+    "apiEnvs": [
+        {
+            "name": "\u672c\u5730",
+            "baseUrl": "http://localhost/test/educate/advanced/api/web",
+            "sortWeight": 1,
+            "mock": false,
+            "status": "on"
+        },
+        {
+            "name": "\u670d\u52a1\u5668IP",
+            "baseUrl": "http://47.244.63.58/educate/advanced/api/web",
+            "sortWeight": 2,
+            "mock": false,
+            "status": "on"
+        },
+        {
+            "name": "\u670d\u52a1\u5668\u57df\u540d1",
+            "baseUrl": "http://api.link-en.com",
+            "sortWeight": 3,
+            "mock": false,
+            "status": "on"
+        },
+        {
+            "name": "\u670d\u52a1\u5668\u57df\u540d2",
+            "baseUrl": "http://api.e-l.ink",
+            "sortWeight": 4,
+            "mock": false,
+            "status": "on"
         }
     ]
 }
