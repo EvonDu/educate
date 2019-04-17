@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "301a108640dca2962ff1f89a947a9aa5",
+    "content-hash": "d72b74aa0ae67da2477275176b5644d7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -277,6 +277,35 @@
                 "validator"
             ],
             "time": "2017-11-15T23:40:40+00:00"
+        },
+        {
+            "name": "evondu/alipay-php-sdk",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EvonDu/alipay-php-sdk.git",
+                "reference": "414d738a6f6aa3a733bbf05e9c7e13e34eaf89e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EvonDu/alipay-php-sdk/zipball/414d738a6f6aa3a733bbf05e9c7e13e34eaf89e0",
+                "reference": "414d738a6f6aa3a733bbf05e9c7e13e34eaf89e0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "evondu\\alipay\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "EvonDu",
+                    "email": "298550274@qq.com"
+                }
+            ],
+            "time": "2019-04-01T07:07:08+00:00"
         },
         {
             "name": "evondu/yii2-vue-adminlte",

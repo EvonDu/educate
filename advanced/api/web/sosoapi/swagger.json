@@ -704,18 +704,44 @@
                 }
             }
         },
-        "/v1/payment/alipay": {
-            "get": {
+        "/v1/payment/page": {
+            "post": {
                 "tags": [
                     "Payment"
                 ],
-                "summary": "\u652f\u4ed8\u5b9d\u652f\u4ed8",
-                "description": "\u83b7\u53d6\u652f\u4ed8\u5b9d\u652f\u4ed8\u5730\u5740",
+                "summary": "\u652f\u4ed8\u5b9d\u7f51\u9875\u652f\u4ed8",
+                "description": "\u83b7\u53d6\u652f\u4ed8\u5b9d\u7f51\u9875\u652f\u4ed8\u5730\u5740",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "formData",
+                        "description": "\u7528\u6237ID",
+                        "required": true,
+                        "type": "integer",
+                        "default": "1"
+                    },
+                    {
+                        "name": "course_id",
+                        "in": "formData",
+                        "description": "\u8bfe\u7a0bID",
+                        "required": true,
+                        "type": "integer",
+                        "default": "26"
+                    },
+                    {
+                        "name": "return_url",
+                        "in": "formData",
+                        "description": "\u652f\u4ed8\u5b8c\u6210\u8fd4\u56de\u5730\u5740",
+                        "required": false,
+                        "type": "string",
+                        "default": "http://prime.thylink.cn/test/"
+                    }
                 ],
                 "responses": {
                     "return": {
@@ -1766,6 +1792,13 @@
         {
             "name": "\u670d\u52a1\u5668",
             "baseUrl": "http://47.244.63.58/educate/advanced/api/web",
+            "sortWeight": 3,
+            "mock": false,
+            "status": "on"
+        },
+        {
+            "name": "\u652f\u4ed8\u6d4b\u8bd5",
+            "baseUrl": "http://prime.thylink.cn/test/educate/advanced/api/web",
             "sortWeight": 3,
             "mock": false,
             "status": "on"
