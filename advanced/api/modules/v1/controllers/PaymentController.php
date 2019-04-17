@@ -3,7 +3,7 @@ namespace api\modules\v1\controllers;
 
 use api\lib\ApiRequest;
 use common\models\course\Course;
-use common\models\Order\Order;
+use common\models\order\Order;
 use common\models\user\UserCourse;
 use evondu\alipay\AlipayClient;
 use Yii;
