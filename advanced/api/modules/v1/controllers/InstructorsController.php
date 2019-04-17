@@ -14,21 +14,7 @@ use common\models\instructor\Instructor;
 use common\models\instructor\InstructorSearch;
 
 /**
- * @SWG\Definition(
- *     definition="Instructor",
- *     @SWG\Property(property="id",description="ID",type="string"),
- *     @SWG\Property(property="name",description="导师名",type="integer"),
- *     @SWG\Property(property="avatar",description="头像",type="string"),
- *     @SWG\Property(property="title",description="头衔",type="string"),
- *     @SWG\Property(property="tags",description="标签",type="string"),
- *     @SWG\Property(property="abstract",description="简介",type="string"),
- *     @SWG\Property(property="created_at",description="创建时间（时间戳）",type="integer"),
- *     @SWG\Property(property="updated_at",description="更新时间（时间戳）",type="integer"),
- * )
- */
-
-/**
- * @SWG\Tag(name="Instructor",description="导师")
+ * @OA\Tag(name="Instructor",description="导师")
  */
 class InstructorsController extends ApiController
 {
@@ -41,17 +27,15 @@ class InstructorsController extends ApiController
 
     /**
      * 教师列表
-     * @SWG\GET(
-     *     path="/v1/instructors",
-     *     tags={"Instructor"},
-     *     summary="教师列表",
-     *     description="获取教师列表（教师数据中的字段均可用作筛选和排序）",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="path",description="分页" ),
-     *     @SWG\Parameter( name="pageSize",type="integer", required=false, in="query",description="查询数量" ),
-     *     @SWG\Parameter( name="tags",type="integer", required=false, in="query",description="标签" ),
-     *     @SWG\Response( response="return",description="教师列表")
+     * @OA\Get(
+     *      path="/v1/instructors",
+     *      tags={"Instructor"},
+     *      summary="教师列表",
+     *      description="获取教师列表（教师数据中的字段均可用作筛选和排序）",
+     *      @OA\Parameter(name="page", required=false, in="query",description="分页", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="pageSize", required=false, in="query",description="查询数量", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="tags", required=false, in="query",description="标签", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){
@@ -71,15 +55,13 @@ class InstructorsController extends ApiController
 
     /**
      * 教师详情
-     * @SWG\GET(
-     *     path="/v1/instructors/{id}",
-     *     tags={"Instructor"},
-     *     summary="教师详情",
-     *     description="根据ID获取教师信息",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="id",type="integer", required=true, in="path",description="ID" ),
-     *     @SWG\Response( response="return",description="教师详情")
+     * @OA\Get(
+     *      path="/v1/instructors/{id}",
+     *      tags={"Instructor"},
+     *      summary="教师详情",
+     *      description="根据ID获取教师信息",
+     *      @OA\Parameter(name="id", required=true, in="path",description="ID", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionView($id){

@@ -10,7 +10,7 @@ use api\lib\ApiController;
 use common\lib\base\Upload;
 
 /**
- * @SWG\Tag(name="Common",description="通用")
+ * @OA\Tag(name="Common",description="通用")
  */
 class UploadController extends ApiController
 {
@@ -33,15 +33,18 @@ class UploadController extends ApiController
 
     /**
      * 文件上传
-     * @SWG\POST(
-     *     path="/v1/upload/file",
-     *     tags={"Common"},
-     *     summary="文件上传",
-     *     description="",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(name="file",type="file", required=true, in="formData",description="上传文件"),
-     *     @SWG\Response(response="200", description="访问地址")
+     * @OA\Post(
+     *      path="/v1/upload/file",
+     *      tags={"Common"},
+     *      summary="文件上传",
+     *      description="文件上传",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="multipart/form-data",
+     *          @OA\Schema(
+     *              @OA\Property(description="上传文件", property="file", type="file"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionFile()
@@ -59,16 +62,19 @@ class UploadController extends ApiController
     }
 
     /**
-     * 单上传文件(Base64字符串)
-     * @SWG\POST(
-     *     path="/v1/upload/base64",
-     *     tags={"Common"},
-     *     summary="单上传文件(Base64字符串)",
-     *     description="",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(name="base64",type="string", required=true, in="formData",description="上传文件的Base64字符串"),
-     *     @SWG\Response(response="200", description="访问地址")
+     * 文件上传(Base64字符串)
+     * @OA\Post(
+     *      path="/v1/upload/base64",
+     *      tags={"Common"},
+     *      summary="文件上传(Base64字符串)",
+     *      description="以Base64的方式上传文件",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded",
+     *          @OA\Schema(
+     *              @OA\Property(description="上传文件的Base64字符串", property="base64", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionBase64(){
@@ -86,15 +92,13 @@ class UploadController extends ApiController
 
     /**
      * 获取文件
-     * @SWG\GET(
-     *     path="/v1/upload/get/{src}",
-     *     tags={"Common"},
-     *     summary="获取文件",
-     *     description="",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(name="src",type="string", required=true, in="path",description="文件服务器路径"),
-     *     @SWG\Response(response="200", description="文件内容")
+     * @OA\Get(
+     *      path="/v1/upload/get/{src}",
+     *      tags={"Common"},
+     *      summary="获取文件",
+     *      description="获取文件",
+     *      @OA\Parameter(name="src", required=true, in="path",description="文件服务器路径", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionGet($src = null){

@@ -12,18 +12,7 @@ use api\lib\ModelErrors;
 use common\models\media\Pronunciation;
 
 /**
- * @SWG\Definition(
- *     definition="Pronunciation",
- *     @SWG\Property(property="id",description="ID",type="string"),
- *     @SWG\Property(property="word",description="单词",type="string"),
- *     @SWG\Property(property="audio",description="音频地址",type="string"),
- *     @SWG\Property(property="created_at",description="创建时间（时间戳）",type="integer"),
- *     @SWG\Property(property="updated_at",description="更新时间（时间戳）",type="integer"),
- * )
- */
-
-/**
- * @SWG\Tag(name="Media",description="媒体库")
+ * @OA\Tag(name="Media",description="媒体库")
  */
 class MediasController extends ApiController
 {
@@ -38,15 +27,13 @@ class MediasController extends ApiController
 
     /**
      * 获取读音
-     * @SWG\GET(
-     *     path="/v1/medias/pronunciations/{word}",
-     *     tags={"Media"},
-     *     summary="获取读音",
-     *     description="根据单词获取读音",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="word",type="string", required=true, in="path",description="单词" ),
-     *     @SWG\Response( response="return",description="单词信息")
+     * @OA\Get(
+     *      path="/v1/medias/pronunciations/{word}",
+     *      tags={"Media"},
+     *      summary="获取读音",
+     *      description="根据单词获取读音",
+     *      @OA\Parameter(name="word", required=true, in="path",description="单词", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionPronunciations($word){

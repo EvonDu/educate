@@ -31,16 +31,14 @@ class TasksController extends ApiController
 
     /**
      * 作业列表
-     * @SWG\GET(
-     *     path="/v1/tasks",
-     *     tags={"Task"},
-     *     summary="作业列表",
-     *     description="获取所有作业列表",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="course_id",type="integer", required=false, in="query",description="课程ID" ),
-     *     @SWG\Parameter( name="lesson_id",type="integer", required=false, in="query",description="章节ID(必须与课程ID配合使用)" ),
-     *     @SWG\Response( response="return",description="作业列表")
+     * @OA\Get(
+     *      path="/v1/tasks",
+     *      tags={"Task"},
+     *      summary="作业列表",
+     *      description="获取所有作业列表",
+     *      @OA\Parameter(name="course_id", required=true, in="query",description="课程ID", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="lesson_id", required=true, in="query",description="章节ID(必须与课程ID配合使用)", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){
@@ -57,15 +55,13 @@ class TasksController extends ApiController
 
     /**
      * 作业详情
-     * @SWG\GET(
-     *     path="/v1/tasks/{id}",
-     *     tags={"Task"},
-     *     summary="作业详情",
-     *     description="作业详情",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="id",type="string", required=true, in="path",description="作业ID" ),
-     *     @SWG\Response( response="return",description="作业详情")
+     * @OA\Get(
+     *      path="/v1/tasks/{id}",
+     *      tags={"Task"},
+     *      summary="作业详情",
+     *      description="作业详情",
+     *      @OA\Parameter(name="id", required=true, in="path",description="作业ID", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionView($id){
@@ -79,20 +75,22 @@ class TasksController extends ApiController
     }
 
     /**
-     * 学生提交作业
-     * @SWG\POST(
-     *     path="/v1/tasks/submits",
-     *     tags={"Task"},
-     *     summary="提交作业",
-     *     description="提交作业",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="task_id",type="string", required=true, in="formData",description="作业ID" ),
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="formData",description="学生ID" ),
-     *     @SWG\Parameter( name="submit_content",type="string", required=true, in="formData",description="提交内容" ),
-     *     @SWG\Parameter( name="submit_file",type="string", required=false, in="formData",description="提交文件" ),
-     *     @SWG\Parameter( name="submit_audio",type="string", required=false, in="formData",description="提交音频" ),
-     *     @SWG\Response( response="return",description="提交ID")
+     * 提交作业
+     * @OA\Post(
+     *      path="/v1/tasks/submits",
+     *      tags={"Task"},
+     *      summary="提交作业",
+     *      description="提交作业",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="作业ID", property="task_id", type="string"),
+     *              @OA\Property(description="学生ID", property="user_id", type="string"),
+     *              @OA\Property(description="提交内容", property="submit_content", type="string"),
+     *              @OA\Property(description="提交文件", property="submit_file", type="string"),
+     *              @OA\Property(description="提交音频", property="submit_audio", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionSubmitsCreate(){
@@ -119,16 +117,14 @@ class TasksController extends ApiController
 
     /**
      * 提交详情
-     * @SWG\GET(
-     *     path="/v1/tasks/submits",
-     *     tags={"Task"},
-     *     summary="提交详情",
-     *     description="作业提交的详情",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="task_id",type="string", required=true, in="query",description="作业ID" ),
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="query",description="学生ID" ),
-     *     @SWG\Response( response="return",description="作业信息")
+     * @OA\Get(
+     *      path="/v1/tasks/submits",
+     *      tags={"Task"},
+     *      summary="提交详情",
+     *      description="提交详情",
+     *      @OA\Parameter(name="task_id", required=true, in="query",description="作业ID", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="user_id", required=true, in="query",description="学生ID", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionSubmitsView(){
@@ -147,17 +143,15 @@ class TasksController extends ApiController
 
     /**
      * 作业列表(根据用户ID)
-     * @SWG\GET(
-     *     path="/v1/tasks/user",
-     *     tags={"Task"},
-     *     summary="作业列表",
-     *     description="作业列表(含用户状态)",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="query",description="学生ID" ),
-     *     @SWG\Parameter( name="course_id",type="integer", required=false, in="query",description="课程ID" ),
-     *     @SWG\Parameter( name="lesson_id",type="integer", required=false, in="query",description="章节ID" ),
-     *     @SWG\Response( response="return",description="作业列表")
+     * @OA\Get(
+     *      path="/v1/tasks/user",
+     *      tags={"Task"},
+     *      summary="作业列表",
+     *      description="作业列表(根据用户ID)",
+     *      @OA\Parameter(name="user_id", required=true, in="query",description="作业ID", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="course_id", required=false, in="query",description="课程ID", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="lesson_id", required=false, in="query",description="章节ID", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionUser(){
@@ -176,16 +170,14 @@ class TasksController extends ApiController
 
     /**
      * 作业详情(根据用户ID)
-     * @SWG\GET(
-     *     path="/v1/tasks/user/{task_id}",
-     *     tags={"Task"},
-     *     summary="作业详情",
-     *     description="作业详情(含用户状态)",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="task_id",type="integer", required=true, in="path",description="作业ID" ),
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="query",description="学生ID" ),
-     *     @SWG\Response( response="return",description="作业列表")
+     * @OA\Get(
+     *      path="/v1/tasks/user/{task_id}",
+     *      tags={"Task"},
+     *      summary="作业详情",
+     *      description="作业详情(根据用户ID)",
+     *      @OA\Parameter(name="task_id", required=true, in="path",description="作业ID", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="user_id", required=true, in="query",description="学生ID", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionUserView($task_id){

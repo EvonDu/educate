@@ -12,16 +12,6 @@ use api\lib\ApiRequest;
 use api\lib\ModelErrors;
 use common\models\course\CourseTypeSearch;
 
-/**
- * @SWG\Definition(
- *     definition="CourseType",
- *     @SWG\Property(property="id",description="ID",type="integer"),
- *     @SWG\Property(property="name",description="课程类型",type="string"),
- *     @SWG\Property(property="created_at",description="创建时间（时间戳）",type="integer"),
- *     @SWG\Property(property="updated_at",description="更新时间（时间戳）",type="integer"),
- * )
- */
-
 class TypesController extends ApiController
 {
     public $modelClass = 'common\models\course\CourseType';
@@ -33,16 +23,14 @@ class TypesController extends ApiController
 
     /**
      * 课程类型
-     * @SWG\GET(
-     *     path="/v1/types",
-     *     tags={"Course"},
-     *     summary="课程类型",
-     *     description="获取所有课程类型",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="分页" ),
-     *     @SWG\Parameter( name="pageSize",type="integer", required=false, in="query",description="查询数量" ),
-     *     @SWG\Response( response="return",description="课程类型列表")
+     * @OA\Get(
+     *      path="/v1/types",
+     *      tags={"Course"},
+     *      summary="课程类型",
+     *      description="获取所有课程类型",
+     *      @OA\Parameter(name="page", required=false, in="query",description="分页", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="pageSize", required=false, in="query",description="查询数量", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){

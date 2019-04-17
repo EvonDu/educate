@@ -14,7 +14,7 @@ use common\models\user\UserFavorite;
 use common\models\user\UserFavoriteSearch;
 
 /**
- * @SWG\Tag(name="Favorite",description="收藏")
+ * @OA\Tag(name="Favorite",description="收藏")
  */
 class FavoritesController extends ApiController
 {
@@ -26,16 +26,14 @@ class FavoritesController extends ApiController
     }
 
     /**
-     * 获取用户收藏
-     * @SWG\GET(
-     *     path="/v1/favorites",
-     *     tags={"Favorite"},
-     *     summary="用户收藏",
-     *     description="获取用户收藏课程列表",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="integer", required=true, in="query",description="用户ID" ),
-     *     @SWG\Response( response="return",description="收藏列表")
+     * 用户收藏
+     * @OA\Get(
+     *      path="/v1/favorites",
+     *      tags={"Favorite"},
+     *      summary="用户收藏",
+     *      description="获取用户收藏课程列表",
+     *      @OA\Parameter(name="user_id", required=true, in="query",description="用户ID", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){
@@ -53,17 +51,19 @@ class FavoritesController extends ApiController
     }
 
     /**
-     * 添加用户收藏
-     * @SWG\POST(
-     *     path="/v1/favorites",
-     *     tags={"Favorite"},
-     *     summary="添加用户收藏",
-     *     description="添加用户收藏",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="formData",description="用户ID" ),
-     *     @SWG\Parameter( name="course_id",type="string", required=true, in="formData",description="课程ID" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * 添加收藏
+     * @OA\Post(
+     *      path="/v1/favorites",
+     *      tags={"Favorite"},
+     *      summary="添加收藏",
+     *      description="添加用户收藏",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="用户ID", property="user_id", type="string"),
+     *              @OA\Property(description="课程ID", property="course_id", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionCreate(){
@@ -79,17 +79,14 @@ class FavoritesController extends ApiController
     }
 
     /**
-     * 添加用户收藏
-     * @SWG\DELETE(
-     *     path="/v1/favorites",
-     *     tags={"Favorite"},
-     *     summary="移除用户收藏",
-     *     description="移除用户收藏",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="formData",description="用户ID" ),
-     *     @SWG\Parameter( name="course_id",type="string", required=true, in="formData",description="课程ID" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * 移除收藏
+     * @OA\Delete(
+     *      path="/v1/favorites",
+     *      tags={"Favorite"},
+     *      summary="移除收藏",
+     *      description="移除用户收藏",
+     *      @OA\Parameter(name="user_id", required=true, in="path",description="用户ID", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionDelete(){
@@ -106,17 +103,15 @@ class FavoritesController extends ApiController
     }
 
     /**
-     * 判断是否收藏
-     * @SWG\GET(
-     *     path="/v1/favorites/hash",
-     *     tags={"Favorite"},
-     *     summary="判断是否收藏",
-     *     description="判断是否收藏",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="string", required=true, in="query",description="用户ID" ),
-     *     @SWG\Parameter( name="course_id",type="string", required=true, in="query",description="课程ID" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * 判断收藏
+     * @OA\Get(
+     *      path="/v1/favorites/hash",
+     *      tags={"Favorite"},
+     *      summary="判断收藏",
+     *      description="判断是否收藏",
+     *      @OA\Parameter(name="user_id", required=true, in="query",description="用户ID", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="course_id", required=true, in="query",description="课程ID", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionHash(){

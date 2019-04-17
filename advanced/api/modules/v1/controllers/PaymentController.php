@@ -17,7 +17,7 @@ use yii\web\ServerErrorHttpException;
 use api\lib\ApiController;
 
 /**
- * @SWG\Tag(name="Payment",description="支付")
+ * @OA\Tag(name="Payment",description="支付")
  */
 class PaymentController extends ApiController
 {
@@ -25,17 +25,19 @@ class PaymentController extends ApiController
 
     /**
      * 支付宝支付
-     * @SWG\POST(
-     *     path="/v1/payment/page",
-     *     tags={"Payment"},
-     *     summary="支付宝网页支付",
-     *     description="获取支付宝网页支付地址",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="integer", required=true, in="formData",description="用户ID", default="1"),
-     *     @SWG\Parameter( name="course_id",type="integer", required=true, in="formData",description="课程ID", default="26"),
-     *     @SWG\Parameter( name="return_url",type="string", required=false, in="formData",description="支付完成返回地址", default="http://prime.thylink.cn/test/"),
-     *     @SWG\Response( response="return",description="支付地址")
+     * @OA\Post(
+     *      path="/v1/payment/page",
+     *      tags={"Payment"},
+     *      summary="支付宝网页支付",
+     *      description="获取支付宝网页支付地址",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="用户ID", property="user_id", type="integer", default="1"),
+     *              @OA\Property(description="课程ID", property="course_id", type="integer", default="26"),
+     *              @OA\Property(description="支付完成返回地址", property="return_url", type="string", default="http://prime.thylink.cn/test/"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionPage(){

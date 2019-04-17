@@ -12,7 +12,7 @@ use api\lib\ModelErrors;
 use common\models\page\Page;
 
 /**
- * @SWG\Tag(name="Page",description="页面")
+ * @OA\Tag(name="Page",description="页面")
  */
 class PagesController extends ApiController
 {
@@ -25,14 +25,12 @@ class PagesController extends ApiController
 
     /**
      * 全部页面
-     * @SWG\GET(
-     *     path="/v1/pages",
-     *     tags={"Page"},
-     *     summary="全部页面",
-     *     description="全部页面",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="页面列表")
+     * @OA\Get(
+     *      path="/v1/pages",
+     *      tags={"Page"},
+     *      summary="全部页面",
+     *      description="全部页面",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){
@@ -48,14 +46,12 @@ class PagesController extends ApiController
 
     /**
      * 关于我们
-     * @SWG\GET(
-     *     path="/v1/pages/about-us",
-     *     tags={"Page"},
-     *     summary="关于我们",
-     *     description="关于我们",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="关于我们")
+     * @OA\Get(
+     *      path="/v1/pages/about-us",
+     *      tags={"Page"},
+     *      summary="关于我们",
+     *      description="关于我们",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionAboutUs(){
@@ -65,14 +61,12 @@ class PagesController extends ApiController
 
     /**
      * 公司简介
-     * @SWG\GET(
-     *     path="/v1/pages/company-profile",
-     *     tags={"Page"},
-     *     summary="公司简介",
-     *     description="公司简介",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="公司简介")
+     * @OA\Get(
+     *      path="/v1/pages/company-profile",
+     *      tags={"Page"},
+     *      summary="公司简介",
+     *      description="公司简介",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionCompanyProfile(){
@@ -82,14 +76,12 @@ class PagesController extends ApiController
 
     /**
      * 用户协议
-     * @SWG\GET(
-     *     path="/v1/pages/user-agreement",
-     *     tags={"Page"},
-     *     summary="用户协议",
-     *     description="用户协议",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="用户协议")
+     * @OA\Get(
+     *      path="/v1/pages/user-agreement",
+     *      tags={"Page"},
+     *      summary="用户协议",
+     *      description="用户协议",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionUserAgreement(){
@@ -99,14 +91,12 @@ class PagesController extends ApiController
 
     /**
      * 支付协议
-     * @SWG\GET(
-     *     path="/v1/pages/payment-agreement",
-     *     tags={"Page"},
-     *     summary="支付协议",
-     *     description="支付协议",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="支付协议")
+     * @OA\Get(
+     *      path="/v1/pages/payment-agreement",
+     *      tags={"Page"},
+     *      summary="支付协议",
+     *      description="支付协议",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionPaymentAgreement(){
@@ -116,14 +106,12 @@ class PagesController extends ApiController
 
     /**
      * 学习教程
-     * @SWG\GET(
-     *     path="/v1/pages/tutorial",
-     *     tags={"Page"},
-     *     summary="学习教程",
-     *     description="学习教程",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="学习教程")
+     * @OA\Get(
+     *      path="/v1/pages/tutorial",
+     *      tags={"Page"},
+     *      summary="学习教程",
+     *      description="学习教程",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionTutorial(){
@@ -133,14 +121,12 @@ class PagesController extends ApiController
 
     /**
      * 学习模式
-     * @SWG\GET(
-     *     path="/v1/pages/methods",
-     *     tags={"Page"},
-     *     summary="学习模式",
-     *     description="学习模式",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="学习模式")
+     * @OA\Get(
+     *      path="/v1/pages/methods",
+     *      tags={"Page"},
+     *      summary="学习模式",
+     *      description="学习模式",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionMethods(){
@@ -150,14 +136,12 @@ class PagesController extends ApiController
 
     /**
      * 使用条款
-     * @SWG\GET(
-     *     path="/v1/pages/terms-of-use",
-     *     tags={"Page"},
-     *     summary="使用条款",
-     *     description="使用条款",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="使用条款")
+     * @OA\Get(
+     *      path="/v1/pages/terms-of-use",
+     *      tags={"Page"},
+     *      summary="使用条款",
+     *      description="使用条款",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionTermsOfUse(){
@@ -166,15 +150,13 @@ class PagesController extends ApiController
     }
 
     /**
-     * 私隐
-     * @SWG\GET(
-     *     path="/v1/pages/privacy",
-     *     tags={"Page"},
-     *     summary="私隐",
-     *     description="私隐",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="私隐")
+     * 私隐条约
+     * @OA\Get(
+     *      path="/v1/pages/privacy",
+     *      tags={"Page"},
+     *      summary="私隐条约",
+     *      description="私隐条约",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionPrivacy(){
@@ -184,14 +166,12 @@ class PagesController extends ApiController
 
     /**
      * 服务支持
-     * @SWG\GET(
-     *     path="/v1/pages/support",
-     *     tags={"Page"},
-     *     summary="服务支持",
-     *     description="服务支持",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="服务支持")
+     * @OA\Get(
+     *      path="/v1/pages/support",
+     *      tags={"Page"},
+     *      summary="服务支持",
+     *      description="服务支持",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionSupport(){

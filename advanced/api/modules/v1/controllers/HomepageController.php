@@ -14,7 +14,7 @@ use api\lib\ModelErrors;
 use common\models\page\Page;
 
 /**
- * @SWG\Tag(name="Homepage",description="主页")
+ * @OA\Tag(name="Homepage",description="主页")
  */
 class HomepageController extends ApiController
 {
@@ -27,14 +27,12 @@ class HomepageController extends ApiController
 
     /**
      * 首页信息
-     * @SWG\GET(
-     *     path="/v1/homepage",
-     *     tags={"Homepage"},
-     *     summary="首页信息",
-     *     description="获取首页信息",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Response( response="return",description="首页信息列表")
+     * @OA\Get(
+     *      path="/v1/homepage",
+     *      tags={"Homepage"},
+     *      summary="首页信息",
+     *      description="获取首页信息",
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){

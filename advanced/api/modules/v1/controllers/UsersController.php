@@ -48,19 +48,17 @@ class UsersController extends ApiController
 
     /**
      * 用户列表
-     * @SWG\GET(
-     *     path="/v1/users",
-     *     tags={"User"},
-     *     summary="用户列表",
-     *     description="获取用户列表表（数据中的字段均可用作筛选和排序）",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="page",type="integer", required=false, in="query",description="分页" ),
-     *     @SWG\Parameter( name="pageSize",type="integer", required=false, in="query",description="查询数量" ),
-     *     @SWG\Parameter( name="sex",type="integer", required=false, in="query",description="性别" ),
-     *     @SWG\Parameter( name="country",type="string", required=false, in="query",description="国家" ),
-     *     @SWG\Parameter( name="city",type="string", required=false, in="query",description="城市" ),
-     *     @SWG\Response( response="return",description="用户列表")
+     * @OA\Get(
+     *      path="/v1/users",
+     *      tags={"User"},
+     *      summary="用户列表",
+     *      description="获取用户列表表（数据中的字段均可用作筛选和排序）",
+     *      @OA\Parameter(name="page", required=false, in="query",description="分页", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="pageSize", required=false, in="query",description="查询数量", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="sex", required=false, in="query",description="性别", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="country", required=false, in="query",description="国家", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="city", required=false, in="query",description="城市", @OA\Schema(type="string")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionIndex(){
@@ -80,15 +78,13 @@ class UsersController extends ApiController
 
     /**
      * 用户信息
-     * @SWG\GET(
-     *     path="/v1/users/{id}",
-     *     tags={"User"},
-     *     summary="用户信息",
-     *     description="用户信息",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="id",type="integer", required=true, in="path",description="用户ID" ),
-     *     @SWG\Response( response="return",description="用户列表")
+     * @OA\Get(
+     *      path="/v1/users/{id}",
+     *      tags={"User"},
+     *      summary="用户信息",
+     *      description="用户信息",
+     *      @OA\Parameter(name="id", required=false, in="path",description="用户ID", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionView($id){
@@ -101,25 +97,26 @@ class UsersController extends ApiController
 
     /**
      * 用户注册
-     * @SWG\POST(
-     *     path="/v1/users",
-     *     tags={"User"},
-     *     summary="用户注册",
-     *     description="创建新用户",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="email",type="string", required=true, in="formData",description="注册邮箱" ),
-     *     @SWG\Parameter( name="nickname",type="string", required=true, in="formData",description="昵称" ),
-     *     @SWG\Parameter( name="password",type="string", required=true, in="formData",description="密码" ),
-     *     @SWG\Parameter( name="nickname",type="string", required=true, in="formData",description="昵称" ),
-     *     @SWG\Parameter( name="sex",type="integer", required=false, in="formData",description="性别(1:男，0:女)" ),
-     *     @SWG\Parameter( name="avatar",type="string", required=false, in="formData",description="头像(URL)" ),
-     *     @SWG\Parameter( name="phone",type="string", required=false, in="formData",description="电话" ),
-     *     @SWG\Parameter( name="country",type="string", required=false, in="formData",description="国家" ),
-     *     @SWG\Parameter( name="city",type="string", required=false, in="formData",description="城市" ),
-     *     @SWG\Parameter( name="adderss_1",type="string", required=false, in="formData",description="地址1" ),
-     *     @SWG\Parameter( name="adderss_2",type="string", required=false, in="formData",description="地址2" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * @OA\Post(
+     *      path="/v1/users",
+     *      tags={"User"},
+     *      summary="用户注册",
+     *      description="创建新用户",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="邮箱", property="email", type="string"),
+     *              @OA\Property(description="昵称", property="nickname", type="string"),
+     *              @OA\Property(description="密码", property="password", type="string"),
+     *              @OA\Property(description="性别(1:男，0:女)", property="sex", type="string"),
+     *              @OA\Property(description="头像(URL)", property="avatar", type="string"),
+     *              @OA\Property(description="电话", property="phone", type="string"),
+     *              @OA\Property(description="国家", property="country", type="string"),
+     *              @OA\Property(description="城市", property="city", type="string"),
+     *              @OA\Property(description="地址1", property="adderss_1", type="string"),
+     *              @OA\Property(description="地址2", property="adderss_2", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionCreate(){
@@ -137,24 +134,26 @@ class UsersController extends ApiController
     }
 
     /**
-     * 修改用户信息
-     * @SWG\PUT(
-     *     path="/v1/users/{id}",
-     *     tags={"User"},
-     *     summary="修改用户信息",
-     *     description="修改用户信息",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="id",type="integer", required=true, in="path",description="用户ID" ),
-     *     @SWG\Parameter( name="nickname",type="string", required=false, in="formData",description="昵称" ),
-     *     @SWG\Parameter( name="sex",type="integer", required=false, in="formData",description="性别(1:男，0:女)" ),
-     *     @SWG\Parameter( name="avatar",type="string", required=false, in="formData",description="头像(URL)" ),
-     *     @SWG\Parameter( name="phone",type="string", required=false, in="formData",description="电话" ),
-     *     @SWG\Parameter( name="country",type="string", required=false, in="formData",description="国家" ),
-     *     @SWG\Parameter( name="city",type="string", required=false, in="formData",description="城市" ),
-     *     @SWG\Parameter( name="adderss_1",type="string", required=false, in="formData",description="地址1" ),
-     *     @SWG\Parameter( name="adderss_2",type="string", required=false, in="formData",description="地址2" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * 修改信息
+     * @OA\Put(
+     *      path="/v1/user/{id}",
+     *      tags={"User"},
+     *      summary="修改信息",
+     *      description="修改用户个人资料信息",
+     *      @OA\Parameter(name="id", required=true, in="path",description="用户ID", @OA\Schema(type="integer")),
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="昵称", property="nickname", type="string"),
+     *              @OA\Property(description="性别(1:男，0:女)", property="sex", type="integer"),
+     *              @OA\Property(description="头像(URL)", property="avatar", type="string"),
+     *              @OA\Property(description="电话", property="phone", type="string"),
+     *              @OA\Property(description="国家", property="country", type="string"),
+     *              @OA\Property(description="城市", property="city", type="string"),
+     *              @OA\Property(description="地址1", property="adderss_1", type="string"),
+     *              @OA\Property(description="地址2", property="adderss_2", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionUpdate($id){
@@ -179,16 +178,18 @@ class UsersController extends ApiController
 
     /**
      * 用户登录
-     * @SWG\POST(
-     *     path="/v1/users/login",
-     *     tags={"User"},
-     *     summary="用户登录",
-     *     description="用户登录",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="email",type="string", required=true, in="formData",description="邮箱" ),
-     *     @SWG\Parameter( name="password",type="string", required=true, in="formData",description="密码" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * @OA\Post(
+     *      path="/v1/users/login",
+     *      tags={"User"},
+     *      summary="用户登录",
+     *      description="用户登录",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="邮箱", property="email", type="string"),
+     *              @OA\Property(description="密码", property="password", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionLogin(){
@@ -211,18 +212,20 @@ class UsersController extends ApiController
 
     /**
      * 修改密码
-     * @SWG\PUT(
-     *     path="/v1/users/modify-password",
-     *     tags={"User"},
-     *     summary="修改密码",
-     *     description="修改密码",
-     *     consumes={"application/x-www-form-urlencoded"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="email",type="string", required=true, in="formData",description="邮箱" ),
-     *     @SWG\Parameter( name="password",type="string", required=true, in="formData",description="旧密码" ),
-     *     @SWG\Parameter( name="password_new",type="string", required=true, in="formData",description="新密码" ),
-     *     @SWG\Parameter( name="password_again",type="string", required=true, in="formData",description="再次输入密码" ),
-     *     @SWG\Response( response="return",description="用户信息")
+     * @OA\Put(
+     *      path="/v1/users/modify-password",
+     *      tags={"User"},
+     *      summary="修改密码",
+     *      description="修改密码",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="邮箱", property="email", type="string"),
+     *              @OA\Property(description="旧密码", property="password", type="integer"),
+     *              @OA\Property(description="新密码", property="password_new", type="string"),
+     *              @OA\Property(description="再次输入密码", property="password_again", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
      * )
      */
     public function actionModifyPassword(){
@@ -253,16 +256,14 @@ class UsersController extends ApiController
     }
 
     /**
-     * 获取用户课程
-     * @SWG\GET(
-     *     path="/v1/users/courses",
-     *     tags={"User"},
-     *     summary="用户课程",
-     *     description="获取用户课程列表(拥有的课程列表)",
-     *     consumes={"application/json"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter( name="user_id",type="integer", required=true, in="query",description="用户ID" ),
-     *     @SWG\Response( response="return",description="课程列表")
+     * 用户课程
+     * @OA\Get(
+     *      path="/v1/users/courses",
+     *      tags={"User"},
+     *      summary="用户课程",
+     *      description="获取用户课程列表(拥有的课程列表)",
+     *      @OA\Parameter(name="user_id", required=false, in="query",description="用户ID", @OA\Schema(type="integer")),
+     *      @OA\Response(response="default", description="返回结果")
      * )
      */
     public function actionCourses(){
