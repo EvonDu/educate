@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         }
                                     }
                                 ],
-                                'content:ntext',
+                                'content:raw',
                             ],
                         ]) ?>
 
