@@ -1,20 +1,16 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use Yii;
+use yii\helpers\Url;
+use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
+use evondu\alipay\AlipayClient;
 use api\lib\ApiRequest;
+use api\lib\ApiController;
 use common\models\course\Course;
 use common\models\order\Order;
 use common\models\user\UserCourse;
-use evondu\alipay\AlipayClient;
-use Yii;
-use yii\base\Model;
-use yii\helpers\Url;
-use yii\log\Logger;
-use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
-use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
-use api\lib\ApiController;
 
 /**
  * @OA\Tag(name="Payment",description="支付")

@@ -2,14 +2,8 @@
 namespace api\modules\v1\controllers;
 
 use Yii;
-use yii\rest\ActiveController;
-use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
-use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
-use api\lib\ApiController;
 use api\lib\ApiRequest;
-use api\lib\ModelErrors;
+use api\lib\ApiController;
 use common\models\course\CourseTypeSearch;
 
 class TypesController extends ApiController

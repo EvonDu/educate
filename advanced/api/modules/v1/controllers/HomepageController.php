@@ -1,17 +1,10 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use yii\helpers\ArrayHelper;
+use api\lib\ApiController;
 use common\models\homepage\Homepage;
 use common\models\homepage\HomepageItems;
-use Yii;
-use yii\rest\ActiveController;
-use yii\helpers\ArrayHelper;
-use yii\web\NotFoundHttpException;
-use yii\web\BadRequestHttpException;
-use yii\web\ServerErrorHttpException;
-use api\lib\ApiController;
-use api\lib\ModelErrors;
-use common\models\page\Page;
 
 /**
  * @OA\Tag(name="Homepage",description="主页")

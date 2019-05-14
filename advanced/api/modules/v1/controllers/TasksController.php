@@ -1,18 +1,15 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use common\models\task\Task;
-use common\models\task\TaskSubmit;
 use Yii;
-use yii\helpers\Url;
-use yii\rest\ActiveController;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
 use api\lib\ModelErrors;
 use api\lib\ApiRequest;
 use api\lib\ApiController;
+use common\models\task\Task;
+use common\models\task\TaskSubmit;
 
 /**
  * @SWG\Tag(name="Task",description="作业")

@@ -1,21 +1,17 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use common\models\course\Task;
 use Yii;
-use yii\helpers\Url;
-use yii\rest\ActiveController;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-use yii\web\BadRequestHttpException;
 use yii\web\ServerErrorHttpException;
-use api\lib\ModelErrors;
 use api\lib\ApiRequest;
 use api\lib\ApiController;
+use common\models\user\UserCourse;
+use common\models\course\Task;
 use common\models\course\Course;
 use common\models\course\CourseLesson;
 use common\models\course\CourseSearch;
-use common\models\user\UserCourse;
 
 /**
  * @OA\Tag(name="Course",description="课程")
