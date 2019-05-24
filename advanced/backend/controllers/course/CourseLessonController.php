@@ -2,15 +2,15 @@
 
 namespace backend\controllers\course;
 
-use common\models\course\Course;
-use common\models\course\Task;
 use Yii;
-use common\models\course\CourseLesson;
-use common\models\course\CourseLessonSearch;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use common\models\course\Task;
+use common\models\course\Course;
+use common\models\course\CourseLesson;
+use common\models\course\CourseLessonSearch;
 
 /**
  * CourseLessonController implements the CRUD actions for CourseLesson model.

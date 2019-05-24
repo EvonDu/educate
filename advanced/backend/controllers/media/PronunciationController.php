@@ -3,11 +3,11 @@
 namespace backend\controllers\media;
 
 use Yii;
-use common\models\media\Pronunciation;
-use common\models\media\PronunciationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\media\Pronunciation;
+use common\models\media\PronunciationSearch;
 
 /**
  * PronunciationController implements the CRUD actions for Pronunciation model.

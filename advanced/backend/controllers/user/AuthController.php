@@ -3,11 +3,11 @@
 namespace backend\controllers\user;
 
 use Yii;
-use common\models\auth\AuthItem;
-use common\models\auth\AuthItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\auth\AuthItem;
+use common\models\auth\AuthItemSearch;
 
 /**
  * AuthItemController implements the CRUD actions for AuthItem model.

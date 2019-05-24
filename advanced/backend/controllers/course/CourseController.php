@@ -3,11 +3,11 @@
 namespace backend\controllers\course;
 
 use Yii;
-use common\models\course\Course;
-use common\models\course\CourseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\course\Course;
+use common\models\course\CourseSearch;
 
 /**
  * CourseController implements the CRUD actions for Course model.

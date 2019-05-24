@@ -3,11 +3,11 @@
 namespace backend\controllers\homepage;
 
 use Yii;
-use common\models\homepage\HomepageItems;
-use common\models\homepage\HomepageItemsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\homepage\HomepageItems;
+use common\models\homepage\HomepageItemsSearch;
 
 /**
  * HomepageItemsController implements the CRUD actions for HomepageItems model.

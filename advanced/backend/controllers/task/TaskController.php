@@ -3,11 +3,11 @@
 namespace backend\controllers\task;
 
 use Yii;
-use common\models\task\Task;
-use common\models\task\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\task\Task;
+use common\models\task\TaskSearch;
 
 /**
  * TaskController implements the CRUD actions for Task model.

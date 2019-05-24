@@ -3,12 +3,12 @@
 namespace backend\controllers\user;
 
 use Yii;
-use common\models\auth\AuthItem;
-use common\models\auth\AuthItemSearch;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use common\models\auth\AuthItem;
+use common\models\auth\AuthItemSearch;
 use common\models\auth\AuthAssignForm;
 
 /**

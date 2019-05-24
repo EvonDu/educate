@@ -3,11 +3,11 @@
 namespace backend\controllers\user;
 
 use Yii;
-use common\models\user\UserCourse;
-use common\models\user\UserCourseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\user\UserCourse;
+use common\models\user\UserCourseSearch;
 
 /**
  * UserCourseController implements the CRUD actions for UserCourse model.

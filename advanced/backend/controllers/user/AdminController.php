@@ -3,11 +3,11 @@
 namespace backend\controllers\user;
 
 use Yii;
-use common\models\admin\Admin;
-use common\models\admin\AdminSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\admin\Admin;
+use common\models\admin\AdminSearch;
 use common\models\admin\SignupForm;
 use common\models\admin\ChangePasswordForm;
 use common\models\auth\RoleAssignForm;

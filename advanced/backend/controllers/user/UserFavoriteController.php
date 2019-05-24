@@ -3,11 +3,11 @@
 namespace backend\controllers\user;
 
 use Yii;
-use common\models\user\UserFavorite;
-use common\models\user\UserFavoriteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\user\UserFavorite;
+use common\models\user\UserFavoriteSearch;
 
 /**
  * UserFavoriteController implements the CRUD actions for UserFavorite model.

@@ -3,11 +3,11 @@
 namespace backend\controllers\instructor;
 
 use Yii;
-use common\models\instructor\Instructor;
-use common\models\instructor\InstructorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\instructor\Instructor;
+use common\models\instructor\InstructorSearch;
 
 /**
  * InstructorController implements the CRUD actions for Instructor model.
