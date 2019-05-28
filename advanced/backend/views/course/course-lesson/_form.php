@@ -7,6 +7,7 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $model common\models\course\CourseLesson */
 /* @var $form yii\widgets\ActiveForm */
 
+vuelte\lib\Import::component($this, '@app/views/components/ueditor', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['model' => $model]);
 ?>
@@ -59,7 +60,7 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['mode
                               label="<?= ActiveElementForm::getFieldLabel($model,"content")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"content")?>">
                     <!--<el-input v-model="data.content" type="textarea" rows="16"></el-input>-->
-                    <summernote v-model="data.content"></summernote>
+                    <ueditor v-model="data.content"></ueditor>
                 </el-form-item>
 
             </el-tab-pane>

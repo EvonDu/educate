@@ -6,7 +6,7 @@ use vuelte\widgets\ActiveElementForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\task\Task */
 /* @var $form yii\widgets\ActiveForm */
-vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model' => $model]);
+vuelte\lib\Import::component($this, '@app/views/components/ueditor', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model' => $model]);
 ?>
 <component-template>
@@ -36,7 +36,7 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model
         <el-form-item prop="content"
                       label="<?= ActiveElementForm::getFieldLabel($model,"content")?>"
                       error="<?= ActiveElementForm::getFieldError($model,"content")?>">
-            <summernote v-model="data.content"></summernote>
+            <ueditor v-model="data.content"></ueditor>
         </el-form-item> 
 
         <el-form-item prop="file"

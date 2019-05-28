@@ -22,7 +22,17 @@
             //获取this
             var _this = this;
             //初始化
-            $('div[summernote_id="'+this.id+'"]').summernote({ height:this.height});
+            $('div[summernote_id="'+this.id+'"]').summernote({
+                height:this.height,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ]
+            });
             //初始值
             $('div[summernote_id="'+this.id+'"]').code(this.value);
             //挂载事件
