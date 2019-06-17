@@ -10,6 +10,7 @@ use vuelte\widgets\ActiveElementForm;
 vuelte\lib\Import::component($this, '@app/views/components/ueditor', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['model' => $model]);
+var_dump(ActiveElementForm::getFieldError($model,"lesson"));
 ?>
 <component-template>
     <div class="course-lesson-form">
@@ -18,7 +19,6 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-video', ['mode
             "label-width" => "100px",
             "status-icon" => true,
         ]]); ?>
-
         <el-tabs value="base">
             <el-tab-pane label="章节信息" name="base">
 

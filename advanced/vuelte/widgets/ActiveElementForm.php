@@ -68,7 +68,9 @@ class ActiveElementForm extends \yii\widgets\ActiveForm
      * @return mixed
      */
     static public function getFieldError($model,$attribute){
-        return $model->getFirstError($attribute);
+        $error = $model->getFirstError($attribute);
+        $error = preg_replace("/('|\"){1}/", "`", $error);
+        return $error;
     }
 }
 ?>
