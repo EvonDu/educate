@@ -170,7 +170,7 @@ class Course extends \yii\db\ActiveRecord
      */
     public function getCourseLessons()
     {
-        return $this->hasMany(CourseLesson::className(), ['course_id' => 'id']);
+        return $this->hasMany(CourseLesson::className(), ['course_id' => 'id'])->orderBy('lesson');
     }
 
     /**

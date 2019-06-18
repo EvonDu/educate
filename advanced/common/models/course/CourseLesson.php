@@ -2,7 +2,9 @@
 
 namespace common\models\course;
 
+use api\lib\ModelErrors;
 use Yii;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "course_lesson".
@@ -42,7 +44,6 @@ class CourseLesson extends \yii\db\ActiveRecord
             [['try','free'], 'boolean'],
             [['title'], 'string', 'max' => 120],
             [['video'], 'string', 'max' => 256],
-            [['course_id', 'lesson'], 'unique', 'targetAttribute' => ['course_id', 'lesson']],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['course_id' => 'id']],
         ];
     }
@@ -100,5 +101,21 @@ class CourseLesson extends \yii\db\ActiveRecord
             //die;
         }
         return;
+    }
+
+    /**
+     * 更新lesson顺序
+     * @param $orders
+     * @throws Exception
+     */
+    public static function updateOrder($course_id, $orders){
+        foreach ($orders as $key=>$value){
+            $model = self::find()->where(["course_id" => $course_id, "id" => $value])->one();
+            if(empty($model))
+                throw new Exception($course_id);
+            $model->lesson = $key+1;
+            if(!$model->save())
+                throw new Exception(ModelErrors::getFiledError($model));
+        }
     }
 }

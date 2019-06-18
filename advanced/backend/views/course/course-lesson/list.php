@@ -26,6 +26,14 @@ vuelte\tools\VarConvert::run($this, $lessons, "lessons");
     .action-bar{
         padding: 12px 0px;
     }
+    .lesson-title{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .lesson-title span:last-child{
+        margin-right: 16px;
+    }
 </style>
 
 <div id="app">
@@ -60,12 +68,19 @@ vuelte\tools\VarConvert::run($this, $lessons, "lessons");
                     "type"=>"info",
                     "style"=>"margin-bottom:12px"
                 ])?>
+                <lte-btn type="info" style="margin-bottom:12px" @click="saveOrders()"><i class='glyphicon glyphicon-floppy-saved'></i> 保存顺序</lte-btn>
 
                 <el-collapse>
                     <el-collapse-item v-for="(item,index) in lessons" :name="index">
                         <!-- 标题 -->
                         <template slot="title">
-                            <span>第{{item.lesson}}章：{{item.title}}</span>
+                            <div class="lesson-title">
+                                <span>第{{item.lesson}}章：{{item.title}}</span>
+                                <span>
+                                    <el-button icon="el-icon-top" size="mini" @click="up($event,item.id)" circle></el-button>
+                                    <el-button icon="el-icon-bottom" size="mini" @click="down($event,item.id)" circle></el-button>
+                                </span>
+                            </div>
                         </template>
                         <!-- 操作栏 -->
                         <el-row class="action-bar">
@@ -112,6 +127,48 @@ vuelte\tools\VarConvert::run($this, $lessons, "lessons");
                     document.body.appendChild(temp_form);
                     temp_form.submit();
                 }
+            },
+            up:function(e,id){
+                //获取当前列表顺序
+                var index = -1;
+                for(var i in lessons){
+                    if(lessons[i].id === id)
+                        index = Number(i);
+                }
+                //交换索引位置
+                if(index > 0){
+                    var temp = lessons[index];
+                    Vue.set(lessons, index, lessons[index-1]);
+                    Vue.set(lessons, index-1, temp);
+                }
+                //阻止事件冒泡
+                window.event ? e.cancelBubble=true:e.stopPropagation();
+            },
+            down:function(e,id){
+                //获取当前列表顺序
+                var index = -1;
+                for(var i in lessons){
+                    if(lessons[i].id === id)
+                        index = Number(i);
+                }
+                //交换索引位置
+                if(index < lessons.length -1){
+                    var temp = lessons[index];
+                    Vue.set(lessons, index, lessons[index+1]);
+                    Vue.set(lessons, index+1, temp);
+                }
+                //阻止事件冒泡
+                window.event ? e.cancelBubble=true:e.stopPropagation();
+            },
+            saveOrders:function(){
+                //获取当前列表顺序
+                var orders = [];
+                for(var i in lessons){
+                    orders.push(lessons[i].id);
+                }
+                var orders_str = orders.join(",");
+                //跳转保存页面
+                location.href = "<?=Url::to(["orders", 'course_id'=>$course->id, 'orders'=>""])?>"+orders_str;
             }
         }
     })

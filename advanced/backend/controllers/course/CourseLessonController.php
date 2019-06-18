@@ -144,6 +144,22 @@ class CourseLessonController extends Controller
     }
 
     /**
+     * @param $course_id
+     * @return \yii\web\Response
+     */
+    public function actionOrders($course_id){
+        //获取参数
+        $orders_str = Yii::$app->request->get("orders","");
+        $orders_list = explode(',',$orders_str);
+
+        //更新顺序
+        CourseLesson::updateOrder($course_id, $orders_list);
+
+        //跳转
+        return $this->redirect(['list',"course_id"=>$course_id]);
+    }
+
+    /**
      * Finds the CourseLesson model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
