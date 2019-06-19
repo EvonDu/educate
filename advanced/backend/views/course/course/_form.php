@@ -169,13 +169,13 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                 <el-form-item prop="price"
                               label="<?= ActiveElementForm::getFieldLabel($model,"price")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"price")?>">
-                    <el-input v-model.number="price"></el-input>
+                    <el-input v-model="price" @input="change_price(price)"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="price_dollar"
                               label="<?= ActiveElementForm::getFieldLabel($model,"price_dollar")?>"
                               error="<?= ActiveElementForm::getFieldError($model,"price_dollar")?>">
-                    <el-input v-model.number="price_dollar"></el-input>
+                    <el-input v-model="price_dollar" @input="change_price(price)"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="buy_day"
@@ -281,6 +281,10 @@ vuelte\lib\Import::component($this, '@app/views/components/summernote', ['model'
                 this.data.price_dollar = (this.price_dollar * 100).toFixed(0);
 
                 YiiFormSubmit(this.data, "Course");
+            },
+            change_price:function(price){
+                var m = price.match(/^\d*(\.?\d{0,2})/g);
+                this.price = m ? m[0] : 0;
             }
         }
     });

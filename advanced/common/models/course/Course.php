@@ -83,6 +83,7 @@ class Course extends \yii\db\ActiveRecord
             [['num'], 'ruleCheckLegitimate' ,'params'=>[]],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => CourseType::className(), 'targetAttribute' => ['type_id' => 'id']],
             [['instructor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Instructor::className(), 'targetAttribute' => ['instructor_id' => 'id']],
+            [['price', 'price_dollar'], 'compare', 'compareValue' => 10000000, 'operator' => '<='],
         ];
     }
 
