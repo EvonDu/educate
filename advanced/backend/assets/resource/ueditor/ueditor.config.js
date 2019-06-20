@@ -24,13 +24,25 @@
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
+
+    /**
+	 * 获取YII URL根目录
+     */
+	var paths = URL.split("/");
+	paths.pop();
+    paths.pop();
+    paths.pop();
+    paths.push("u-editor");
+    var BASH_URL = paths.join("/");
+    console.log('u-editor config :',BASH_URL);
+
     window.UEDITOR_CONFIG = {
 
         //为编辑器实例添加一个路径，这个不能被注释
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl: URL + "/../../../u-editor"
+        , serverUrl: BASH_URL
         //, serverUrl: URL + "php/controller.php"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
