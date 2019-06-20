@@ -14,7 +14,8 @@ use yii\helpers\Url;
             <source :src="videoUrl"/>
             你的浏览器不支持H5播放器
         </video>
-        <el-upload :action="uploadUrl" :on-success="upload">
+        <el-upload :action="uploadUrl"
+                   :before-upload="upload_before" :on-success="upload_success" :on-error="upload_error">
             <el-button size="small" type="success" v-if="value">重新上传</el-button>
             <el-button size="small" type="primary" v-else>点击上传</el-button>
         </el-upload>
@@ -41,16 +42,23 @@ use yii\helpers\Url;
             }
         },
         methods: {
-            upload:function(res, file) {
+            upload_success:function(res, file) {
                 if(res.state.code == 0 && res.data){
                     //设置属性
-                    //this.value = res.data;
                     this.$emit('change', res.data);
                     //重新加载
                     var video = document.getElementById("video");
                     if(video) video.load();
+                    //关闭Loading
+                    this.$loading().close();
                 }
             },
+            upload_before:function(){
+                this.$loading({lock: true, text: 'Uploading……'});
+            },
+            upload_error:function(file){
+                this.$loading().close();
+            }
         }
     });
 </script>

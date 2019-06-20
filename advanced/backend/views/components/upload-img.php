@@ -34,10 +34,8 @@
 </style>
 
 <component-template>
-    <el-upload
-        class="avatar-uploader"
-        :action="uploadUrl"
-        :on-success="upload">
+    <el-upload class="avatar-uploader" :action="uploadUrl"
+               :before-upload="upload_before" :on-success="upload_success" :on-error="upload_error">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
@@ -62,12 +60,20 @@
             }
         },
         methods: {
-            upload:function(res, file) {
-                if(res.state.code == 0 && res.data){
-                    this.value = res.data;
-                    this.$emit('change', this.value);
+            upload_success:function(res, file) {
+                if(res.state.code === 0 && res.data){
+                    //设置属性
+                    this.$emit('change', res.data);
+                    //关闭Loading
+                    this.$loading().close();
                 }
             },
+            upload_before:function(){
+                this.$loading({lock: true, text: 'Uploading……'});
+            },
+            upload_error:function(file){
+                this.$loading().close();
+            }
         }
     });
 </script>
