@@ -57,8 +57,8 @@
         },
         computed: {
             imageUrl: function () {
-                return this.value ? this.value : null;
-                //return this.value ? "<?=Url::to(["upload/get",'src'=>''],true)?>" + "/" + this.value : null;
+                //return this.value ? this.value : null;
+                return this.value ? "<?=Url::to(["upload/get",'src'=>''],true)?>" + "/" + this.value : null;
             }
         },
         methods: {

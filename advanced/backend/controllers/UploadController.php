@@ -98,7 +98,7 @@ class UploadController extends Controller
         //进行保存
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
-            $src = QiniuUpload::upload($file,$path);
+            $src = Yii::$app->qiniu->upload($file,$path);
             Upload::sentApiResult(0,"",$src);
         }
         else{

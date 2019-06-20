@@ -1,29 +1,29 @@
 <?php
-namespace common\lib;
+namespace common\components;
 
+use Yii;
+use yii\base\Component;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 use yii\web\ServerErrorHttpException;
 
-class QiniuUpload{
+class QiniuComponent extends Component
+{
     /**
-     * @var
+     * @var string
      */
-    static private $config;
+    public $access_key = "k7bsKWF2Qw0mLFOcZfcZa69-khGg_8bCqDmMRyXd";
+    public $secret_key = "VH-f4ueZOMYQ4dDS9vhgDzpSveXKVmM5q3BMtWLg";
+    public $bucket = "english";
+    public $bash_url = "http://cdn.e-l.ink";
 
     /**
-     * init
-     */
-    static private function init(){
-        self::$config = include __DIR__."/../config/qiniu.php";
-    }
-
-    /**
+     * 上传文件
      * @param $upfile
      * @param $path
-     * @return null|string
+     * @return mixed
      */
-    static public function upload($upfile,$path){
+    public function upload($upfile,$path){
         //判断上传的文件
         $temp = explode(".", $upfile["name"]);
 
@@ -36,25 +36,21 @@ class QiniuUpload{
         $filename = $upfile["tmp_name"];
 
         //执行上传
-        return self::run($filename,$uploadname);
+        return $this->run($filename,$uploadname);
     }
 
     /**
+     * 执行上传
      * @param $filename
      * @param $uploadname
      * @return string
      * @throws ServerErrorHttpException
      */
-    static private function run($filename,$uploadname){
-        //初始化
-        self::init();
-
+    private function run($filename,$uploadname){
         //获取授权
-        $accessKey = self::$config['AccessKey'];
-        $secretKey = self::$config['SecretKey'];
-        $auth = new Auth($accessKey, $secretKey);
-        $bucket = self::$config['Bucket'];;//就是七牛的应用名
-        $token = $auth->uploadToken($bucket);//获取上传的token
+        $auth = new Auth($this->access_key, $this->secret_key);
+        $bucket = $this->bucket;                    //就是七牛的应用名
+        $token = $auth->uploadToken($bucket);       //获取上传的token
 
         //上传到七牛
         $uploadMgr = new UploadManager();
@@ -62,9 +58,10 @@ class QiniuUpload{
         if ($err !== null){
             $error_msg = empty($err->response->error) ? "" : $err->response->error;
             $error_code = empty($err->response->statusCode) ? "" : $err->response->statusCode;
-            throw new ServerErrorHttpException("qiniu uoload fail,$error_code:$error_msg");
+            if($error_msg && $error_code)
+                throw new ServerErrorHttpException("qiniu uoload fail,$error_code:$error_msg");
         }
         else
-            return self::$config['Url']."/$uploadname";
+            return $this->bash_url."/".$ret["key"];
     }
 }

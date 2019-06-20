@@ -31,8 +31,8 @@ use yii\helpers\Url;
         },
         data:function(){
             return {
-                uploadUrl:"<?=Url::to(["upload/file"],true)?>",
-                //uploadUrl:"<?=Url::to(["upload/qiniu","path"=>""],true)?>" + this.path,
+                //uploadUrl:"<?=Url::to(["upload/file"],true)?>",
+                uploadUrl:"<?=Url::to(["upload/qiniu","path"=>""],true)?>" + this.path,
             }
         },
         computed: {

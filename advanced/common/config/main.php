@@ -18,5 +18,8 @@ return [
             'assignmentTable' => 'auth_assignment',
             'itemChildTable' => 'auth_item_child',
         ],
+        'qiniu' => [
+            'class'=>'common\components\QiniuComponent'
+        ],
     ],
 ];
