@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-12-12 09:53:32
--- 服务器版本： 5.7.14
+-- Generation Time: 2019-06-25 09:27:30
+-- 服务器版本： 5.7.14-log
 -- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -64,7 +64,7 @@ CREATE TABLE `admin_info` (
 --
 
 INSERT INTO `admin_info` (`id`, `user_id`, `nickname`, `avatar`, `phone`) VALUES
-(1, 1, '管理员', 'http://pdt1od3ni.bkt.clouddn.com//5bb85767d2e97.jpg', NULL);
+(1, 1, '管理员', 'http://localhost/test/educate/advanced/backend/web/upload/get/20190619/5d0a0208b4506.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -130,18 +130,27 @@ CREATE TABLE `course` (
   `type_id` int(11) DEFAULT NULL COMMENT '课程类型',
   `instructor_id` int(11) DEFAULT NULL COMMENT '课程导师',
   `price` int(11) NOT NULL DEFAULT '0' COMMENT '课程价格',
+  `price_dollar` int(11) NOT NULL DEFAULT '0' COMMENT '课程价格(美金)',
   `name` varchar(50) DEFAULT NULL COMMENT '课程名称',
+  `name_en` varchar(50) DEFAULT NULL COMMENT '课程名称(英)',
   `image` varchar(256) DEFAULT NULL COMMENT '课程封面',
   `level` int(11) DEFAULT NULL COMMENT '课程难度',
   `period` int(11) NOT NULL DEFAULT '0' COMMENT '课程课时',
   `synopsis` text COMMENT '课程摘要',
+  `synopsis_en` text COMMENT '课程摘要(英)',
   `abstract` text COMMENT '课程简介',
+  `abstract_en` text COMMENT '课程简介(英)',
   `requirements_prerequisites` text COMMENT '前提',
   `requirements_textbooks` text COMMENT '教科书',
   `requirements_software` text COMMENT '软件要求',
   `requirements_hardware` text COMMENT '硬件要求',
+  `requirements_prerequisites_en` text COMMENT '前提(英)',
+  `requirements_textbooks_en` text COMMENT '教科书(英)',
+  `requirements_software_en` text COMMENT '软件要求(英)',
+  `requirements_hardware_en` text COMMENT '硬件要求(英)',
   `try` bit(1) DEFAULT b'0' COMMENT '支持试用',
-  `try_day` int(11) DEFAULT '0' COMMENT '试用天数',
+  `try_day` int(11) DEFAULT '30' COMMENT '试用天数',
+  `buy_day` int(11) DEFAULT '180' COMMENT '购买天数',
   `next_term_at` int(11) DEFAULT '0' COMMENT '下学期',
   `created_at` int(11) DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) DEFAULT '0' COMMENT '更新时间'
@@ -151,29 +160,8 @@ CREATE TABLE `course` (
 -- 转存表中的数据 `course`
 --
 
-INSERT INTO `course` (`id`, `num`, `type_id`, `instructor_id`, `price`, `name`, `image`, `level`, `period`, `synopsis`, `abstract`, `requirements_prerequisites`, `requirements_textbooks`, `requirements_software`, `requirements_hardware`, `try`, `try_day`, `next_term_at`, `created_at`, `updated_at`) VALUES
-(2, 'YII001', 2, 1, 0, 'Yii 2.0 权威指南', 'http://pdt1od3ni.bkt.clouddn.com/course/5bb813e766f38.jpg', 1, 28, '我是摘要', '<h2>系统要求和先决条件 <span id=""></span></h2><p>Yii 2.0 需要 PHP 5.4.0 或以上版本支持。你可以通过运行任何\r\nYii 发行包中附带的系统要求检查器查看每个具体特性所需的 PHP 配置。</p><p>使用 Yii 需要对面向对象编程（OOP）有基本了解，因为 Yii 是一个纯面向对象的框架。Yii 2.0 还使用了 PHP 的最新特性，\r\n例如<a href="http://www.php.net/manual/en/language.namespaces.php">命名空间</a>\r\n和<a href="http://www.php.net/manual/en/language.oop5.traits.php">Trait（特质）</a>。\r\n理解这些概念将有助于你更快地掌握 Yii 2.0。</p>', NULL, NULL, NULL, NULL, b'1', 30, 1538409600, 0, 1543039680),
-(3, 'MySql001', 2, 1, 0, 'MySql 从入门到删库', NULL, 2, 32, NULL, 'rm -rf / 真刺激', NULL, NULL, NULL, NULL, b'0', 30, 0, 1539003884, 1539004469),
-(4, 'num001', 2, 1, 0, 'IT售前工程师修炼之道', NULL, 1, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'1', 30, 0, 1542026900, 1543313120),
-(5, 'num002', 2, 1, 0, 'IT工程师修炼之道', NULL, 1, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542026941, 1542026941),
-(6, 'num003', 2, 2, 0, 'IT售前工程师', NULL, 2, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542026987, 1542026987),
-(7, 'num004', 3, 1, 0, 'IT售前之道', NULL, 2, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027015, 1542027015),
-(8, 'num005', 2, 1, 0, 'IT售前工程师修炼', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027044, 1542027044),
-(9, 'num006', 3, 1, 0, 'IT项目管理（英文精编版 第7版）', NULL, 4, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027076, 1542027076),
-(10, 'num007', 2, 2, 0, 'IT项目管理', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027113, 1542027113),
-(11, 'num008', 3, 1, 0, 'IT项目', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027136, 1542027136),
-(12, 'num009', 2, 2, 0, 'PHP从入门到精通', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027175, 1542027175),
-(13, 'num010', 2, 1, 0, 'PHP从入门到放弃', NULL, 1, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027203, 1542027203),
-(14, 'num011', 2, 2, 0, ' PHP核心技术与最佳实践', NULL, 3, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027244, 1542027244),
-(15, 'num012', 2, 2, 0, ' PHP核心技术', NULL, 1, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027275, 1542027275),
-(16, 'num013', 3, 2, 0, ' PHP最佳实践', NULL, 2, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027305, 1542027305),
-(17, 'num014', 2, 2, 0, 'PHP开发实例大全', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027335, 1542027335),
-(18, 'num015', 2, 1, 0, 'PHP开发实例', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027356, 1542027356),
-(19, 'num016', 2, 1, 0, 'PHP、MySQL与JavaScript学习手册', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027393, 1542027393),
-(20, 'num017', 3, 1, 0, 'PHP、MySQL学习手册', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027421, 1542027421),
-(21, 'num018', 2, 1, 0, 'PHP与JavaScript学习手册', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027450, 1542027450),
-(22, 'num019', 41, 1, 0, 'PHP学习手册', NULL, 5, 32, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 0, 1542027493, 1542027493),
-(23, 'P1', 2, 2, 0, 'I-LINK Pahonics', NULL, 2, 10, '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要', '<span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">简介</span>', '<span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 前</span>', '<span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 教材</span>', '<span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 软件</span>', '<span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span><span style="color: rgb(96, 98, 102); font-weight: 700; text-align: right;">课程要求 - 硬件</span>', b'1', 7, 0, 1543672878, 1543673028);
+INSERT INTO `course` (`id`, `num`, `type_id`, `instructor_id`, `price`, `price_dollar`, `name`, `name_en`, `image`, `level`, `period`, `synopsis`, `synopsis_en`, `abstract`, `abstract_en`, `requirements_prerequisites`, `requirements_textbooks`, `requirements_software`, `requirements_hardware`, `requirements_prerequisites_en`, `requirements_textbooks_en`, `requirements_software_en`, `requirements_hardware_en`, `try`, `try_day`, `buy_day`, `next_term_at`, `created_at`, `updated_at`) VALUES
+(26, 'iLinkPhonics001', 44, NULL, 3762121, 1280, '拼读一', 'i-Link Phonics Level 1', NULL, 1, 20, '没有摘要', 'Name and sound of the alphabet', '我是课程简介<br>', 'Learn the names and sounds of the letters.', 'None', 'All learning material will be on the website.', 'Windows or Mac&nbsp;', 'Computer or smart phones which can open websites.', 'zxcxzcxzczxcxzcxz<br>', 'qweqweqweqweqwe', 'dasdasdasdasdas', '213213213132321', b'1', 7, 30, 0, 1545294135, 1560916441);
 
 -- --------------------------------------------------------
 
@@ -199,9 +187,9 @@ CREATE TABLE `course_lesson` (
 --
 
 INSERT INTO `course_lesson` (`id`, `course_id`, `lesson`, `title`, `abstract`, `video`, `content`, `task`, `try`, `free`) VALUES
-(6, 2, 1, '关于 Yii（About Yii）', '<h1 id="yii">Yii 是什么 <a href="https://www.yiichina.com/doc/guide/2.0/intro-yii#yii" class="hashlink">¶</a></h1><p>Yii 是一个高性能，基于组件的 PHP 框架，用于快速开发现代 Web 应用程序。\r\n名字 Yii （读作 <code>易</code>）在中文里有“极致简单与不断演变”两重含义，\r\n也可看作 <strong>Yes It Is</strong>! 的缩写。</p><h2 id="yii">Yii 最适合做什么？ </h2><p>Yii 是一个通用的 Web 编程框架，即可以用于开发各种用 PHP 构建的 Web 应用。\r\n因为基于组件的框架结构和设计精巧的缓存支持，它特别适合开发大型应用，\r\n如门户网站、社区、内容管理系统（CMS）、\r\n电子商务项目和 RESTful Web 服务等。</p>', 'http://pdt1od3ni.bkt.clouddn.com/video/5bb816db2e9d0.webm', 'Yii 不是一场独角戏，它由一个强大的开发者团队提供支持， 也有一个庞大的专家社区，持续不断地对 Yii 的开发作出贡献。 Yii 开发者团队始终对 Web 开发趋势和其他框架及项目中的最佳实践和特性保持密切关注， 那些有意义的最佳实践及特性会被不定期的整合进核心框架中， 并提供简单优雅的接口。', '<h2>系统要求和先决条件 <span id=""></span></h2><p>Yii 2.0 需要 PHP 5.4.0 或以上版本支持。你可以通过运行任何\r\nYii 发行包中附带的系统要求检查器查看每个具体特性所需的 PHP 配置。</p>\r\n<p>使用 Yii 需要对面向对象编程（OOP）有基本了解，因为 Yii 是一个纯面向对象的框架。Yii 2.0 还使用了 PHP 的最新特性，\r\n例如<a href="http://www.php.net/manual/en/language.namespaces.php">命名空间</a>\r\n和<a href="http://www.php.net/manual/en/language.oop5.traits.php">Trait（特质）</a>。\r\n理解这些概念将有助于你更快地掌握 Yii 2.0。</p>', b'1', b'1'),
-(7, 2, 2, '测试章节', '<span style="color: rgb(34, 34, 34); font-family: tahoma, arial, &quot;Microsoft YaHei&quot;;">nice PHP内置函数memory_get_usage()能返回当前分配给PHP脚本的内存量，单位是字节（byte）。在WEB实际开发中，这些函数非常有用，我们可以使用它来调试PHP代码性能。</span><br style="color: rgb(34, 34, 34); font-family: tahoma, arial, &quot;Microsoft YaHei&quot;;"><span style="color: rgb(34, 34, 34); font-family: tahoma, arial, &quot;Microsoft YaHei&quot;;">memory_get_usage()函数返回内存使用量，memory_get_peak_usage()函数返回内存使用峰值，getrusage()返回CUP使用情况。但有一点请注意，在这些函数需要在Linux上运行。</span>', NULL, 'nicd Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dolore doloribus id illum unde voluptatibus. Consectetur cupiditate ex hic modi perferendis! Beatae delectus dolores fugit laborum tenetur veniam vitae! sha', '756756765756', b'1', b'0'),
-(8, 23, 1, '1111111111', '语法练习语法练习语法练习语法练习语法练习语法练习语法练习语法练习语法练习语法练习语法练习v', NULL, 'There are moments in life when you miss someone so much that you just want to pick them from your dreams and hug them for real! Dream what you want to dream;go where you want to go;be what you want to be,because you have only one life and one chance to do all the things you want to do.\r\n\r\n　　May you have enough happiness to make you sweet,enough trials to make you strong,enough sorrow to keep you human,enough hope to make you happy? Always put yourself in others’shoes.If you feel that it hurts you,it probably hurts the other person, too.', NULL, b'1', b'0');
+(1, 26, 2, 'Name and sound of the letters', 'After this class you will be able to say the names and sounds of every letter in the alphabet.', NULL, 'A H J K\r\nE B C D G P T V Z\r\nF L M N S X\r\nI Y\r\nO\r\nU Q W\r\nR\r\n\r\n<h1>asdasda</h1>', 'Say the names and the sounds of the letters correctly. And upload your work.', b'0', b'0'),
+(2, 26, 1, 'at', '<p>1. Say the <span style="text-decoration: underline; font-weight: bold;">a</span> sound "<span style="font-weight: bold;">a</span>", say the <span style="text-decoration: underline; font-weight: bold;">t</span>&nbsp;sound "<span style="font-weight: bold;">t</span>", say (a and t) together "<span style="font-weight: bold;">at</span>"</p><p>2. "<span style="font-weight: bold; text-decoration: underline;">at</span>" &nbsp; &nbsp;b&nbsp;<span style="text-decoration: underline;">at</span>&nbsp; &nbsp; &nbsp;c&nbsp;<span style="text-decoration: underline;">at</span>&nbsp; &nbsp; f <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; h <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; m <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; p <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; r <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; s <span style="text-decoration: underline;">at</span>&nbsp; &nbsp;&nbsp;&nbsp;</p>', NULL, '<p>1. Say the a sound &quot;a&quot;, say the t sound &quot;t&quot;, say (a and t) together &quot;at&quot;\r\n\r\n2. &quot;at&quot; &nbsp; &nbsp;b at &nbsp; &nbsp; c at &nbsp; &nbsp;f at &nbsp; &nbsp;h at &nbsp; &nbsp;m at &nbsp; &nbsp;p at &nbsp; &nbsp;r at &nbsp; &nbsp;s at &nbsp; &nbsp;</p>', NULL, b'0', b'0'),
+(3, 26, 3, '35657465867996707', NULL, 'http://localhost/test/educate/advanced/backend/web/upload/get/20190528/5cecfa99ebd72.jpg', '<p><img src="http://localhost/test/educate/advanced/backend/web/upload/20190528/5cecfab560f3d.jpg" title="upload.jpg" alt="upload.jpg"/></p>', NULL, b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -212,6 +200,7 @@ INSERT INTO `course_lesson` (`id`, `course_id`, `lesson`, `title`, `abstract`, `
 CREATE TABLE `course_type` (
   `id` int(11) NOT NULL COMMENT '聚集索引',
   `name` varchar(50) DEFAULT NULL COMMENT '类型名',
+  `name_en` varchar(50) DEFAULT NULL COMMENT '类型名(英语)',
   `created_at` int(11) DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(11) DEFAULT '0' COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -220,11 +209,54 @@ CREATE TABLE `course_type` (
 -- 转存表中的数据 `course_type`
 --
 
-INSERT INTO `course_type` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(2, 'Phonics & Pronunciation', 1535417485, 1539923523),
-(3, 'Reading & Grammar', 1535417491, 1539923574),
-(41, 'Listening Comprehension', 1538790239, 1539923612),
-(42, 'i-link Phonics', 1543672700, 1543672700);
+INSERT INTO `course_type` (`id`, `name`, `name_en`, `created_at`, `updated_at`) VALUES
+(44, '英语拼读', 'English Phonics', 1545293916, 1548405290);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `homepage`
+--
+
+CREATE TABLE `homepage` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `title_en` varchar(50) DEFAULT NULL,
+  `abstract` text,
+  `abstract_en` text,
+  `image` varchar(256) DEFAULT NULL,
+  `content` text,
+  `content_en` text
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `homepage`
+--
+
+INSERT INTO `homepage` (`id`, `title`, `title_en`, `abstract`, `abstract_en`, `image`, `content`, `content_en`) VALUES
+(1, 'kykyukuyk', '111111', 'uyiyuityityityi', '2222222222', 'http://localhost/github/educate/advanced/backend/web/upload/get/20181224/5c203f0064166.jpg', '<p>yuityuiutyityiytiyitrthutjtyj4564646</p>', '<p>3333333333333<br/></p>');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `homepage_items`
+--
+
+CREATE TABLE `homepage_items` (
+  `id` int(11) NOT NULL,
+  `order` int(11) DEFAULT '10',
+  `image` varchar(256) DEFAULT NULL,
+  `content` text,
+  `content_en` text
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `homepage_items`
+--
+
+INSERT INTO `homepage_items` (`id`, `order`, `image`, `content`, `content_en`) VALUES
+(1, 30, 'http://localhost/github/educate/advanced/backend/web/upload/get/20181224/5c20721669b46.jpg', '<p>645646546754</p>', '<p>asdfgghdjkljtrerfhte<br/></p>'),
+(2, 11, '20181222/5c1e05d9bdb28.jpg', 'asdfasfasfasfasfasfasfasfsa', NULL);
 
 -- --------------------------------------------------------
 
@@ -276,21 +308,56 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `order`
+--
+
+CREATE TABLE `order` (
+  `order_no` varchar(50) NOT NULL,
+  `channel` int(11) DEFAULT '1',
+  `type` varchar(10) DEFAULT 'H5',
+  `openid` varchar(50) NOT NULL,
+  `body` varchar(250) NOT NULL,
+  `amount_fee` int(11) DEFAULT '1',
+  `trade_no` varchar(50) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `datetime` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `order`
+--
+
+INSERT INTO `order` (`order_no`, `channel`, `type`, `openid`, `body`, `amount_fee`, `trade_no`, `user_id`, `course_id`, `datetime`) VALUES
+('1555464665', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029054213', 1, 26, '2019-04-17 09:31:22'),
+('1555464980', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029062498', 1, 26, '2019-04-17 09:36:59'),
+('1555466378', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029041710', 1, 26, '2019-04-17 10:00:03'),
+('1555466546', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029063036', 1, 26, '2019-04-17 10:03:18'),
+('1555466791', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029063039', 1, 26, '2019-04-17 10:06:48'),
+('1555466691', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029068562', 1, 26, '2019-04-17 10:08:01');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `page`
 --
 
 CREATE TABLE `page` (
   `name` varchar(50) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `content` longtext
+  `content` longtext,
+  `content_en` longtext
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `page`
 --
 
-INSERT INTO `page` (`name`, `title`, `content`) VALUES
-('CompanyProfile', '公司介绍', 'dasdasd ');
+INSERT INTO `page` (`name`, `title`, `content`, `content_en`) VALUES
+('Methods', '学习模式', '<p>asfdgfdfhgfhjgjvghjghjhgjhg</p>', '<p>gdfhfjghfjghfjhgfjgfhgfhfghhgfhdf<br/></p>'),
+('CompanyProfile', '公司介绍', 'dasdasd ', NULL),
+('TermsOfUse', '使用条款', '', NULL),
+('CopyrightPolicy', '版权政策', '电饭锅和豆腐干和', NULL);
 
 -- --------------------------------------------------------
 
@@ -311,7 +378,7 @@ CREATE TABLE `pronunciation` (
 --
 
 INSERT INTO `pronunciation` (`id`, `word`, `audio`, `created_at`, `updated_at`) VALUES
-(4, 'sha', 'http://pdt1od3ni.bkt.clouddn.com//5bb806ce79df3.wav', 1538787039, 1538787039),
+(4, 'sha', 'http://localhost/github/educate/advanced/backend/web/upload/get/20181224/5c2071a69f1bd.wav', 1538787039, 1545630124),
 (3, 'nice', 'http://pdt1od3ni.bkt.clouddn.com/pronunciation/5b7d1cac0f18c.mp3', 1534925997, 1534925997);
 
 -- --------------------------------------------------------
@@ -356,14 +423,7 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `type`, `course_id`, `lesson_id`, `title`, `content`, `file`, `audio`, `created_at`, `finish_at`) VALUES
-(1, 0, 2, 6, '3213213213', '2132132131321', NULL, NULL, 0, 1547913600),
-(2, 0, 2, 6, '拍一段小视频', '拿起相机，拍一段小视频', NULL, NULL, NULL, NULL),
-(3, 0, 2, 6, '作业1', '12321321321', NULL, NULL, 1543887944, 0),
-(4, 0, 2, 7, '7567576575', '567657575', NULL, NULL, 1543895029, 1571846400),
-(5, 0, 2, 6, 'lalalaa', '<pre style="background-color:#2b2b2b;color:#a9b7c6;font-family:\'Consolas\';font-size:12.0pt;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam amet at consequatur dolorem dolorum ducimus error, harum iste minima molestias obcaecati, officia officiis optio placeat quibusdam rerum temporibus vitae!</pre>', NULL, NULL, 1544237681, 0),
-(6, 0, 2, 6, 'FFFFF', '烧死异性恋', NULL, NULL, 1544253551, 1543593600),
-(7, 0, 2, 6, 'cxzasdfafasd', 'fqwedasdqweqw', NULL, NULL, 1544254450, 0),
-(8, 0, 2, 6, 'sadqwe213213', 'dsadsadsa321321', NULL, NULL, 1544254581, 2476800);
+(1, 0, 26, 1, '213213213', '2313123213213', NULL, NULL, 1547107202, 2563200);
 
 -- --------------------------------------------------------
 
@@ -391,16 +451,7 @@ CREATE TABLE `task_submit` (
 --
 
 INSERT INTO `task_submit` (`id`, `task_id`, `user_id`, `submit_content`, `submit_file`, `submit_audio`, `reply_content`, `reply_file`, `reply_audio`, `status`, `submit_at`, `reply_at`) VALUES
-(3, 1, 2, 'asdasdsadsadsa', NULL, NULL, 'dsadsadsadzx78678', NULL, NULL, 2, 1543916626, 1543979295),
-(4, 1, 1, 'dasfasgdfsgdfshdfghdgfjdgfjdfghfhfsdf', NULL, NULL, NULL, NULL, NULL, 1, 0, 0),
-(5, 1, 1, 'dasfasgdfsgdfshdfghdgfjdgfjdfghfhfsdf', NULL, NULL, NULL, NULL, NULL, 1, 1543981830, 0),
-(6, 1, 3, 'sdfvzxcvdzsfdsgdsgdsvxdcv', NULL, NULL, NULL, NULL, NULL, 1, 1543996091, 0),
-(7, 2, 1, '<p>sadasda</p>', NULL, NULL, NULL, NULL, NULL, 1, 1544236061, 0),
-(8, 3, 1, '<p>dsadas</p>', '[object File]', NULL, NULL, NULL, NULL, 1, 1544237329, 0),
-(9, 4, 1, '<p><br></p>', '[object File]', NULL, NULL, NULL, NULL, 1, 1544237395, 0),
-(10, 5, 1, '<p>携程支付sad</p>', 'http://192.168.1.12/github/educate/advanced/api/web/v1/upload/get/20181208/5c0b6ff44b51d.png', NULL, NULL, NULL, NULL, 1, 1544253428, 0),
-(11, 6, 1, '<p>阿萨德撒发</p>', 'http://192.168.1.12/github/educate/advanced/api/web/v1/upload/get/20181208/5c0b709f504cc.png', NULL, NULL, NULL, NULL, 1, 1544253599, 0),
-(12, 7, 1, '<p>dsada</p>', 'http://192.168.1.12/github/educate/advanced/api/web/v1/upload/get/20181208/5c0b74335c85e.png', NULL, NULL, NULL, NULL, 1, 1544254515, 0);
+(1, 1, 9, '32131231231', NULL, NULL, NULL, NULL, NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -439,7 +490,7 @@ INSERT INTO `user` (`id`, `email`, `auth_key`, `password_hash`, `password_reset_
 (5, 'sdad@dsa.com', 'RonS8-ZLBFYo9Sv9m37RWMOiFAkENdZw', '$2y$13$K6IsJOKrgz9KG4yUxx8VxOvI637d6nWKK0AipmoPREnBX25c/Irmu', NULL, 10, 'dasdas', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1540823224, 1540823224),
 (6, 'sdadaw@ewq.com', 'SX-_XYto9bdLE8iJGbO_DHTHUrs8BsUF', '$2y$13$qDgAnVwhNZv1K4Frfeck7OC01KRcZ79R7W6gRD0M3hZGdeXoBFzIW', NULL, 10, 'adsdsa', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1540824099, 1540824099),
 (7, 'aa@qq.com', 'YoIzfpnSvr74DYiTEcy3X7ZKt74f93r3', '$2y$13$vqzEgZCUOUeLZnAF5dSB0.f76VwxTgbHRbRrh9Yjk2Sy0J.5noItu', NULL, 10, 'yamanashi', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542079447, 1542079447),
-(8, 'aaaa@qq.com', 'dg1mz-t3cNVQc0VsGJGhWtR_d8KuT5J-', '$2y$13$of6Vbe2e8axPaD7b0Eb2muCEBwVaMrOg6pzVRTyTf0Am/673Fnql6', NULL, 10, 'yamana', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542079503, 1542079503),
+(8, 'aaaa@qq.com', 'dg1mz-t3cNVQc0VsGJGhWtR_d8KuT5J-', '$2y$13$DAIGH6AXF9mGOHnYa2j7w.FG1VNKtdb7xukhr1U6PtAbDtGh0P1yi', NULL, 10, 'yamana', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542079503, 1542079503),
 (9, 'asdasd@sdad.com', 'mS-Lzp7Tv0FcBDwkLyyNbXH3IK1CoQ-F', '$2y$13$vZAkDTXoIaV2sxfvPsicM.oT467snS2Gux8gcla37QXdQWXKfDkIe', NULL, 10, 'asdasd', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542955799, 1542955799),
 (10, '492361988@qq.com', '5yJDAsYha1vvZEnxOUVYmi3L7Zqbll5_', '$2y$13$fWmye/V2xdnCLBhmBQizs.COK04WouUpe0adyVXTjqfBAkBl7Mco2', NULL, 10, 'yamanashi', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1543663356, 1543663356);
 
@@ -453,7 +504,8 @@ CREATE TABLE `user_course` (
   `user_id` int(11) NOT NULL COMMENT '用户',
   `course_id` int(11) NOT NULL COMMENT '课程',
   `try` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否为试用',
-  `tryed_at` int(11) DEFAULT '0' COMMENT '使用结束时间',
+  `tryed_at` int(11) DEFAULT '0' COMMENT '试用结束时间',
+  `used_at` int(11) DEFAULT '0' COMMENT '使用结束时间',
   `created_at` int(11) DEFAULT '0' COMMENT '开始时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -461,16 +513,8 @@ CREATE TABLE `user_course` (
 -- 转存表中的数据 `user_course`
 --
 
-INSERT INTO `user_course` (`user_id`, `course_id`, `try`, `tryed_at`, `created_at`) VALUES
-(1, 2, b'0', 1545362707, 1542770707),
-(8, 2, b'0', 0, 1542770847),
-(4, 2, b'1', 1545872389, 1543280389),
-(4, 3, b'0', 0, 1543280595),
-(1, 3, b'0', 0, 1543312924),
-(1, 4, b'1', 1545905129, 1543313129),
-(10, 2, b'0', 0, 1543663471),
-(10, 9, b'0', 0, 1543672458),
-(10, 23, b'0', 0, 1543673282);
+INSERT INTO `user_course` (`user_id`, `course_id`, `try`, `tryed_at`, `used_at`, `created_at`) VALUES
+(1, 26, b'0', 0, 1579397819, 1555465019);
 
 -- --------------------------------------------------------
 
@@ -483,15 +527,6 @@ CREATE TABLE `user_favorite` (
   `course_id` int(11) NOT NULL,
   `created_at` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `user_favorite`
---
-
-INSERT INTO `user_favorite` (`user_id`, `course_id`, `created_at`) VALUES
-(1, 3, 0),
-(3, 3, 0),
-(4, 2, 0);
 
 --
 -- Indexes for dumped tables
@@ -548,20 +583,33 @@ ALTER TABLE `course`
   ADD UNIQUE KEY `num` (`num`),
   ADD KEY `FK_course_instructor` (`instructor_id`),
   ADD KEY `FK_course_course_type` (`type_id`),
-  ADD KEY `name` (`name`);
+  ADD KEY `name` (`name`),
+  ADD KEY `name_en` (`name_en`);
 
 --
 -- Indexes for table `course_lesson`
 --
 ALTER TABLE `course_lesson`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `course_id_lesson` (`course_id`,`lesson`),
-  ADD KEY `num` (`lesson`);
+  ADD KEY `num` (`lesson`),
+  ADD KEY `FK_course_lesson_course` (`course_id`);
 
 --
 -- Indexes for table `course_type`
 --
 ALTER TABLE `course_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `homepage`
+--
+ALTER TABLE `homepage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `homepage_items`
+--
+ALTER TABLE `homepage_items`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -575,6 +623,12 @@ ALTER TABLE `instructor`
 --
 ALTER TABLE `migration`
   ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`order_no`);
 
 --
 -- Indexes for table `page`
@@ -652,17 +706,27 @@ ALTER TABLE `admin_info`
 -- 使用表AUTO_INCREMENT `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=27;
 --
 -- 使用表AUTO_INCREMENT `course_lesson`
 --
 ALTER TABLE `course_lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=4;
 --
 -- 使用表AUTO_INCREMENT `course_type`
 --
 ALTER TABLE `course_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=45;
+--
+-- 使用表AUTO_INCREMENT `homepage`
+--
+ALTER TABLE `homepage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- 使用表AUTO_INCREMENT `homepage_items`
+--
+ALTER TABLE `homepage_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- 使用表AUTO_INCREMENT `instructor`
 --
@@ -677,12 +741,12 @@ ALTER TABLE `pronunciation`
 -- 使用表AUTO_INCREMENT `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '作业ID', AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '作业ID', AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `task_submit`
 --
 ALTER TABLE `task_submit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `user`
 --
