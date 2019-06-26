@@ -124,6 +124,7 @@ class UserCourse extends \yii\db\ActiveRecord
         $model->course_id = $course_id;
         $model->try = true;
         $model->tryed_at = time() + ($course->try_day * 24 * 60 * 60);
+        $model->used_at = $model->tryed_at;
 
         //保存信息
         if($model->save())
