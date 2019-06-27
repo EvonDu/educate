@@ -42,7 +42,9 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model
 
                 <?php if(!empty($task->audio)):?>
                 <el-form-item label="音频">
-                    <a type="button" class="btn btn-primary btn-flat" href="<?=$task->audio?>" target="_blank">文件下载</a>
+                    <audio src="<?=$task->audio?>" controls="controls">
+                        你的浏览器不支持H5播放器
+                    </audio>
                 </el-form-item>
                 <?php endif;?>
 
@@ -58,7 +60,9 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model
 
                 <?php if(!empty($model->submit_audio)):?>
                     <el-form-item label="提交音频">
-                        <a type="button" class="btn btn-primary btn-flat" href="<?=$model->submit_audio?>" target="_blank">文件下载</a>
+                        <audio src="<?=$model->submit_audio?>" controls="controls">
+                            你的浏览器不支持H5播放器
+                        </audio>
                     </el-form-item>
                 <?php endif;?>
 
