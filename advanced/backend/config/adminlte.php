@@ -3,13 +3,13 @@ use \yii\helpers\Url;
 
 return [
     //配置名称
-    'productName' => 'YII Admin 3',
+    'productName' => 'i-Link',
     //配置用户
     'user' => [
         'name'=> isset(Yii::$app->user->identity->info->nickname) ? Yii::$app->user->identity->info->nickname : null,
         'image'=> isset(Yii::$app->user->identity->info->avatarUrl) ? Yii::$app->user->identity->info->avatarUrl : null,
-        'job'=> "开发者",
-        'abstract'=> 'PHP后端开发者',
+        'job'=> "教授",
+        'abstract'=> '资深外语教授',
     ],
     //用户按钮
     'userButtons' => [
