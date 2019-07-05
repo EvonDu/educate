@@ -192,6 +192,26 @@ class Course extends \yii\db\ActiveRecord
     }
 
     /**
+     * 获取章节概要(只获取概要信息)
+     */
+    public function getCourseLessonsAbstract(){
+        $lessons = [];
+        foreach ($this->courseLessons as $lesson){
+            $item = [
+                "id"=>$lesson->id,
+                "lesson"=>$lesson->lesson,
+                "title"=>$lesson->title,
+                "abstract"=>$lesson->abstract,
+                "try"=>$lesson->try,
+                "free"=>$lesson->free,
+            ];
+            $lessons[] = $item;
+        }
+        return $lessons;
+    }
+
+    /**
+     * 规则 - 检测特殊符号
      * @param $attribute
      * @param $params
      */

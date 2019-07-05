@@ -100,23 +100,43 @@ class CoursesController extends ApiController
         if(!$model)
             throw new NotFoundHttpException("Not found:$course_num");
 
-        //获取课程所有章节
-        $lessons = [];
-        foreach ($model->courseLessons as $lesson){
-            $item = [
-                "id"=>$lesson->id,
-                "lesson"=>$lesson->lesson,
-                "title"=>$lesson->title,
-                "abstract"=>$lesson->abstract,
-                "try"=>$lesson->try,
-                "free"=>$lesson->free,
-            ];
-            $lessons[] = $item;
-        }
-
         //返回课程信息
         $result = ArrayHelper::toArray($model);
-        $result["lessons"] = $lessons;
+        $result["lessons"] = $model->getCourseLessonsAbstract();
+        return $result;
+    }
+
+    /**
+     * 课程详情
+     * @OA\POST(
+     *      path="/v1/courses/read",
+     *      tags={"Course"},
+     *      summary="读取课程",
+     *      description="读取用户所拥有的课程",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="用户ID", property="user_id", type="string"),
+     *              @OA\Property(description="课程ID", property="course_id", type="string"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果")
+     * )
+     */
+    public function actionRead(){
+        //参数检测
+        ApiRequest::checkPost(["user_id","course_id"]);
+        $user_id = Yii::$app->request->post("user_id");
+        $course_id = Yii::$app->request->post("course_id");
+
+        //获取课程拥有状态
+        $has = UserCourse::findOne(["user_id"=>$user_id, "course_id"=>$course_id]);
+        if(!$has)
+            throw new NotFoundHttpException("users do not own courses id:$course_id");
+
+        //返回课程信息
+        $result["state"] = ["try"=>$has->try];
+        $result["course"] = ArrayHelper::toArray($has->course);
+        $result["course"]["lessons"] = $has->course->getCourseLessonsAbstract();
         return $result;
     }
 
