@@ -34,7 +34,7 @@
 </style>
 
 <component-template>
-    <el-upload class="avatar-uploader" :action="uploadUrl"
+    <el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false" accept="image/jpeg,image/gif,image/png"
                :before-upload="upload_before" :on-success="upload_success" :on-error="upload_error">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>

@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 vuelte\lib\Import::value($this, $model, "data");
 vuelte\lib\Import::component($this,'_form', ['model' => $model]);
 vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model' => $model]);
+vuelte\lib\Import::component($this, '@app/views/components/upload-audio', ['model' => $model]);
 ?>
 <div id="app">
     <lte-row>
@@ -93,7 +94,7 @@ vuelte\lib\Import::component($this, '@app/views/components/upload-file', ['model
                     <el-form-item prop="reply_audio"
                                   label="<?= ActiveElementForm::getFieldLabel($model,"reply_audio")?>"
                                   error="<?= ActiveElementForm::getFieldError($model,"reply_audio")?>">
-                        <upload-file v-model="data.reply_audio" path="taskSubmit"></upload-file>
+                        <upload-audio v-model="data.reply_audio" path="taskSubmit"></upload-audio>
                     </el-form-item>
 
                     <el-form-item>

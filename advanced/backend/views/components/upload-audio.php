@@ -13,10 +13,10 @@ use yii\helpers\Url;
 
 <component-template>
     <span>
-        <video id="video" controls="controls" v-if="videoUrl" style="max-width: 100%;width: 500px;">
+        <audio  id="audio" controls="controls" v-if="videoUrl" style="max-width: 100%;width: 500px;">
             <source :src="videoUrl"/>
             你的浏览器不支持H5播放器
-        </video>
+        </audio>
         <el-upload :action="uploadUrl" :show-file-list="false" accept="audio/mpeg,audio/mp4,video/mpeg,video/mp4"
                    :before-upload="upload_before" :on-success="upload_success" :on-error="upload_error">
             <el-button size="small" type="success" v-if="value">重新上传</el-button>
@@ -27,7 +27,7 @@ use yii\helpers\Url;
 </component-template>
 
 <script>
-    Vue.component('upload-video', {
+    Vue.component('upload-audio', {
         template: '{{component-template}}',
         model: { prop: 'value', event: 'change'},
         props:{
@@ -51,8 +51,8 @@ use yii\helpers\Url;
                     //设置属性
                     this.$emit('change', res.data);
                     //重新加载
-                    var video = document.getElementById("video");
-                    if(video) video.load();
+                    var audio = document.getElementById("audio");
+                    if(audio) audio.load();
                     //关闭Loading
                     this.$loading().close();
                 }

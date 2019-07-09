@@ -11,7 +11,7 @@ use yii\helpers\Url;
 <component-template>
     <span>
         <a v-if="fileUrl" :href="fileUrl" target="_black"><i class="el-icon-document">{{fileUrl}}</i></a>
-        <el-upload :action="uploadUrl"
+        <el-upload :action="uploadUrl" :show-file-list="false"
                    :before-upload="upload_before" :on-success="upload_success" :on-error="upload_error">
             <el-button size="small" type="success" v-if="value">重新上传</el-button>
             <el-button size="small" type="primary" v-else>点击上传</el-button>
@@ -39,7 +39,7 @@ use yii\helpers\Url;
             }
         },
         methods: {
-            upload:function(res, file) {
+            upload_success:function(res, file) {
                 if(res.state.code === 0 && res.data){
                     //设置属性
                     this.$emit('change', res.data);
