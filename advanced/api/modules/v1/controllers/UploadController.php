@@ -32,12 +32,12 @@ class UploadController extends ApiController
     }
 
     /**
-     * 文件上传
+     * 文件上传(七牛)
      * @OA\Post(
      *      path="/v1/upload/file",
      *      tags={"Common"},
-     *      summary="文件上传",
-     *      description="文件上传",
+     *      summary="文件上传(七牛)",
+     *      description="文件上传到七牛云中",
      *      @OA\RequestBody(required=true, @OA\MediaType(
      *          mediaType="multipart/form-data",
      *          @OA\Schema(
@@ -47,7 +47,35 @@ class UploadController extends ApiController
      *      @OA\Response(response="default", description="返回结果"),
      * )
      */
-    public function actionFile()
+    public function actionFile(){
+        //进行保存
+        if (isset($_FILES['file'])) {
+            $file = $_FILES['file'];
+            $src = Yii::$app->qiniu->upload($file,"api");
+            return $src;
+        }
+        else{
+            return null;
+        }
+    }
+
+    /**
+     * 文件上传(服务器)
+     * @OA\Post(
+     *      path="/v1/upload/server",
+     *      tags={"Common"},
+     *      summary="文件上传(服务器)",
+     *      description="文件上传到服务器中",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="multipart/form-data",
+     *          @OA\Schema(
+     *              @OA\Property(description="上传文件", property="file", type="file"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionServer()
     {
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
