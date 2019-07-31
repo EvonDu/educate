@@ -2,13 +2,13 @@
 
 namespace backend\controllers;
 
-use common\lib\QiniuUpload;
-use common\lib\base\Upload;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use common\lib\base\Upload;
+use common\lib\QiniuUpload;
 
 /**
  * OptionController implements the CRUD actions for Option model.
