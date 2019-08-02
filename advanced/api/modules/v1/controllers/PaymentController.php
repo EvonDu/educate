@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v1\controllers;
 
+use evondu\wechat\WeChatClient;
 use Yii;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -68,6 +69,56 @@ class PaymentController extends ApiController
             "body"              => $course->name,
             "passback_params"   => json_encode($data)
         ],$notify_url,$return_url);
+
+        return $url;
+    }
+
+    /**
+     * 微信支付
+     * @OA\Post(
+     *      path="/v1/payment/native",
+     *      tags={"Payment"},
+     *      summary="微信支付",
+     *      description="获取微信支付二维码",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="用户ID", property="user_id", type="integer", default="1"),
+     *              @OA\Property(description="课程ID", property="course_id", type="integer", default="26"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionNative(){
+        //参数检测
+        ApiRequest::checkPost(["user_id","course_id"]);
+        $user_id = Yii::$app->request->post("user_id");
+        $course_id = Yii::$app->request->post("course_id");
+
+        //获取课程信息
+        $course = Course::findOne($course_id);
+        if(empty($course))
+            throw new NotFoundHttpException("not found course.");
+
+        //设置参数
+        $data = [
+            "user_id" => $user_id,
+            "course_id" => $course_id
+        ];
+
+        //支付价格
+        $price = max(1,$course->price);
+
+        //获取支付地址
+        $config = include Yii::getAlias("@common/config/wechat.php");
+        $client = new WeChatClient($config);
+        $notify_url = Url::to(["page-notify"],true);
+        $url = $client->payment->payNative([
+            "body"              => $course->name,
+            "out_trade_no"      => time(),
+            'total_fee'         => $price,
+            'attach'            => json_encode($data),
+        ],$notify_url);
 
         return $url;
     }
