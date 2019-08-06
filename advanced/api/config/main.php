@@ -118,6 +118,15 @@ return [
                         'DELETE ' => 'delete',
                     ],
                 ],
+                //支付
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => ['v1/payment'],
+                    'extraPatterns' => [
+                        'GET <order_no:\w+>' => 'view',
+                    ],
+                ],
             ],
         ],
     ],
