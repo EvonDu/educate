@@ -1,14 +1,17 @@
 <?php
 namespace api\modules\v1\controllers;
 
-use evondu\wechat\WeChatClient;
 use Yii;
 use yii\helpers\Url;
+use yii\log\Logger;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use api\lib\ApiRequest;
 use api\lib\ApiController;
+use evondu\wechat\lib\Xml;
 use evondu\alipay\AlipayClient;
+use evondu\wechat\WeChatClient;
+use evondu\wechat\WeChatNotify;
 use common\models\course\Course;
 use common\models\order\Order;
 use common\models\user\UserCourse;
@@ -112,7 +115,7 @@ class PaymentController extends ApiController
         //获取支付地址
         $config = include Yii::getAlias("@common/config/wechat.php");
         $client = new WeChatClient($config);
-        $notify_url = Url::to(["page-notify"],true);
+        $notify_url = Url::to(["wechat-notify"],true);
         $url = $client->payment->payNative([
             "body"              => $course->name,
             "out_trade_no"      => time(),
@@ -149,5 +152,20 @@ class PaymentController extends ApiController
         $bool = UserCourse::buyCourse($order->user_id, $order->course_id);
         if(!$bool)
             throw new ServerErrorHttpException("Buy course error.");
+    }
+
+    /**
+     * 微信支付通知
+     */
+    public function actionWechatNotify(){
+        //获取数据
+        $xml = file_get_contents("php://input");
+        $data = Xml::xmlToArray($xml);
+
+        //调试日志
+        Yii::error(json_encode($data), Logger::LEVEL_ERROR);
+
+        //应答通知
+        WeChatNotify::reply(true);
     }
 }
