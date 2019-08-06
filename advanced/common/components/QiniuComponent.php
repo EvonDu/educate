@@ -15,7 +15,7 @@ class QiniuComponent extends Component
     public $access_key = "k7bsKWF2Qw0mLFOcZfcZa69-khGg_8bCqDmMRyXd";
     public $secret_key = "VH-f4ueZOMYQ4dDS9vhgDzpSveXKVmM5q3BMtWLg";
     public $bucket = "english";
-    public $bash_url = "http://cdn.e-l.ink";
+    public $bash_url = "https://cdn.e-l.ink";
 
     /**
      * 上传文件
