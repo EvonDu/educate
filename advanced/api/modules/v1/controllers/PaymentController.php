@@ -231,4 +231,63 @@ class PaymentController extends ApiController
         //应答通知
         WeChatNotify::reply(true);
     }
+
+
+
+    /**
+     * 微信网页授权地址
+     * @OA\Post(
+     *      path="/v1/payment/wechat-auth-url",
+     *      tags={"Payment"},
+     *      summary="微信网页授权地址",
+     *      description="获取微信网页授权地址",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="授权返回地址", property="redirectUrl", type="string", default="http://www.baidu.com"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionWechatAuthUrl(){
+        //参数检测
+        ApiRequest::checkPost(["redirectUrl"]);
+        $redirectUrl = Yii::$app->request->post("redirectUrl");
+        $config = include Yii::getAlias("@common/config/wechat.php");
+        $client = new WeChatClient($config);
+        $url = $client->auth->getAuthUrl($redirectUrl);
+
+        //返回结果
+        return $url;
+    }
+
+    /**
+     * 微信授权
+     * @OA\Post(
+     *      path="/v1/payment/wechat-auth",
+     *      tags={"Payment"},
+     *      summary="微信授权",
+     *      description="进行微信授权",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="微信授权码", property="code", type="string", default=""),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionWechatAuth(){
+        //参数检测
+        ApiRequest::checkPost(["code"]);
+        $code = Yii::$app->request->post("code");
+
+        //进行认证
+        $config = include Yii::getAlias("@common/config/wechat.php");
+        $client = new WeChatClient($config);
+        $response = $client->auth->requestAccessToken($_GET["code"]);
+        $openid = $response->openid;
+
+        //返回结果
+        return $openid;
+    }
 }
