@@ -8,6 +8,7 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        //缓存组件
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -18,6 +19,20 @@ return [
             'assignmentTable' => 'auth_assignment',
             'itemChildTable' => 'auth_item_child',
         ],
+        //邮箱组件(注意会被main-local的配置覆盖)
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => true,
+            'transport' => [
+                'class'         => 'Swift_SmtpTransport',
+                'host'          => 'smtp.163.com',
+                'username'      => '*******',
+                'password'      => '*******',
+                'port'          => '25',
+                'encryption'    => 'tls',
+            ],
+        ],
+        //七牛组件
         'qiniu' => [
             'class'=>'common\components\QiniuComponent'
         ],
