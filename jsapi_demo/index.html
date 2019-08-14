@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSAPI DEMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <!-- 加载微信JSSDK -->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <!-- vue -->
+    <script type="text/javascript" src="vue.js"></script>
+    <!-- axios -->
+    <script type="text/javascript" src="axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="pay_jsapi">调起支付</button>
+    </div>
+</body>
+</html>
+
+<script>
+    //附加属性方法:获取GET参数
+    Vue.prototype.$url=function(){
+        var url = decodeURIComponent(location.search);
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    };
+    //VUE实例DEMO
+    new Vue({
+        el:"#app",
+        data:{
+            openid:null,
+        },
+        created:function(){
+            //定义this, 在异步方法中使用
+            var self = this;
+
+            //获取GET参数code
+            var code = this.$url()["code"];
+
+            //判断code参数是否存在
+            if(code){
+                //如果有code，则用这个code获取授权配置
+                var api = "http://dev.people71.com/test/educate/advanced/api/web/v1/payment/wechat-auth";
+                var data = "code=" + code;
+                axios.post(api, data).then(function(response){
+                    //获取返回的openid
+                    if(response.data.state.code === 0){
+                        self.openid = response.data.data;
+                        console.log("授权成功获取OPNEID：",self.openid);
+                    } else {
+                        console.log("授权失败CODE无效或过期")
+                    }
+                });
+            } else {
+                //如果不存在，则获取微信OAUTH授权地址然后进行跳转
+                var api = "http://dev.people71.com/test/educate/advanced/api/web/v1/payment/wechat-auth-url";
+                var data = "redirectUrl=" + location.href;
+                axios.post(api, data).then(function(response){
+                    //跳转到微信授权页面(授权后会自动跳转回来)
+                    if(response.data.state.code === 0)
+                        location.href = response.data.data;
+                    else
+                        alert("获取授权地址失败,请检查接口配置");
+                });
+            }
+        },
+        methods:{
+            //支付方法
+            pay_jsapi:function(){
+                //必须先等微信授权获取openid后
+                if(!this.openid)
+                    return false;
+
+                //进行JSAPI下单
+                var api = "http://dev.people71.com/test/educate/advanced/api/web/v1/payment/jsapi";
+                var data = "openid=" + this.openid + "&url=" + location.href;
+                axios.post(api, data).then(function(response){
+                    //判断结果
+                    if(response.data.state.code !== 0){
+                        alert("微信统一下单失败");
+                        return;
+                    }
+
+                    //提取接口返回
+                    var signature = response.data.data.payConfig;   //JSSDK签署配置
+                    var payConfig = response.data.data.payConfig;   //JSAPI支付配置
+
+                    //配置微信JSSDK
+                    wx.config({
+                        debug       : true, //开启调试模式(正式打包时请用false)
+                        appId       : signature.appId,
+                        timestamp   : signature.timestamp,
+                        nonceStr    : signature.nonceStr,
+                        signature   : signature.signature,
+                        jsApiList   : ['chooseWXPay']
+                    });
+                    //调起微信支付
+                    wx.ready(function(){
+                        wx.chooseWXPay({
+                            "timestamp" : payConfig.timeStamp,
+                            "nonceStr"  : payConfig.nonceStr,
+                            "package"   : payConfig.package,
+                            "signType"  : payConfig.signType,
+                            "paySign"   : payConfig.paySign,
+                            "success"   : function (res) {
+                                alert("支付完成");
+                            }
+                        });
+                    });
+                });
+            }
+        }
+    });
+</script>

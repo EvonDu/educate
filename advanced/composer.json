@@ -21,7 +21,7 @@
         "evondu/yii2-vue-adminlte": "dev-master",
         "qiniu/php-sdk": "^7.2",
         "evondu/alipay-php-sdk": "0.1.1",
-        "evondu/wechat-php-sdk": "0.1.1",
+        "evondu/wechat-php-sdk": "0.1.2",
         "zircote/swagger-php": "3.0"
     },
     "require-dev": {

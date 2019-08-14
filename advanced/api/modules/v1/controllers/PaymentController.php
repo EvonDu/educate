@@ -4,6 +4,7 @@ namespace api\modules\v1\controllers;
 use Yii;
 use yii\helpers\Url;
 use yii\log\Logger;
+use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use api\lib\ApiRequest;
@@ -233,7 +234,6 @@ class PaymentController extends ApiController
     }
 
 
-
     /**
      * 微信网页授权地址
      * @OA\Post(
@@ -284,10 +284,59 @@ class PaymentController extends ApiController
         //进行认证
         $config = include Yii::getAlias("@common/config/wechat.php");
         $client = new WeChatClient($config);
-        $response = $client->auth->requestAccessToken($_GET["code"]);
-        $openid = $response->openid;
+        $client->auth->oauthByCode($code);
+        $openid = $client->auth->getOpenid();
+
+        //判断授权是否成功
+        if(empty($openid))
+            throw new BadRequestHttpException("授权失败,code无效或过期");
 
         //返回结果
         return $openid;
+    }
+
+    /**
+     * 微信支付(JSAPI)
+     * @OA\Post(
+     *      path="/v1/payment/jsapi",
+     *      tags={"Payment"},
+     *      summary="微信支付(JSAPI)",
+     *      description="获取微信JSAPI支付配置",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="OPENID", property="openid", type="omR1B1SsRSJNTFwK_KSsf5D_Jy-U", default="1"),
+     *              @OA\Property(description="支付页面URL", property="url", type="integer", default="http://www.baidu.com"),
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionJsapi(){
+        //获取参数
+        ApiRequest::checkPost(["url","openid"]);
+        $url = Yii::$app->request->post("url");
+        $openid = Yii::$app->request->post("openid");
+
+        //创建微信客户端
+        $config = include Yii::getAlias("@common/config/wechat.php");
+        $client = new WeChatClient($config);
+
+        //获取微信JSSDK签署
+        $signature = $client->jssdk->getSignature($url);
+
+        //统一下单
+        $notify_url = Url::to(["wechat-notify"],true);
+        $payConfig = $client->payment->payJsapi([
+            "body"          => "test",
+            "out_trade_no"  => time(),
+            "total_fee"     => 1,
+            "openid"        => $openid
+        ],$notify_url);
+
+        //返回结果
+        return [
+            "signature" => $signature,
+            "payConfig" => $payConfig
+        ];
     }
 }
