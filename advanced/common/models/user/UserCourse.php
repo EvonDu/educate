@@ -127,10 +127,21 @@ class UserCourse extends \yii\db\ActiveRecord
         $model->used_at = $model->tryed_at;
 
         //保存信息
-        if($model->save())
-            return true;
-        else
+        if(!$model->save())
             return false;
+
+        //发送邮件
+        $course_name = $model->course->name;
+        $user_nikename = $model->user->nickname;
+        Yii::$app->mailer->compose()
+            ->setFrom("evon_auto@163.com")
+            ->setTo([$model->user->email])
+            ->setSubject('i-Link Education Register')
+            ->setTextBody("$user_nikename 课程 $course_name 试用成功")
+            ->send();
+
+        //返回成功
+        return true;
     }
 
     /**
@@ -166,12 +177,23 @@ class UserCourse extends \yii\db\ActiveRecord
         }
 
         //保存信息
-        if($model->save())
-            return true;
-        else{
+        if(!$model->save()){
             Yii::error($model->errors,Logger::LEVEL_ERROR);
             return false;
         }
+
+        //发送邮件
+        $course_name = $model->course->name;
+        $user_nikename = $model->user->nickname;
+        Yii::$app->mailer->compose()
+            ->setFrom("evon_auto@163.com")
+            ->setTo([$model->user->email])
+            ->setSubject('i-Link Education Register')
+            ->setTextBody("$user_nikename 课程 $course_name 购买成功")
+            ->send();
+
+        //返回成功
+        return true;
     }
 
     /**
