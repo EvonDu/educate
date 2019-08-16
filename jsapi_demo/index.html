@@ -48,7 +48,7 @@
             //判断code参数是否存在
             if(code){
                 //如果有code，则用这个code获取授权配置
-                var api = "http://dev.people71.com/test/educate/advanced/api/web/v1/payment/wechat-auth";
+                var api = "http://api.e-l.ink/v1/payment/wechat-auth";
                 var data = "code=" + code;
                 axios.post(api, data).then(function(response){
                     //获取返回的openid
@@ -61,7 +61,7 @@
                 });
             } else {
                 //如果不存在，则获取微信OAUTH授权地址然后进行跳转
-                var api = "http://dev.people71.com/test/educate/advanced/api/web/v1/payment/wechat-auth-url";
+                var api = "http://api.e-l.ink/v1/payment/wechat-auth-url";
                 var data = "redirectUrl=" + location.href;
                 axios.post(api, data).then(function(response){
                     //跳转到微信授权页面(授权后会自动跳转回来)
@@ -80,7 +80,7 @@
                     return false;
 
                 //进行JSAPI下单
-                var api = "http://dev.people71.com/test/educate/advanced/api/web/v1/payment/jsapi";
+                var api = "http://api.e-l.ink/v1/payment/jsapi";
                 var data = "openid=" + this.openid + "&url=" + location.href;
                 axios.post(api, data).then(function(response){
                     //判断结果
