@@ -11,6 +11,7 @@ use yii\helpers\Url;
  * @property int $id
  * @property string $email
  * @property string $auth_key
+ * @property string $login_token
  * @property string $password_hash
  * @property string $password_reset_token
  * @property int $status
@@ -50,6 +51,7 @@ class User extends \yii\db\ActiveRecord
             [['country', 'city'], 'string', 'max' => 50],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+            [['login_token'], 'string', 'max' => 128],
         ];
     }
 
@@ -73,6 +75,7 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'auth_key' => 'Auth Key',
+            'login_token' => 'Login Token',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => '邮箱',
@@ -132,6 +135,14 @@ class User extends \yii\db\ActiveRecord
      */
     public function getAvatarUrl(){
         return $this->avatar;
+    }
+
+    /**
+     * 刷新登录Token(注意:会造成保存)
+     */
+    public function refreshLoginToken(){
+        $this->login_token = uniqid();
+        $this->save();
     }
 
     /**

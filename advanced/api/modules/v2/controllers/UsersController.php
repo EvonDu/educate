@@ -12,6 +12,7 @@ use common\models\user\SignupForm;
 use common\models\user\UserCourse;
 use common\models\user\UserSearch;
 use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * @SWG\Definition(
@@ -235,6 +236,40 @@ class UsersController extends ApiController
     }
 
     /**
+     * 登录检测
+     * @OA\Post(
+     *      path="/v2/users/{id}/check-login",
+     *      tags={"User"},
+     *      summary="登录检测",
+     *      description="通过token检测,防止用户重复登录",
+     *      @OA\Parameter(name="id", required=true, in="path",description="用户ID", @OA\Schema(type="integer",default="12")),
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/json", @OA\Schema(
+     *              @OA\Property(description="Token", property="token", type="string"),
+     *              example={"token":"5d56a3471832b"}
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionCheckLogin($id){
+        //参数检测
+        $params = ApiRequest::getJsonParams(["token"]);
+        $token = $params->token;
+
+        //获取用户
+        $model = User::findOne(["id"=>$id]);
+        if (empty($model))
+            throw new NotFoundHttpException('not fund user');
+
+        //判断TOKEN有效性
+        if($model->login_token === $token)
+            return "SUCCESS";
+        else
+            return "FAIL";
+    }
+
+    /**
      * 用户登录
      * @OA\Post(
      *      path="/v2/users/login",
@@ -260,6 +295,7 @@ class UsersController extends ApiController
 
         //判断密码并返回
         if ($model && Yii::$app->security->validatePassword($params->password, $model->password_hash)) {
+            $model->refreshLoginToken();//刷新登录Token
             return $model;
         }
         else{

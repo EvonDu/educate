@@ -38,12 +38,13 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function rules(){
         return [
             //用户模块
-            'POST       v2/users'                   => 'v2/users/create',
-            'GET        v2/users/<id:\d+>'          => 'v2/users/view',
-            'PUT        v2/users/<id:\d+>'          => 'v2/users/update',
-            'PUT        v2/users/<id:\d+>/password' => 'v2/users/update-password',
-            'POST       v2/users/captcha/email'     => 'v2/users/captcha-email',
-            'POST       v2/users/captcha/read'      => 'v2/users/captcha-read',
+            'POST       v2/users'                       => 'v2/users/create',
+            'GET        v2/users/<id:\d+>'              => 'v2/users/view',
+            'PUT        v2/users/<id:\d+>'              => 'v2/users/update',
+            'PUT        v2/users/<id:\d+>/password'     => 'v2/users/update-password',
+            'POST       v2/users/<id:\d+>/check-login'  => 'v2/users/check-login',
+            'POST       v2/users/captcha/email'         => 'v2/users/captcha-email',
+            'POST       v2/users/captcha/read'          => 'v2/users/captcha-read',
         ];
     }
 }
