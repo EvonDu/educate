@@ -94,6 +94,15 @@ class Nav
                     array('title' => "单词发音", 'url' => Url::to(['media/pronunciation/index'])),
                 )
             ),
+            array(
+                'url' => '#',
+                'title' => "电子邮件",
+                'icon' => 'fa fa-envelope-o',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "邮件推送", 'url' => Url::to(['email/push/index'])),
+                )
+            ),
             //相关接口
             array(
                 'title' => '系统接口',
