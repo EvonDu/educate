@@ -29,8 +29,8 @@ return [
                 'host'          => 'smtp.163.com',
                 'username'      => '*******',
                 'password'      => '*******',
-                'port'          => '25',
-                'encryption'    => 'tls',
+                'port'          => '994',
+                'encryption'    => 'ssl',
             ],
         ],
         //七牛组件
