@@ -98,9 +98,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     "format" => "raw",
                                     "value" => function($model){
                                         $rows = [];
-                                        foreach ($model->subtitles as $item){
-                                            $td = \yii\helpers\Html::tag('td',"[ ".$item["time"][0]." 至 ".$item["time"][1]." ]：".$item["content"]);
-                                            $rows[] = \yii\helpers\Html::tag('tr',$td);
+                                        if($model->subtitles){
+                                            foreach ($model->subtitles as $item){
+                                                $td = \yii\helpers\Html::tag('td',"[ ".$item["time"][0]." 至 ".$item["time"][1]." ]：".$item["content"]);
+                                                $rows[] = \yii\helpers\Html::tag('tr',$td);
+                                            }
                                         }
                                         return \yii\helpers\Html::tag("table",implode("\n",$rows));
                                     },

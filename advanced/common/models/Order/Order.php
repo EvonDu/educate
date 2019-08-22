@@ -3,6 +3,8 @@
 namespace common\models\order;
 
 use Yii;
+use common\models\user\User;
+use common\models\course\Course;
 
 /**
  * This is the model class for table "order".
@@ -17,6 +19,9 @@ use Yii;
  * @property int $user_id
  * @property int $course_id
  * @property string $datetime
+ *
+ * @property User $user
+ * @property Course $course
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -61,5 +66,21 @@ class Order extends \yii\db\ActiveRecord
             'course_id' => 'Course ID',
             'datetime' => 'Datetime',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCourse()
+    {
+        return $this->hasOne(Course::className(), ['id' => 'course_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

@@ -335,10 +335,10 @@ class UsersController extends ApiController
         $session->set("captcha_$params->email", $captcha);
 
         //发送邮件
-        $result = Yii::$app->mailer->compose('registerCaptcha-html.php', ['code'=>$captcha])
-            ->setFrom("evon_auto@163.com")
-            ->setTo(["evon1991@163.com"])
-            ->setSubject('i-Link Education Register')
+        $result = Yii::$app->mailer->compose('template/captcha.php', ['code'=>$captcha])
+            ->setFrom(Yii::$app->params["supportEmail"])
+            ->setTo([$params->email])
+            ->setSubject('i-Link 用户注册')
             ->send();
 
         //返回结果

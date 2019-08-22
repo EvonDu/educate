@@ -18,8 +18,8 @@ use yii\log\Logger;
  * @property int $used_at 使用结束时间
  * @property int $created_at 开始时间
  *
- * @property Course $course
  * @property User $user
+ * @property Course $course
  */
 class UserCourse extends \yii\db\ActiveRecord
 {
@@ -104,7 +104,7 @@ class UserCourse extends \yii\db\ActiveRecord
      * 试用课程
      * @param $user_id
      * @param $course_id
-     * @return bool
+     * @return UserCourse|null|static
      * @throws Exception
      */
     static function tryCourse($user_id, $course_id){
@@ -128,27 +128,17 @@ class UserCourse extends \yii\db\ActiveRecord
 
         //保存信息
         if(!$model->save())
-            return false;
-
-        //发送邮件
-        $course_name = $model->course->name;
-        $user_nikename = $model->user->nickname;
-        Yii::$app->mailer->compose()
-            ->setFrom("evon_auto@163.com")
-            ->setTo([$model->user->email])
-            ->setSubject('i-Link Education Register')
-            ->setTextBody("$user_nikename 课程 $course_name 试用成功")
-            ->send();
+            return null;
 
         //返回成功
-        return true;
+        return $model;
     }
 
     /**
      * 购买课程
      * @param $user_id
      * @param $course_id
-     * @return bool
+     * @return UserCourse|null|static
      * @throws Exception
      */
     static function buyCourse($user_id, $course_id){
@@ -179,21 +169,11 @@ class UserCourse extends \yii\db\ActiveRecord
         //保存信息
         if(!$model->save()){
             Yii::error($model->errors,Logger::LEVEL_ERROR);
-            return false;
+            return null;
         }
 
-        //发送邮件
-        $course_name = $model->course->name;
-        $user_nikename = $model->user->nickname;
-        Yii::$app->mailer->compose()
-            ->setFrom("evon_auto@163.com")
-            ->setTo([$model->user->email])
-            ->setSubject('i-Link Education Register')
-            ->setTextBody("$user_nikename 课程 $course_name 购买成功")
-            ->send();
-
         //返回成功
-        return true;
+        return $model;
     }
 
     /**

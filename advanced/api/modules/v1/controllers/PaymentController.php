@@ -190,9 +190,16 @@ class PaymentController extends ApiController
             throw new ServerErrorHttpException("Create order error.");
 
         //完成购买操作
-        $bool = UserCourse::buyCourse($order->user_id, $order->course_id);
-        if(!$bool)
+        $user_course = UserCourse::buyCourse($order->user_id, $order->course_id);
+        if(!$user_course)
             throw new ServerErrorHttpException("Buy course error.");
+
+        //发送邮件
+        Yii::$app->mailer->compose('template/buy.php', ['model'=>$order,"user_course"=>$user_course])
+            ->setFrom(Yii::$app->params["supportEmail"])
+            ->setTo([$order->user->email])
+            ->setSubject('i-Link 课程购买成功')
+            ->send();
     }
 
     /**
@@ -225,14 +232,20 @@ class PaymentController extends ApiController
             throw new ServerErrorHttpException("Create order error.");
 
         //完成购买操作
-        $bool = UserCourse::buyCourse($order->user_id, $order->course_id);
-        if(!$bool)
+        $user_course = UserCourse::buyCourse($order->user_id, $order->course_id);
+        if(!$user_course)
             throw new ServerErrorHttpException("Buy course error.");
+
+        //发送邮件
+        Yii::$app->mailer->compose('template/buy.php', ['model'=>$order,"user_course"=>$user_course])
+            ->setFrom(Yii::$app->params["supportEmail"])
+            ->setTo([$order->user->email])
+            ->setSubject('i-Link 课程购买成功')
+            ->send();
 
         //应答通知
         WeChatNotify::reply(true);
     }
-
 
     /**
      * 微信网页授权地址
