@@ -17,6 +17,7 @@ use yii\db\Exception;
  * @property string $video 视频
  * @property string $content 内容
  * @property string $task 作业
+ * @property array $subtitles 字幕
  * @property bool $try 是否试用
  * @property bool $free 是否免费
  *
@@ -45,6 +46,7 @@ class CourseLesson extends \yii\db\ActiveRecord
             [['title'], 'string', 'max' => 120],
             [['video'], 'string', 'max' => 256],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['course_id' => 'id']],
+            [['subtitles'], 'safe'],
         ];
     }
 
@@ -63,6 +65,7 @@ class CourseLesson extends \yii\db\ActiveRecord
             'video' => '视频',
             'content' => '内容',
             'task' => '作业',
+            'subtitles' => '字幕',
             'try' => '试用',
             'free' => '免费',
         ];
