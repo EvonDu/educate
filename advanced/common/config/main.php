@@ -22,6 +22,7 @@ return [
         //邮箱组件(注意会被main-local的配置覆盖)
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'htmlLayout' => '@common/mail/layouts/i-link',
             'viewPath' => '@common/mail',
             'useFileTransport' => true,
             'transport' => [

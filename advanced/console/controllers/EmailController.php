@@ -7,19 +7,27 @@ use common\models\user\UserCourse;
 
 class EmailController extends Controller
 {
+    /**
+     * @var int 检测过期的天数
+     */
+    public $checkDays = 1;
+
+    /**
+     * @inheritdoc
+     */
     public function actionIndex()
     {
-        echo "email\n";
+        echo "email cmd.\n";
     }
 
     /**
-     * 课程过期(试用)
+     * 试用过期
      * @return bool
      */
-    public function actionTryCourseExpire(){
+    public function actionTryExpire(){
         //获取当前时间
         $time_start = time();
-        $time_end = $time_start + (24 * 60 * 60);
+        $time_end = $time_start + ( $this->checkDays* 24 * 60 * 60 );
 
         //获取这个时间段内过期的试用课程
         $list_try = UserCourse::find()
@@ -31,32 +39,27 @@ class EmailController extends Controller
         //遍历发送邮件
         if(!empty($list_try)){
             foreach ($list_try as $item){
-                //参数设置
-                $email = $item->user->email;
-                $user_name = $item->user->nickname;
-                $course_name = $item->course->name;
-
                 //发送邮件
-                $result = Yii::$app->mailer->compose('tryExpire-html.php', ['user_name'=>$user_name,'course_name'=>$course_name,])
-                    ->setFrom("evon_auto@163.com")
-                    ->setTo([$email])
-                    ->setSubject('i-Link Education Register')
+                Yii::$app->mailer->compose('template/expire.php', ["model"=>$item])
+                    ->setFrom(Yii::$app->params["supportEmail"])
+                    ->setTo([$item->user->email])
+                    ->setSubject('i-Link 课程试用到期')
                     ->send();
-
-                //发送结果
-                return $result;
             }
         }
+
+        //发送完毕
+        return true;
     }
 
     /**
-     * 课程过期(购买)
+     * 课程过期
      * @return bool
      */
-    public function actionUseCourseExpire(){
+    public function actionCourseExpire(){
         //获取当前时间
         $time_start = time();
-        $time_end = $time_start + (24 * 60 * 60);
+        $time_end = $time_start + ( $this->checkDays* 24 * 60 * 60 );
 
         //获取这个时间段内过期的试用课程
         $list_try = UserCourse::find()
@@ -68,21 +71,16 @@ class EmailController extends Controller
         //遍历发送邮件
         if(!empty($list_try)){
             foreach ($list_try as $item){
-                //参数设置
-                $email = $item->user->email;
-                $user_name = $item->user->nickname;
-                $course_name = $item->course->name;
-
                 //发送邮件
-                $result = Yii::$app->mailer->compose('tryExpire-html.php', ['user_name'=>$user_name,'course_name'=>$course_name,])
-                    ->setFrom("evon_auto@163.com")
-                    ->setTo([$email])
-                    ->setSubject('i-Link Education Register')
+                Yii::$app->mailer->compose('template/expire.php', ["model"=>$item])
+                    ->setFrom(Yii::$app->params["supportEmail"])
+                    ->setTo([$item->user->email])
+                    ->setSubject('i-Link 课程使用到期')
                     ->send();
-
-                //发送结果
-                return $result;
             }
         }
+
+        //发送完毕
+        return true;
     }
 }

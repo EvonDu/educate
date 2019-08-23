@@ -2,6 +2,7 @@
 
 namespace common\models\user;
 
+use common\models\order\Order;
 use Yii;
 
 use common\models\course\Course;
@@ -104,7 +105,7 @@ class UserCourse extends \yii\db\ActiveRecord
      * 试用课程
      * @param $user_id
      * @param $course_id
-     * @return UserCourse|null|static
+     * @return bool
      * @throws Exception
      */
     static function tryCourse($user_id, $course_id){
@@ -128,20 +129,28 @@ class UserCourse extends \yii\db\ActiveRecord
 
         //保存信息
         if(!$model->save())
-            return null;
+            return false;
+
+        //发送邮件
+        Yii::$app->mailer->compose('template/try.php', ["model"=>$model])
+            ->setFrom(Yii::$app->params["supportEmail"])
+            ->setTo([$model->user->email])
+            ->setSubject('i-Link 课程试用成功')
+            ->send();
 
         //返回成功
-        return $model;
+        return true;
     }
 
     /**
      * 购买课程
-     * @param $user_id
-     * @param $course_id
-     * @return UserCourse|null|static
+     * @param $user_id      string      用户ID：订单信息里有(冗余)，保留来做无订单购买
+     * @param $course_id    string      课程ID：订单信息里有(冗余)，保留来做无订单购买
+     * @param $order        Order       订单信息
+     * @return bool
      * @throws Exception
      */
-    static function buyCourse($user_id, $course_id){
+    static function buyCourse($user_id, $course_id, $order = null){
         //获取课程
         $course = Course::findOne($course_id);
         if(!$course)
@@ -169,11 +178,20 @@ class UserCourse extends \yii\db\ActiveRecord
         //保存信息
         if(!$model->save()){
             Yii::error($model->errors,Logger::LEVEL_ERROR);
-            return null;
+            return false;
+        }
+
+        //发送邮件(有订单时才发送)
+        if($order){
+            Yii::$app->mailer->compose('template/buy.php', ['model'=>$order,"user_course"=>$model])
+                ->setFrom(Yii::$app->params["supportEmail"])
+                ->setTo([$order->user->email])
+                ->setSubject('i-Link 课程购买成功')
+                ->send();
         }
 
         //返回成功
-        return $model;
+        return true;
     }
 
     /**

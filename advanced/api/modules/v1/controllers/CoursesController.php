@@ -185,21 +185,10 @@ class CoursesController extends ApiController
         $course_id = Yii::$app->request->post("course_id");
 
         //调用试用
-        $user_course = UserCourse::tryCourse($user_id, $course_id);
-
-        //获取对象
-        $user = User::findOne($user_id);
-        $course = Course::findOne($course_id);
-
-        //发送邮件
-        Yii::$app->mailer->compose('template/try.php', ["user"=>$user,"course"=>$course,"user_course"=>$user_course])
-            ->setFrom(Yii::$app->params["supportEmail"])
-            ->setTo([$user->email])
-            ->setSubject('i-Link 课程试用成功')
-            ->send();
+        $bool = UserCourse::tryCourse($user_id, $course_id);
 
         //返回
-        if($user_course)
+        if($bool)
             return null;
         else
             throw new ServerErrorHttpException("create try fail.");
@@ -228,21 +217,10 @@ class CoursesController extends ApiController
         $course_id = Yii::$app->request->post("course_id");
 
         //购买课程
-        $user_course = UserCourse::buyCourse($user_id, $course_id);
-
-        //获取对象
-        $user = User::findOne($user_id);
-        $course = Course::findOne($course_id);
-
-        //发送邮件
-        Yii::$app->mailer->compose('template/try.php', ["user"=>$user,"course"=>$course,"user_course"=>$user_course])
-            ->setFrom(Yii::$app->params["supportEmail"])
-            ->setTo([$user->email])
-            ->setSubject('i-Link 课程购买成功')
-            ->send();
+        $bool = UserCourse::buyCourse($user_id, $course_id);
 
         //返回
-        if($user_course)
+        if($bool)
             return null;
         else
             throw new ServerErrorHttpException("create try fail.");
