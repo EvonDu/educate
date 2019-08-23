@@ -10,7 +10,17 @@ return [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'htmlLayout' => '@common/mail/layouts/i-link',
             'viewPath' => '@common/mail',
+            'useFileTransport' => true,
+            'transport' => [
+                'class'         => 'Swift_SmtpTransport',
+                'host'          => 'smtp.mxhichina.com',
+                'username'      => 'info@e-l.ink',
+                'password'      => 'JuEarl83',
+                'port'          => '465',
+                'encryption'    => 'ssl',
+            ],
         ],
     ],
 ];
