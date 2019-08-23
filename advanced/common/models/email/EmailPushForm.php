@@ -48,10 +48,10 @@ class EmailPushForm extends Model
         $emails = ArrayHelper::getColumn($users,"email");
 
         //发送邮件
-        $result = Yii::$app->mailer->compose('pushEmail-html.php', ['content'=>$this->content])
-            ->setFrom("evon_auto@163.com")
+        $result = Yii::$app->mailer->compose('template/push', ['content'=>$this->content])
+            ->setFrom(Yii::$app->params["supportEmail"])
             ->setTo($emails)
-            ->setSubject('i-Link Education Register')
+            ->setSubject('i-Link Education')
             ->send();
 
         //返回结果

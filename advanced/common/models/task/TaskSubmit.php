@@ -134,7 +134,7 @@ class TaskSubmit extends \yii\db\ActiveRecord
         //判断触发作业完成一系列事件
         if(isset($this->oldAttributes["status"]) && $this->oldAttributes["status"] === 1 && $this->status > 1){
             //发送作业完成邮件
-            Yii::$app->mailer->compose('template/completed', ["html"=>"i-link","model"=>$this])
+            Yii::$app->mailer->compose('template/completed', ["model"=>$this])
                 ->setFrom(Yii::$app->params["supportEmail"])
                 ->setTo([$this->user->email])
                 ->setSubject('i-Link 完成章节学习')
