@@ -4,6 +4,7 @@ namespace common\models\course;
 
 use Yii;
 use common\models\instructor\Instructor;
+use common\models\task\Task;
 
 /**
  * This is the model class for table "course".
@@ -41,6 +42,7 @@ use common\models\instructor\Instructor;
  * @property CourseType $type
  * @property Instructor $instructor
  * @property CourseLesson[] $courseLessons
+ * @property Task[] $tasks
  */
 class Course extends \yii\db\ActiveRecord
 {
@@ -174,6 +176,14 @@ class Course extends \yii\db\ActiveRecord
     public function getCourseLessons()
     {
         return $this->hasMany(CourseLesson::className(), ['course_id' => 'id'])->orderBy('lesson');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTasks()
+    {
+        return $this->hasMany(CourseLesson::className(), ['course_id' => 'id'])->orderBy('id');
     }
 
     /**

@@ -99,10 +99,16 @@ class TasksController extends ApiController
         $submit_file = Yii::$app->request->post("submit_file",null);
         $submit_audio = Yii::$app->request->post("submit_audio",null);
 
+        //获取作业信息
+        $task = Task::findOne($task_id);
+        if(empty($task))
+            throw new NotFoundHttpException('task not found');
+
         //保存到新对象
         $model = new TaskSubmit();
         $model->task_id = $task_id;
         $model->user_id = $user_id;
+        $model->course_id = $task->course_id;
         $model->submit_content = $submit_content;
         $model->submit_file = $submit_file;
         $model->submit_audio = $submit_audio;

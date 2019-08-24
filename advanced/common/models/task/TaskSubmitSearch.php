@@ -18,7 +18,7 @@ class TaskSubmitSearch extends TaskSubmit
     public function rules()
     {
         return [
-            [['id', 'task_id', 'user_id', 'status', 'submit_at', 'reply_at'], 'integer'],
+            [['id', 'task_id', 'user_id', 'course_id', 'status', 'submit_at', 'reply_at'], 'integer'],
             [['submit_content', 'submit_file', 'submit_audio', 'reply_content', 'reply_file', 'reply_audio'], 'safe'],
         ];
     }
@@ -75,12 +75,5 @@ class TaskSubmitSearch extends TaskSubmit
             ->andFilterWhere(['like', 'reply_audio', $this->reply_audio]);
 
         return $dataProvider;
-    }
-
-
-    public function getSubmits($task_id){
-        $find = self::find()->andWhere(["task_id" => $task_id]);
-        $list = $find->all();
-        return $list;
     }
 }

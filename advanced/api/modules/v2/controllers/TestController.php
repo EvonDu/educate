@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v2\controllers;
 
+use common\models\user\UserCourse;
 use Yii;
 use api\lib\ApiController;
 
@@ -30,15 +31,10 @@ class TestController extends ApiController
     public function actionIndex()
     {
         //发送邮件
-        $result = Yii::$app->mailer->compose()
-            ->setFrom("evon_auto@163.com")
-            ->setTo(["evon1991@163.com"])
-            ->setSubject('Message subject')
-            ->setTextBody('Plain text content')
-            ->setHtmlBody('<b>HTML content</b>')
-            ->send();
+        $model = UserCourse::findOne(["user_id"=>1,"course_id"=>1]);
+        $model->refreshProgress();
 
         //返回结果
-        return $result;
+        return $model;
     }
 }
