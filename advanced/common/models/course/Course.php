@@ -3,8 +3,8 @@
 namespace common\models\course;
 
 use Yii;
-use common\models\instructor\Instructor;
 use common\models\task\Task;
+use common\models\instructor\Instructor;
 
 /**
  * This is the model class for table "course".
@@ -183,7 +183,7 @@ class Course extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(CourseLesson::className(), ['course_id' => 'id'])->orderBy('id');
+        return $this->hasMany(Task::className(), ['course_id' => 'id'])->orderBy('id');
     }
 
     /**

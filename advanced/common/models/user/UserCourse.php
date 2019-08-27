@@ -2,13 +2,11 @@
 
 namespace common\models\user;
 
-use common\models\order\Order;
-use common\models\task\TaskSubmit;
 use Yii;
-
-use common\models\course\Course;
 use yii\base\Exception;
-use yii\log\Logger;
+use common\models\order\Order;
+use common\models\course\Course;
+use common\models\task\TaskSubmit;
 
 /**
  * This is the model class for table "user_course".
@@ -20,6 +18,7 @@ use yii\log\Logger;
  * @property int $used_at 使用结束时间
  * @property int $created_at 开始时间
  * @property int $progress_total 进度-总进度
+ * @property int $progress_submit 进度-已提交
  * @property int $progress_completed 进度-已完成
  * @property bool $is_completed 是否已经完成课程
  *
@@ -53,7 +52,7 @@ class UserCourse extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'course_id'], 'required'],
-            [['user_id', 'course_id', 'tryed_at', 'used_at', 'created_at', 'progress_total', 'progress_completed'], 'integer'],
+            [['user_id', 'course_id', 'tryed_at', 'used_at', 'created_at', 'progress_total', 'progress_submit', 'progress_completed'], 'integer'],
             [['try', 'is_completed'], 'boolean'],
             [['user_id', 'course_id'], 'unique', 'targetAttribute' => ['user_id', 'course_id']],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Course::className(), 'targetAttribute' => ['course_id' => 'id']],
@@ -74,6 +73,7 @@ class UserCourse extends \yii\db\ActiveRecord
             'used_at' => 'Used At',
             'created_at' => 'Created At',
             'progress_total' => 'Progress Total',
+            'progress_submit' => 'Progress Submit',
             'progress_completed' => 'Progress Completed',
             'is_completed' => 'Is Completed'
         ];
@@ -119,6 +119,7 @@ class UserCourse extends \yii\db\ActiveRecord
     public function refreshProgress($is_save=false){
         //更新课程进度
         $this->progress_total = count($this->course->tasks);
+        $this->progress_submit = TaskSubmit::find()->where(["user_id"=>$this->user_id,"course_id"=>$this->course_id,"status"=>1])->count();
         $this->progress_completed = TaskSubmit::find()->where(["user_id"=>$this->user_id,"course_id"=>$this->course_id,"status"=>2])->count();
 
         //判断是否完成课程（一但完成不再改变）
@@ -210,7 +211,7 @@ class UserCourse extends \yii\db\ActiveRecord
 
         //保存信息
         if(!$model->save()){
-            Yii::error($model->errors,Logger::LEVEL_ERROR);
+            Yii::error($model->errors);
             return false;
         }
 

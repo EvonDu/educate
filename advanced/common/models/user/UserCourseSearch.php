@@ -18,7 +18,7 @@ class UserCourseSearch extends UserCourse
     public function rules()
     {
         return [
-            [['user_id', 'course_id', 'tryed_at', 'created_at', 'progress_total', 'progress_completed'], 'integer'],
+            [['user_id', 'course_id', 'tryed_at', 'created_at', 'progress_total', 'progress_submit', 'progress_completed'], 'integer'],
             [['try', 'is_completed'], 'boolean'],
         ];
     }
