@@ -5,6 +5,7 @@ namespace common\models\course;
 use Yii;
 use common\models\task\Task;
 use common\models\instructor\Instructor;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "course".
@@ -232,5 +233,15 @@ class Course extends \yii\db\ActiveRecord
             $this->addError($attribute, "请勿使用空格等特殊符号");
         if(preg_match("/[-]/",$this->$attribute))
             $this->addError($attribute, "请勿使用空格等特殊符号");
+    }
+
+    /**
+     * 获取课程映射列表
+     * @return array
+     */
+    static public function getCourseMap(){
+        $list = self::find()->all();
+        $result = ArrayHelper::map($list, "id", "name");
+        return $result;
     }
 }

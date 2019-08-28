@@ -103,6 +103,16 @@ class Nav
                     array('title' => "邮件推送", 'url' => Url::to(['email/push/index'])),
                 )
             ),
+            array(
+                'url' => '#',
+                'title' => "大客户",
+                'icon' => 'fa fa-user-circle',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "创建客户", 'url' => Url::to(['customer/customer/create'])),
+                    array('title' => "历史记录", 'url' => Url::to(['customer/customer/index'])),
+                )
+            ),
             //相关接口
             array(
                 'title' => '系统接口',
