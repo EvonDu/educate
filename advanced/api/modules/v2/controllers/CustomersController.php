@@ -16,7 +16,7 @@ class CustomersController extends ApiController
      * 课程兑换
      * @OA\Post(
      *      path="/v2/customers/redeem",
-     *      tags={"Course"},
+     *      tags={"Customer"},
      *      summary="课程兑换",
      *      description="使用兑换码,兑换课程",
      *      @OA\RequestBody(required=true, @OA\MediaType(
@@ -36,12 +36,12 @@ class CustomersController extends ApiController
         //获取用户信息
         $user = User::findOne($params->user_id);
         if(empty($user))
-            throw new BadRequestHttpException("not found user");
+            throw new BadRequestHttpException("找不到相关用户");
 
         //获取兑换码信息
         $code = CustomerCode::findOne(["code"=>$params->code]);
         if(empty($code))
-            throw new BadRequestHttpException("not found code");
+            throw new BadRequestHttpException("兑换码无效");
 
         //进行兑换
         try{

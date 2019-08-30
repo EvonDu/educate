@@ -74,7 +74,8 @@ class Customer extends \yii\db\ActiveRecord
         $str = "";
         $course_map = Course::getCourseMap();
         foreach ($this->courses as $courses_id){
-            $str .= empty($str) ? "$course_map[$courses_id]" : ",$course_map[$courses_id]";
+            if(isset($course_map[$courses_id]))
+                $str .= empty($str) ? "$course_map[$courses_id]" : ",$course_map[$courses_id]";
         }
         return $str;
     }
