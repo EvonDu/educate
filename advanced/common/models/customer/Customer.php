@@ -4,6 +4,7 @@ namespace common\models\customer;
 
 use common\models\course\Course;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "customer".
@@ -84,10 +85,14 @@ class Customer extends \yii\db\ActiveRecord
      * @return string
      */
     public function getCodesHtml(){
-        $str = "";
+        $tr = [];
         foreach ($this->codes as $code){
-            $str .= "<div>$code->code</div>";
+            $td_code = Html::tag("td",$code->code);
+            $td_state = Html::tag("td",$code->state === 1 ? '未激活' : '已激活', ['style'=>['color'=>'#3c8dbc', 'padding'=>'0 12px']]);
+            $tr[] = Html::tag("tr",$td_code.$td_state);
         }
-        return $str;
+        $table = Html::tag("table",implode("\n",$tr));
+
+        return $table;
     }
 }

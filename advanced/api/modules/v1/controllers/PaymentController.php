@@ -303,6 +303,8 @@ class PaymentController extends ApiController
      *      description="获取微信JSAPI支付配置",
      *      @OA\RequestBody(required=true, @OA\MediaType(
      *          mediaType="application/x-www-form-urlencoded", @OA\Schema(
+     *              @OA\Property(description="用户ID", property="user_id", type="integer", default="1"),
+     *              @OA\Property(description="课程ID", property="course_id", type="integer", default="26"),
      *              @OA\Property(description="OPENID", property="openid", type="omR1B1SsRSJNTFwK_KSsf5D_Jy-U", default="1"),
      *              @OA\Property(description="支付页面URL", property="url", type="integer", default="http://www.baidu.com"),
      *          )
@@ -312,9 +314,11 @@ class PaymentController extends ApiController
      */
     public function actionJsapi(){
         //获取参数
-        ApiRequest::checkPost(["url","openid"]);
+        ApiRequest::checkPost(["user_id","course_id","url","openid"]);
         $url = Yii::$app->request->post("url");
         $openid = Yii::$app->request->post("openid");
+        $user_id = Yii::$app->request->post("user_id");
+        $course_id = Yii::$app->request->post("course_id");
 
         //创建微信客户端
         $config = include Yii::getAlias("@common/config/wechat.php");
@@ -323,13 +327,28 @@ class PaymentController extends ApiController
         //获取微信JSSDK签署
         $signature = $client->jssdk->getSignature($url);
 
+        //获取课程信息
+        $course = Course::findOne($course_id);
+        if(empty($course))
+            throw new NotFoundHttpException("not found course.");
+
+        //设置参数
+        $data = [
+            "user_id" => $user_id,
+            "course_id" => $course_id,
+            "course_name" => $course->name,
+        ];
+
         //统一下单
+        $price = max(1,$course->price);
+        $order_no = "CN".date("YmdHis").uniqid();
         $notify_url = Url::to(["wechat-notify"],true);
         $payConfig = $client->payment->payJsapi([
-            "body"          => "test",
-            "out_trade_no"  => time(),
-            "total_fee"     => 1,
-            "openid"        => $openid
+            "body"          => $course->name,
+            "out_trade_no"  => $order_no, 
+            "total_fee"     => $price,
+            "openid"        => $openid,
+            'attach'        => json_encode($data),
         ],$notify_url);
 
         //返回结果

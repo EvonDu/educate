@@ -100,7 +100,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         $rows = [];
                                         if($model->subtitles){
                                             foreach ($model->subtitles as $item){
-                                                $td = \yii\helpers\Html::tag('td',"[ ".$item["time"][0]." 至 ".$item["time"][1]." ]：".$item["content"]);
+                                                $time_start = isset($item["time"][0])?$item["time"][0]:"00:00:00";
+                                                $time_end = isset($item["time"][1])?$item["time"][1]:"00:00:00";
+                                                $content = isset($item["content"])?$item["content"]:"";
+                                                $td = \yii\helpers\Html::tag('td',"[ $time_start 至 $time_end ]：$content");
                                                 $rows[] = \yii\helpers\Html::tag('tr',$td);
                                             }
                                         }
