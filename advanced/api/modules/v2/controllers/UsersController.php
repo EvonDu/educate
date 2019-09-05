@@ -39,7 +39,7 @@ use yii\web\NotFoundHttpException;
 class UsersController extends ApiController
 {
     public $modelClass = 'common\models\user\User';
-    public $authActions = ["update", "update-password", "check-login"];
+    public $authActions = ["check-login"];
 
     public function actions()
     {
@@ -287,20 +287,7 @@ class UsersController extends ApiController
      * )
      */
     public function actionCheckLogin(){
-        //参数检测
-        $params = ApiRequest::getJsonParams(["token"]);
-        $token = $params->token;
-
-        //获取用户
-        $model = User::findOne(["id"=>$id]);
-        if (empty($model))
-            throw new NotFoundHttpException('not fund user');
-
-        //判断TOKEN有效性
-        if($model->login_token === $token)
-            return "SUCCESS";
-        else
-            return "FAIL";
+        return "SUCCESS";
     }
 
     /**
