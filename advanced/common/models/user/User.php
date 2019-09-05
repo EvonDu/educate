@@ -23,6 +23,7 @@ use yii\helpers\Url;
  * @property string $city 城市
  * @property string $adderss_1 地址1
  * @property string $adderss_2 地址2
+ * @property string $customer 所属大客户(名称)
  * @property int $created_at
  * @property int $updated_at
  */
@@ -47,7 +48,7 @@ class User extends \yii\db\ActiveRecord
             [['email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['nickname', 'phone'], 'string', 'max' => 20],
-            [['avatar', 'adderss_1', 'adderss_2'], 'string', 'max' => 256],
+            [['avatar', 'adderss_1', 'adderss_2', 'customer'], 'string', 'max' => 256],
             [['country', 'city'], 'string', 'max' => 50],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
@@ -90,6 +91,7 @@ class User extends \yii\db\ActiveRecord
             'city' => '城市',
             'adderss_1' => '地址1',
             'adderss_2' => '地址2',
+            'customer' => '所属客户',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];

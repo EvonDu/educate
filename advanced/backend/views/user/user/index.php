@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'password_reset_token',
                         //'status',
                         'nickname',
+                        'customer',
                         //'sex',
                         //'avatar',
                         'phone',

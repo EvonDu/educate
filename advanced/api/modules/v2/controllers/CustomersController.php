@@ -46,9 +46,13 @@ class CustomersController extends ApiController
         //进行兑换
         try{
             $code->redeem($user->id);
-        }catch (\Exception $e){
+        }catch (\Exception $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
+
+        //记录用户所属客户
+        $user->customer = $code->customer->name;
+        $user->save();
 
         //返回结果
         return true;
