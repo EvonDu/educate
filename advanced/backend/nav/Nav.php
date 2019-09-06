@@ -113,6 +113,15 @@ class Nav
                     array('title' => "历史记录", 'url' => Url::to(['customer/customer/index'])),
                 )
             ),
+            array(
+                'url' => '#',
+                'title' => "系统配置",
+                'icon' => 'fa fa-cog',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "积分规则", 'url' => Url::to(['setting/point'])),
+                )
+            ),
             //相关接口
             array(
                 'title' => '系统接口',
