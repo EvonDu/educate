@@ -2,6 +2,7 @@
 
 namespace common\models\user;
 
+use common\models\setting\Setting;
 use Yii;
 use yii\base\Exception;
 use common\models\order\Order;
@@ -222,6 +223,25 @@ class UserCourse extends \yii\db\ActiveRecord
                 ->setTo([$order->user->email])
                 ->setSubject('i-Link 课程购买成功')
                 ->send();
+        }
+
+        //变更积分
+        if($order){
+            //为自己添加积分
+            $val = 100 * (Setting::getItem("point_percent_buy",0) * 0.01) * ($order->amount_fee * 0.01);
+            $point = floor($val);
+            $user_point = $order->user->deriveUserPoint();
+            $user_point->changePoint($point, "购买课程奖励");
+            //为邀请人添加积分
+            if($order->user->inviter_id){
+                $inviter = User::findOne($order->user->inviter_id);
+                if($inviter){
+                    $val = 100 * (Setting::getItem("point_percent_invitee_buy",0) * 0.01) * ($order->amount_fee * 0.01);
+                    $point = floor($val);
+                    $inviter_point = $inviter->deriveUserPoint();
+                    $inviter_point->changePoint($point, "受邀人购买课程奖励");
+                }
+            }
         }
 
         //返回成功

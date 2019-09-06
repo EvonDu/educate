@@ -2,10 +2,11 @@
 
 namespace common\models\task;
 
-use common\models\user\UserCourse;
 use Yii;
 use common\models\user\User;
+use common\models\user\UserCourse;
 use common\models\course\Course;
+use common\models\setting\Setting;
 
 /**
  * This is the model class for table "task_submit".
@@ -176,6 +177,13 @@ class TaskSubmit extends \yii\db\ActiveRecord
                 ->setTo([$this->user->email])
                 ->setSubject('i-Link 完成章节学习')
                 ->send();
+            //判断是否完成课程，完成后赠送积分
+            if($user_course->is_completed){
+                $val = 100 * (Setting::getItem("point_percent_complete",0) * 0.01) * ($user_course->course->price * 0.01);
+                $point = floor($val);
+                $user_course = $this->user->deriveUserPoint();
+                $user_course->changePoint($point, "完成课程奖励");
+            }
         }
 
         //执行父函数
