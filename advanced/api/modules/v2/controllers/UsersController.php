@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v2\controllers;
 
+use common\models\setting\Setting;
 use common\models\user\UserPoint;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -97,7 +98,8 @@ class UsersController extends ApiController
      *              @OA\Property(description="城市", property="city", type="string"),
      *              @OA\Property(description="地址1", property="adderss_1", type="string"),
      *              @OA\Property(description="地址2", property="adderss_2", type="string"),
-     *              example={"email":"user@yii.com","password":"123456","captcha":"123123","nickname":"yii123123","sex":1,"avatar":"http://pdt1od3ni.bkt.clouddn.com//5bb851c360398.jpg","phone":"123123","country":"sad","city":"dsa","adderss_1":"艾欧尼亚","adderss_2":""}
+     *              @OA\Property(description="邀请码", property="invite_code", type="string"),
+     *              example={"email":"user@yii.com","password":"123456","captcha":"123123","nickname":"yii123123","sex":1,"avatar":"http://pdt1od3ni.bkt.clouddn.com//5bb851c360398.jpg","phone":"123123","country":"sad","city":"dsa","adderss_1":"艾欧尼亚","adderss_2":"","invite_code":"5d7203bfc0626"}
      *          )
      *      )),
      *      @OA\Response(response="default", description="返回结果"),
@@ -117,14 +119,32 @@ class UsersController extends ApiController
         if($captcha != $params->captcha)
             throw new HttpException(401, 'verification captcha incorrect');
 
+        //获取被邀请人
+        $inviter = null;
+        if(isset($params->invite_code)){
+            //获取邀请人
+            $inviter = User::findOne(["invite_code" => $params->invite_code]);
+            if(empty($inviter))
+                throw new BadRequestHttpException('not found inviter');
+            //处理注册参数
+            unset($params->invite_code);
+            $params->inviter_id = $inviter->id;
+        }
+
         //创建用户
         $model = new SignupForm();
-        if($model->load(ArrayHelper::toArray($params),"") && $model->save()){
-            return $model;
-        }
-        else{
+        if(!($model->load(ArrayHelper::toArray($params),"") && $model->save()))
             throw new BadRequestHttpException(ModelErrors::getError($model));
+
+        //添加邀请积分
+        if($inviter){
+            //获取积分模型
+            $userPoint = $inviter->deriveUserPoint();
+            $userPoint->changePoint(Setting::getItem("point_fix_register",0), "邀请注册奖励");
         }
+
+        //返回模型
+        return $model;
     }
 
     /**
@@ -421,17 +441,12 @@ class UsersController extends ApiController
         $params = ApiRequest::getJsonParams(['increment']);
 
         //判断用户合法
-        $model = User::findOne($id);
-        if(empty($model))
+        $user = User::findOne($id);
+        if(empty($user))
             throw new BadRequestHttpException("not fount user");
 
         //获取积分模型
-        $model = UserPoint::findOne($id);
-        if(empty($model)){
-            $model = new UserPoint();
-            $model->user_id = $id;
-            $model->total   = 0;
-        }
+        $model = $user->deriveUserPoint();
 
         //变更积分
         $result = $model->changePoint($params->increment, isset($params->remark)?$params->remark:"");

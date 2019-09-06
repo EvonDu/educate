@@ -46,14 +46,15 @@ class Setting extends \yii\db\ActiveRecord
 
     /**
      * @param $key
+     * @param null $default
      * @return null|string
      */
-    static public function getItem($key){
+    static public function getItem($key, $default=null){
         $model = self::findOne($key);
         if($model)
             return $model->value;
         else
-            return null;
+            return $default;
     }
 
     /**

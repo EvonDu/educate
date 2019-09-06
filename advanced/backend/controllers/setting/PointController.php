@@ -34,10 +34,10 @@ class PointController extends Controller
     public function actionIndex(){
         //获取设置项
         $items = [
-            "point_fix_register"        => (int)Setting::getItem("point_fix_register") ?: 0,
-            "point_percent_invitee_buy" => (int)Setting::getItem("point_percent_invitee_buy") ?: 0,
-            "point_percent_buy"         => (int)Setting::getItem("point_percent_buy") ?: 0,
-            "point_percent_complete"    => (int)Setting::getItem("point_percent_complete") ?: 0,
+            "point_fix_register"        => (int)Setting::getItem("point_fix_register",0),
+            "point_percent_invitee_buy" => (int)Setting::getItem("point_percent_invitee_buy",0),
+            "point_percent_buy"         => (int)Setting::getItem("point_percent_buy",0),
+            "point_percent_complete"    => (int)Setting::getItem("point_percent_complete",0),
         ];
 
         //处理提交数据

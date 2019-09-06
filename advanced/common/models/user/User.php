@@ -23,9 +23,13 @@ use yii\helpers\Url;
  * @property string $city 城市
  * @property string $adderss_1 地址1
  * @property string $adderss_2 地址2
- * @property string $customer 所属大客户(名称)
+ * @property string $invite_code 邀请码
+ * @property string $inviter_id 邀请人(ID)
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property UserPoint $userPoint
+ *
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -44,11 +48,11 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['email', 'nickname'], 'required'],
-            [['status', 'sex', 'created_at', 'updated_at'], 'integer'],
+            [['status', 'sex', 'created_at', 'updated_at', 'inviter_id'], 'integer'],
             [['email', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['nickname', 'phone'], 'string', 'max' => 20],
-            [['avatar', 'adderss_1', 'adderss_2', 'customer'], 'string', 'max' => 256],
+            [['avatar', 'adderss_1', 'adderss_2', 'customer', 'invite_code'], 'string', 'max' => 256],
             [['country', 'city'], 'string', 'max' => 50],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
@@ -92,6 +96,8 @@ class User extends \yii\db\ActiveRecord
             'adderss_1' => '地址1',
             'adderss_2' => '地址2',
             'customer' => '所属客户',
+            'invite_code' => '邀请码',
+            'inviter_id' => '邀请人ID',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
@@ -104,6 +110,7 @@ class User extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if($insert){
+            $this->invite_code = uniqid();
             $this->auth_key = Yii::$app->security->generateRandomString();
             $this->created_at = time();
         }
@@ -137,6 +144,28 @@ class User extends \yii\db\ActiveRecord
      */
     public function getAvatarUrl(){
         return $this->avatar;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserPoint(){
+        return $this->hasOne(UserPoint::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * 区别于getUserPoint，没有时会自动创建
+     * @return UserPoint
+     */
+    public function deriveUserPoint(){
+        if($this->userPoint)
+            return $this->userPoint;
+        else{
+            $model = new UserPoint();
+            $model->user_id = $this->id;
+            $model->total   = 0;
+            return $model;
+        }
     }
 
     /**
