@@ -1,6 +1,7 @@
 <?php
 namespace api\modules\v2\controllers;
 
+use common\models\user\UserPoint;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
@@ -362,5 +363,80 @@ class UsersController extends ApiController
 
         //返回结果
         return $captcha;
+    }
+
+    /**
+     * 用户积分
+     * @OA\Get(
+     *      path="/v2/users/{id}/point",
+     *      tags={"User"},
+     *      summary="用户积分",
+     *      description="获取用户积分记录,包括历史",
+     *      @OA\Parameter(name="id", required=false, in="path",description="用户ID", @OA\Schema(type="integer",default="1")),
+     *      @OA\Response(response="default", description="返回结果")
+     * )
+     */
+    public function actionPoint($id){
+        //判断用户合法
+        $model = User::findOne($id);
+        if(empty($model))
+            throw new BadRequestHttpException("not fount user");
+
+        //获取积分模型
+        $model = UserPoint::findOne($id);
+        if(empty($model)){
+            $model = new UserPoint();
+            $model->user_id = $id;
+            $model->total   = 0;
+            $model->save();
+        }
+
+        //返回结果
+        return [
+            "total" => $model->total,
+            "history" => $model->history
+        ];
+    }
+
+    /**
+     * 更变积分
+     * @OA\POST(
+     *      path="/v2/users/{id}/point",
+     *      tags={"User"},
+     *      summary="更变积分",
+     *      description="更变用户积分",
+     *      @OA\Parameter(name="id", required=false, in="path",description="用户ID", @OA\Schema(type="integer",default="1")),
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/json", @OA\Schema(
+     *              @OA\Property(description="变动值", property="increment", type="integer"),
+     *              @OA\Property(description="更变内容", property="remark", type="string"),
+     *              example={"increment":10,"remark":"测试积分更变"}
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果")
+     * )
+     */
+    public function actionPointChange($id){
+        //获取参数
+        $params = ApiRequest::getJsonParams(['increment']);
+
+        //判断用户合法
+        $model = User::findOne($id);
+        if(empty($model))
+            throw new BadRequestHttpException("not fount user");
+
+        //获取积分模型
+        $model = UserPoint::findOne($id);
+        if(empty($model)){
+            $model = new UserPoint();
+            $model->user_id = $id;
+            $model->total   = 0;
+        }
+
+        //变更积分
+        $result = $model->changePoint($params->increment, isset($params->remark)?$params->remark:"");
+
+        //返回结果
+        return $result;
     }
 }

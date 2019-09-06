@@ -3,11 +3,13 @@
 namespace backend\controllers\user;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\user\User;
 use common\models\user\UserSearch;
+use common\models\user\UserPoint;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -107,6 +109,34 @@ class UserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Point an existing User model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionPoint($id){
+        //获取模型
+        $model = UserPoint::findOne($id);
+
+        //是否提交变更积分
+        if(Yii::$app->request->isPost){
+            //获取参数
+            $inventory = Yii::$app->request->post("inventory",0);
+            //变更积分
+            $model->changePoint($inventory, "后台变更积分");
+            //跳转地址
+            return $this->redirect(['point','id'=>$id]);
+        }
+
+        //调用视图
+        return $this->render('point', [
+            'model' => $model,
+            'activities' => ArrayHelper::toArray($model->history)
+        ]);
     }
 
     /**

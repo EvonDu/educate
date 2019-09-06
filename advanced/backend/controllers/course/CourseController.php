@@ -110,27 +110,6 @@ class CourseController extends Controller
     }
 
     /**
-     * @param $id
-     */
-    public function actionLesson($id){
-        $model = $this->findModel($id);
-    }
-
-    public function actionRecommend(){
-        /*$model =
-        $value = Yii::$app->request->post("value",null);
-
-        if ($value != null && Setting::setItem('course_recommend',$value)) {
-            return $this->redirect(['index']);
-        }
-        else{
-            return $this->render('recommend', [
-                'model' => $model,
-            ]);
-        }*/
-    }
-
-    /**
      * Finds the Course model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

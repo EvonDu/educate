@@ -54,7 +54,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['attribute' => 'created_at', 'value'=> function($model){return  date('Y-m-d H:i:s',$model->created_at);},],
                         ['attribute' => 'updated_at', 'value'=> function($model){return  date('Y-m-d H:i:s',$model->updated_at);},],
 
-                        ['class' => 'vuelte\widgets\ActionColumn'],
+                        [
+                            'class' => 'vuelte\widgets\ActionColumn',
+                            'template' => '{view} {update} {delete} {point}',
+                            'buttons' => [
+                                'point' => function ($url, $model, $key) {
+                                    $options = array_merge([
+                                        'title' => Yii::t('yii', 'Update'),
+                                        'aria-label' => Yii::t('yii', 'Update'),
+                                        'data-pjax' => '0',
+                                        'type'=> 'success',
+                                        'size'=> 'xs',
+                                        'href'=> $url,
+                                        'a'=>true,
+                                    ]);
+                                    $content = " <i class='glyphicon glyphicon-gift'></i> 用户积分";
+                                    return Html::tag("lte-btn",$content, $options);
+                                },
+                            ],
+                        ],
                     ],
                 ]); ?>
 
