@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-06-25 09:27:30
+-- Generation Time: 2019-09-21 09:58:41
 -- 服务器版本： 5.7.14-log
 -- PHP Version: 7.0.10
 
@@ -161,7 +161,8 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`id`, `num`, `type_id`, `instructor_id`, `price`, `price_dollar`, `name`, `name_en`, `image`, `level`, `period`, `synopsis`, `synopsis_en`, `abstract`, `abstract_en`, `requirements_prerequisites`, `requirements_textbooks`, `requirements_software`, `requirements_hardware`, `requirements_prerequisites_en`, `requirements_textbooks_en`, `requirements_software_en`, `requirements_hardware_en`, `try`, `try_day`, `buy_day`, `next_term_at`, `created_at`, `updated_at`) VALUES
-(26, 'iLinkPhonics001', 44, NULL, 3762121, 1280, '拼读一', 'i-Link Phonics Level 1', NULL, 1, 20, '没有摘要', 'Name and sound of the alphabet', '我是课程简介<br>', 'Learn the names and sounds of the letters.', 'None', 'All learning material will be on the website.', 'Windows or Mac&nbsp;', 'Computer or smart phones which can open websites.', 'zxcxzcxzczxcxzcxz<br>', 'qweqweqweqweqwe', 'dasdasdasdasdas', '213213213132321', b'1', 7, 30, 0, 1545294135, 1560916441);
+(1, 'Num0001', 44, 1, 1, 1, '课程1', 'course1', NULL, 1, 18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 180, 0, 1566456127, 1566456127),
+(2, 'num2', NULL, NULL, 0, 0, '课程2', NULL, NULL, NULL, 18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, b'0', 30, 180, 0, 1566956801, 1566956801);
 
 -- --------------------------------------------------------
 
@@ -178,6 +179,7 @@ CREATE TABLE `course_lesson` (
   `video` varchar(256) DEFAULT NULL COMMENT '视频',
   `content` text COMMENT '内容',
   `task` text COMMENT '作业',
+  `subtitles` json DEFAULT NULL COMMENT '字幕',
   `try` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否试用',
   `free` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否免费'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -186,10 +188,10 @@ CREATE TABLE `course_lesson` (
 -- 转存表中的数据 `course_lesson`
 --
 
-INSERT INTO `course_lesson` (`id`, `course_id`, `lesson`, `title`, `abstract`, `video`, `content`, `task`, `try`, `free`) VALUES
-(1, 26, 2, 'Name and sound of the letters', 'After this class you will be able to say the names and sounds of every letter in the alphabet.', NULL, 'A H J K\r\nE B C D G P T V Z\r\nF L M N S X\r\nI Y\r\nO\r\nU Q W\r\nR\r\n\r\n<h1>asdasda</h1>', 'Say the names and the sounds of the letters correctly. And upload your work.', b'0', b'0'),
-(2, 26, 1, 'at', '<p>1. Say the <span style="text-decoration: underline; font-weight: bold;">a</span> sound "<span style="font-weight: bold;">a</span>", say the <span style="text-decoration: underline; font-weight: bold;">t</span>&nbsp;sound "<span style="font-weight: bold;">t</span>", say (a and t) together "<span style="font-weight: bold;">at</span>"</p><p>2. "<span style="font-weight: bold; text-decoration: underline;">at</span>" &nbsp; &nbsp;b&nbsp;<span style="text-decoration: underline;">at</span>&nbsp; &nbsp; &nbsp;c&nbsp;<span style="text-decoration: underline;">at</span>&nbsp; &nbsp; f <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; h <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; m <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; p <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; r <span style="text-decoration: underline;">at</span>&nbsp; &nbsp; s <span style="text-decoration: underline;">at</span>&nbsp; &nbsp;&nbsp;&nbsp;</p>', NULL, '<p>1. Say the a sound &quot;a&quot;, say the t sound &quot;t&quot;, say (a and t) together &quot;at&quot;\r\n\r\n2. &quot;at&quot; &nbsp; &nbsp;b at &nbsp; &nbsp; c at &nbsp; &nbsp;f at &nbsp; &nbsp;h at &nbsp; &nbsp;m at &nbsp; &nbsp;p at &nbsp; &nbsp;r at &nbsp; &nbsp;s at &nbsp; &nbsp;</p>', NULL, b'0', b'0'),
-(3, 26, 3, '35657465867996707', NULL, 'http://localhost/test/educate/advanced/backend/web/upload/get/20190528/5cecfa99ebd72.jpg', '<p><img src="http://localhost/test/educate/advanced/backend/web/upload/20190528/5cecfab560f3d.jpg" title="upload.jpg" alt="upload.jpg"/></p>', NULL, b'0', b'0');
+INSERT INTO `course_lesson` (`id`, `course_id`, `lesson`, `title`, `abstract`, `video`, `content`, `task`, `subtitles`, `try`, `free`) VALUES
+(7, 1, 1, '章节1', '阿闪大大asdasdasdadasdsd', NULL, '<p>asdadsadadsadaddsa</p>', NULL, '[{"time": ["00:00:00", "00:00:10"], "content": "123"}]', b'0', b'0'),
+(8, 1, 2, '章节2', NULL, NULL, NULL, NULL, NULL, b'0', b'0'),
+(9, 1, 3, '章节3', NULL, NULL, NULL, NULL, NULL, b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -211,6 +213,63 @@ CREATE TABLE `course_type` (
 
 INSERT INTO `course_type` (`id`, `name`, `name_en`, `created_at`, `updated_at`) VALUES
 (44, '英语拼读', 'English Phonics', 1545293916, 1548405290);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `customer`
+--
+
+CREATE TABLE `customer` (
+  `id` int(11) NOT NULL COMMENT '客户ID',
+  `name` varchar(50) NOT NULL COMMENT '客户名称',
+  `quantity` int(11) NOT NULL COMMENT '发放数量',
+  `courses` json NOT NULL COMMENT '相关课程(数组)',
+  `course_used_at` int(11) NOT NULL COMMENT '课程使用截止日期',
+  `expiry_at` int(11) DEFAULT NULL COMMENT '客户兑换码过期日期(预留)',
+  `created_at` int(11) DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `customer`
+--
+
+INSERT INTO `customer` (`id`, `name`, `quantity`, `courses`, `course_used_at`, `expiry_at`, `created_at`) VALUES
+(3, '客户A', 10, '["1", "2"]', 1567180800, 1567180800, 1566956874);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `customer_code`
+--
+
+CREATE TABLE `customer_code` (
+  `id` int(11) NOT NULL COMMENT 'ID',
+  `customer_id` int(11) NOT NULL COMMENT '所属客户',
+  `code` varchar(50) NOT NULL COMMENT '兑换码',
+  `courses` json NOT NULL COMMENT '兑换课程(数组,冗余优化查询)',
+  `course_used_at` int(11) NOT NULL COMMENT '课程使用截止时间(冗余优化查询)',
+  `state` int(11) DEFAULT '1' COMMENT '兑换券状态',
+  `redeem_user_id` int(11) DEFAULT NULL COMMENT '兑换用户ID',
+  `expiry_at` int(11) DEFAULT NULL COMMENT '兑换码有效期(预留)',
+  `created_at` int(11) DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `customer_code`
+--
+
+INSERT INTO `customer_code` (`id`, `customer_id`, `code`, `courses`, `course_used_at`, `state`, `redeem_user_id`, `expiry_at`, `created_at`) VALUES
+(14, 3, '5d65dd4ad80e06036', '["1", "2"]', 1567180800, 2, 1, 1567180800, 1566956874),
+(15, 3, '5d65dd4ad87405343', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956874),
+(16, 3, '5d65dd4ad8d776732', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956874),
+(17, 3, '5d65dd4b054db1611', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956875),
+(18, 3, '5d65dd4b05b155279', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956875),
+(19, 3, '5d65dd4b05fff8897', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956875),
+(20, 3, '5d65dd4b0672e9939', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956875),
+(21, 3, '5d65dd4b06cc19727', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956875),
+(22, 3, '5d65dd4b071cf6192', '["1", "2"]', 1567180800, 1, NULL, 1567180800, 1566956875),
+(23, 3, '5d65dd4b0769b5473', '["1", "2"]', 1567180800, 2, 1, 1567180800, 1566956875);
 
 -- --------------------------------------------------------
 
@@ -329,12 +388,19 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_no`, `channel`, `type`, `openid`, `body`, `amount_fee`, `trade_no`, `user_id`, `course_id`, `datetime`) VALUES
-('1555464665', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029054213', 1, 26, '2019-04-17 09:31:22'),
-('1555464980', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029062498', 1, 26, '2019-04-17 09:36:59'),
-('1555466378', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029041710', 1, 26, '2019-04-17 10:00:03'),
-('1555466546', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029063036', 1, 26, '2019-04-17 10:03:18'),
-('1555466791', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029063039', 1, 26, '2019-04-17 10:06:48'),
-('1555466691', 2, 'PAGE', '2088431887546598', '支付内容', 1, '2019041722001466481029068562', 1, 26, '2019-04-17 10:08:01');
+('CN201908221540555d5e47071280c', 2, 'ALIPAY', '2088431887546598', '课程1', 1, '2019082222001466480528533471', 1, 1, '2019-08-22 15:41:24'),
+('CN201908221534345d5e458ab5bec', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000387201908221021606510', 1, 1, '2019-08-22 15:35:19'),
+('CN201908221538475d5e4687dbdbb', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000401201908228906688855', 1, 1, '2019-08-22 15:39:28'),
+('CN201908221533045d5e4530b6fbf', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000382201908226216081572', 1, 1, '2019-08-22 15:33:28'),
+('CN201908221531145d5e44c2c55b4', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000381201908227478796288', 1, 1, '2019-08-22 15:31:44'),
+('CN201908221528445d5e442c00143', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000397201908227964839220', 1, 1, '2019-08-22 15:33:18'),
+('CN201908221412245d5e3248ba446', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '拼读一', 1, '4200000386201908226206586276', 1, 26, '2019-08-22 15:47:02'),
+('CN201908221413385d5e32924a232', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '拼读一', 1, '4200000398201908227876146581', 1, 26, '2019-08-22 15:49:00'),
+('CN201908221659135d5e5961bf2bf', 2, 'ALIPAY', '2088431887546598', '课程1', 1, '2019082222001466480533602222', 1, 1, '2019-08-22 16:59:50'),
+('CN201908230840415d5f360970eb1', 2, 'ALIPAY', '2088431887546598', '课程1', 1, '2019082322001466480535642549', 1, 1, '2019-08-23 08:41:06'),
+('CN201908230915345d5f3e363c555', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000393201908232161129747', 1, 1, '2019-08-23 09:16:02'),
+('CN201909061542505d720dfa23681', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000383201909064268821733', 1, 1, '2019-09-06 15:43:20'),
+('CN201909061544005d720e404d662', 1, 'NATIVE', 'o8NS51FE28mYUlPZSKRCd0KK-Npw', '课程1', 1, '4200000389201909066462947469', 2, 1, '2019-09-06 15:44:18');
 
 -- --------------------------------------------------------
 
@@ -397,7 +463,10 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`key`, `value`) VALUES
-('test1', 'qwer');
+('point_percent_complete', '10'),
+('point_percent_buy', '5'),
+('point_percent_invitee_buy', '20'),
+('point_fix_register', '20');
 
 -- --------------------------------------------------------
 
@@ -423,7 +492,8 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `type`, `course_id`, `lesson_id`, `title`, `content`, `file`, `audio`, `created_at`, `finish_at`) VALUES
-(1, 0, 26, 1, '213213213', '2313123213213', NULL, NULL, 1547107202, 2563200);
+(1, 0, 1, 7, '作业1', '<p>作业内容1</p>', NULL, NULL, 1566868857, 0),
+(2, 0, 1, 8, '作业2', '<p>作业内容2</p>', NULL, NULL, 1566868881, 0);
 
 -- --------------------------------------------------------
 
@@ -432,26 +502,28 @@ INSERT INTO `task` (`id`, `type`, `course_id`, `lesson_id`, `title`, `content`, 
 --
 
 CREATE TABLE `task_submit` (
-  `id` int(11) NOT NULL,
-  `task_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `submit_content` text,
-  `submit_file` varchar(256) DEFAULT NULL,
-  `submit_audio` varchar(256) DEFAULT NULL,
-  `reply_content` text,
-  `reply_file` varchar(256) DEFAULT NULL,
-  `reply_audio` varchar(256) DEFAULT NULL,
-  `status` int(11) DEFAULT '1',
-  `submit_at` int(11) DEFAULT '0',
-  `reply_at` int(11) DEFAULT '0'
+  `id` int(11) NOT NULL COMMENT 'ID',
+  `task_id` int(11) NOT NULL COMMENT '作业ID',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `course_id` int(11) DEFAULT NULL COMMENT '课程ID(添加，冗余字段用于查询统计)',
+  `submit_content` text COMMENT '作业提交内容',
+  `submit_file` varchar(256) DEFAULT NULL COMMENT '作业提交文件',
+  `submit_audio` varchar(256) DEFAULT NULL COMMENT '作业提交音频',
+  `reply_content` text COMMENT '导师回复内容',
+  `reply_file` varchar(256) DEFAULT NULL COMMENT '导师回复文件',
+  `reply_audio` varchar(256) DEFAULT NULL COMMENT '导师回复音频',
+  `status` int(11) DEFAULT '1' COMMENT '作业状态',
+  `submit_at` int(11) DEFAULT '0' COMMENT '提交时间',
+  `reply_at` int(11) DEFAULT '0' COMMENT '回复时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `task_submit`
 --
 
-INSERT INTO `task_submit` (`id`, `task_id`, `user_id`, `submit_content`, `submit_file`, `submit_audio`, `reply_content`, `reply_file`, `reply_audio`, `status`, `submit_at`, `reply_at`) VALUES
-(1, 1, 9, '32131231231', NULL, NULL, NULL, NULL, NULL, 1, 0, 0);
+INSERT INTO `task_submit` (`id`, `task_id`, `user_id`, `course_id`, `submit_content`, `submit_file`, `submit_audio`, `reply_content`, `reply_file`, `reply_audio`, `status`, `submit_at`, `reply_at`) VALUES
+(33, 1, 1, 1, '提交内容', '', '', '回复内容', NULL, NULL, 2, 1567754608, 1567754664),
+(34, 2, 1, 1, '提交内容', '', '', '回复内容2', NULL, NULL, 2, 1567754619, 1567754972);
 
 -- --------------------------------------------------------
 
@@ -463,6 +535,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `login_token` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '登录状态TOKEN',
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` smallint(6) NOT NULL DEFAULT '10',
@@ -474,6 +547,9 @@ CREATE TABLE `user` (
   `city` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '城市',
   `adderss_1` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '地址1',
   `adderss_2` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '地址2',
+  `customer` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '所属大客户(名称)',
+  `invite_code` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '邀请码',
+  `inviter_id` int(11) DEFAULT NULL COMMENT '邀请人ID(用户ID)',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -482,17 +558,9 @@ CREATE TABLE `user` (
 -- 转存表中的数据 `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `auth_key`, `password_hash`, `password_reset_token`, `status`, `nickname`, `sex`, `avatar`, `phone`, `country`, `city`, `adderss_1`, `adderss_2`, `created_at`, `updated_at`) VALUES
-(1, 'user@yii.com', 'wCWor-N_me6qugwBFkGnW-_9FsPC6NMb', '$2y$13$DAIGH6AXF9mGOHnYa2j7w.FG1VNKtdb7xukhr1U6PtAbDtGh0P1yi', NULL, 1, 'yii123123', 1, 'http://pdt1od3ni.bkt.clouddn.com//5bb851c360398.jpg', '123123', 'sad', 'dsa', '艾欧尼亚', '', 1534902242, 1542980171),
-(2, '2321321@11.com', '7q4m4-a6KLnyS9AspO4xFD9CZWoodmL9', '$2y$13$crXXg3GqxeewxVWTlJF7BumWOcvpMDHUhjSTpFRS5Orm.k92xGvfy', NULL, 10, 'qwe', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1536043972, 1536043972),
-(3, '2321321@112.com', 'AX_dGf3mhaImMC9WmlyfCMXB4V7vgIY3', '$2y$13$9KIrNNOf1GyUmMOWQaVleubDO3DPv5bML8CDiaKoVx/1259.dN8L6', NULL, 10, 'taidi', 0, NULL, '4567568567856', NULL, NULL, NULL, NULL, 1536044027, 1536044497),
-(4, 'asd@zxc.com', 'cJVIWeur7ncnz27Rl62dJwDEL6nIs53r', '$2y$13$ZYmH5t0SpgY7kRI0bzXl.efH7Xk1nfEkfsSlikuV3U70Ck.4XzehS', NULL, 10, '卡卡卡卡', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1538808585, 1538808585),
-(5, 'sdad@dsa.com', 'RonS8-ZLBFYo9Sv9m37RWMOiFAkENdZw', '$2y$13$K6IsJOKrgz9KG4yUxx8VxOvI637d6nWKK0AipmoPREnBX25c/Irmu', NULL, 10, 'dasdas', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1540823224, 1540823224),
-(6, 'sdadaw@ewq.com', 'SX-_XYto9bdLE8iJGbO_DHTHUrs8BsUF', '$2y$13$qDgAnVwhNZv1K4Frfeck7OC01KRcZ79R7W6gRD0M3hZGdeXoBFzIW', NULL, 10, 'adsdsa', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1540824099, 1540824099),
-(7, 'aa@qq.com', 'YoIzfpnSvr74DYiTEcy3X7ZKt74f93r3', '$2y$13$vqzEgZCUOUeLZnAF5dSB0.f76VwxTgbHRbRrh9Yjk2Sy0J.5noItu', NULL, 10, 'yamanashi', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542079447, 1542079447),
-(8, 'aaaa@qq.com', 'dg1mz-t3cNVQc0VsGJGhWtR_d8KuT5J-', '$2y$13$DAIGH6AXF9mGOHnYa2j7w.FG1VNKtdb7xukhr1U6PtAbDtGh0P1yi', NULL, 10, 'yamana', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542079503, 1542079503),
-(9, 'asdasd@sdad.com', 'mS-Lzp7Tv0FcBDwkLyyNbXH3IK1CoQ-F', '$2y$13$vZAkDTXoIaV2sxfvPsicM.oT467snS2Gux8gcla37QXdQWXKfDkIe', NULL, 10, 'asdasd', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1542955799, 1542955799),
-(10, '492361988@qq.com', '5yJDAsYha1vvZEnxOUVYmi3L7Zqbll5_', '$2y$13$fWmye/V2xdnCLBhmBQizs.COK04WouUpe0adyVXTjqfBAkBl7Mco2', NULL, 10, 'yamanashi', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1543663356, 1543663356);
+INSERT INTO `user` (`id`, `email`, `auth_key`, `login_token`, `password_hash`, `password_reset_token`, `status`, `nickname`, `sex`, `avatar`, `phone`, `country`, `city`, `adderss_1`, `adderss_2`, `customer`, `invite_code`, `inviter_id`, `created_at`, `updated_at`) VALUES
+(1, 'evon1991@163.com', 'sjg9bpjNknx2GX3sIEmob3ApTLODHChV', '5d70c0e2b0921', '$2y$13$5NX02jW8Ith0QfY9hcRf9uA5wnwMMAwJX4sAs5.7EXLsDIpY3.mPC', NULL, 10, 'Evon', 1, 'http://pdt1od3ni.bkt.clouddn.com//5bb851c360398.jpg', '159********', '艾欧尼亚', '皮尔沃夫', '艾欧尼亚', '皮尔沃夫', '客户A', '5d7203bfc0626', NULL, 1565863209, 1567671580),
+(2, 'user@yii.com', 'BspboFrSbq3JY_1Yyu4RcXkHuFypIlRu', NULL, '$2y$13$NDG6M3FCKmO8I/0ay2ehnenx6Ir1FYdqVqOjNCti7XvF.rGOYxWZS', NULL, 10, 'yii123123', 1, 'http://pdt1od3ni.bkt.clouddn.com//5bb851c360398.jpg', '123123', 'sad', 'dsa', '艾欧尼亚', '', NULL, '5d720433cb222', 1, 1567753267, 1567753267);
 
 -- --------------------------------------------------------
 
@@ -506,15 +574,20 @@ CREATE TABLE `user_course` (
   `try` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否为试用',
   `tryed_at` int(11) DEFAULT '0' COMMENT '试用结束时间',
   `used_at` int(11) DEFAULT '0' COMMENT '使用结束时间',
-  `created_at` int(11) DEFAULT '0' COMMENT '开始时间'
+  `created_at` int(11) DEFAULT '0' COMMENT '开始时间',
+  `progress_total` int(11) DEFAULT '0' COMMENT '进度-总进度',
+  `progress_submit` int(11) DEFAULT '0' COMMENT '进度-已提交',
+  `progress_completed` int(11) DEFAULT '0' COMMENT '进度-已完成',
+  `is_completed` bit(1) DEFAULT b'0' COMMENT '是否已经完成课程'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `user_course`
 --
 
-INSERT INTO `user_course` (`user_id`, `course_id`, `try`, `tryed_at`, `used_at`, `created_at`) VALUES
-(1, 26, b'0', 0, 1579397819, 1555465019);
+INSERT INTO `user_course` (`user_id`, `course_id`, `try`, `tryed_at`, `used_at`, `created_at`, `progress_total`, `progress_submit`, `progress_completed`, `is_completed`) VALUES
+(1, 1, b'0', 1570346443, 1601450443, 1567754443, 2, 0, 2, b'1'),
+(2, 1, b'0', 0, 1585899858, 1567755858, 2, 0, 0, b'0');
 
 -- --------------------------------------------------------
 
@@ -527,6 +600,52 @@ CREATE TABLE `user_favorite` (
   `course_id` int(11) NOT NULL,
   `created_at` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_point`
+--
+
+CREATE TABLE `user_point` (
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `total` int(11) NOT NULL DEFAULT '0' COMMENT '用户总积分'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `user_point`
+--
+
+INSERT INTO `user_point` (`user_id`, `total`) VALUES
+(1, 1524),
+(2, 5);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_point_history`
+--
+
+CREATE TABLE `user_point_history` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `increment` int(11) NOT NULL COMMENT '积分变动',
+  `remark` varchar(128) NOT NULL COMMENT '积分变动内容',
+  `time` datetime NOT NULL COMMENT '积分变动时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `user_point_history`
+--
+
+INSERT INTO `user_point_history` (`id`, `user_id`, `increment`, `remark`, `time`) VALUES
+(24, 1, 0, '邀请注册奖励', '2019-09-06 15:01:07'),
+(25, 1, 500, '完成课程奖励', '2019-09-06 15:25:19'),
+(26, 1, 1000, '完成课程奖励', '2019-09-06 15:29:34'),
+(27, 1, 5, '购买课程奖励', '2019-09-06 15:43:21'),
+(28, 2, 5, '购买课程奖励', '2019-09-06 15:44:20'),
+(29, 1, 20, '受邀人购买课程奖励', '2019-09-06 15:44:20'),
+(30, 1, -1, '积分兑换课程', '2019-09-06 16:18:38');
 
 --
 -- Indexes for dumped tables
@@ -601,6 +720,20 @@ ALTER TABLE `course_type`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customer_code`
+--
+ALTER TABLE `customer_code`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `code` (`code`);
+
+--
 -- Indexes for table `homepage`
 --
 ALTER TABLE `homepage`
@@ -662,9 +795,10 @@ ALTER TABLE `task`
 --
 ALTER TABLE `task_submit`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_task_submit_task` (`task_id`),
+  ADD UNIQUE KEY `task_id_user_id` (`task_id`,`user_id`),
   ADD KEY `FK_task_submit_user` (`user_id`),
-  ADD KEY `status` (`status`);
+  ADD KEY `status` (`status`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `user`
@@ -689,6 +823,20 @@ ALTER TABLE `user_favorite`
   ADD KEY `FK_user_favorite_course` (`course_id`);
 
 --
+-- Indexes for table `user_point`
+--
+ALTER TABLE `user_point`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `user_point_history`
+--
+ALTER TABLE `user_point_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- 在导出的表使用AUTO_INCREMENT
 --
 
@@ -706,17 +854,27 @@ ALTER TABLE `admin_info`
 -- 使用表AUTO_INCREMENT `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=3;
 --
 -- 使用表AUTO_INCREMENT `course_lesson`
 --
 ALTER TABLE `course_lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=10;
 --
 -- 使用表AUTO_INCREMENT `course_type`
 --
 ALTER TABLE `course_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '聚集索引', AUTO_INCREMENT=45;
+--
+-- 使用表AUTO_INCREMENT `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '客户ID', AUTO_INCREMENT=4;
+--
+-- 使用表AUTO_INCREMENT `customer_code`
+--
+ALTER TABLE `customer_code`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=24;
 --
 -- 使用表AUTO_INCREMENT `homepage`
 --
@@ -741,17 +899,22 @@ ALTER TABLE `pronunciation`
 -- 使用表AUTO_INCREMENT `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '作业ID', AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '作业ID', AUTO_INCREMENT=3;
 --
 -- 使用表AUTO_INCREMENT `task_submit`
 --
 ALTER TABLE `task_submit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=35;
 --
 -- 使用表AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- 使用表AUTO_INCREMENT `user_point_history`
+--
+ALTER TABLE `user_point_history`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=31;
 --
 -- 限制导出的表
 --
@@ -795,6 +958,12 @@ ALTER TABLE `course_lesson`
   ADD CONSTRAINT `FK_course_lesson_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- 限制表 `customer_code`
+--
+ALTER TABLE `customer_code`
+  ADD CONSTRAINT `FK_customer_code_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- 限制表 `task`
 --
 ALTER TABLE `task`
@@ -821,6 +990,18 @@ ALTER TABLE `user_course`
 ALTER TABLE `user_favorite`
   ADD CONSTRAINT `FK_user_favorite_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_user_favorite_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `user_point`
+--
+ALTER TABLE `user_point`
+  ADD CONSTRAINT `FK_user_point_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `user_point_history`
+--
+ALTER TABLE `user_point_history`
+  ADD CONSTRAINT `FK_user_point_history_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
