@@ -115,6 +115,15 @@ class Nav
             ),
             array(
                 'url' => '#',
+                'title' => "优惠活动",
+                'icon' => 'fa fa-yen',
+                'auth' => '',
+                'nodes' => array(
+                    array('title' => "活动管理", 'url' => Url::to(['preferential/preferential'])),
+                )
+            ),
+            array(
+                'url' => '#',
                 'title' => "系统配置",
                 'icon' => 'fa fa-cog',
                 'auth' => '',
