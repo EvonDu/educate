@@ -244,4 +244,18 @@ class Course extends \yii\db\ActiveRecord
         $result = ArrayHelper::map($list, "id", "name");
         return $result;
     }
+
+    static public function getCourseDataMap(){
+        $list = self::find()->all();
+        $result = [];
+        foreach ($list as $item){
+            $result[] = [
+                "id"    => $item->id,
+                "num"   => $item->num,
+                "name"  => $item->name,
+                "price" => $item->price,
+            ];
+        }
+        return $result;
+    }
 }

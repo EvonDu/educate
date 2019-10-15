@@ -4,6 +4,12 @@ namespace vuelte\lib;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
 
+/**
+ * 导入组件类(核心)
+ * 用来导入PHP编写的Vue组件/变量到JavaScript环境中
+ * Class Import
+ * @package vuelte\vue
+ */
 class Import{
     /**
      * 导入JavaScript变量（从PHP变量中）
@@ -36,15 +42,64 @@ class Import{
     }
 
     /**
+     * 导入JavaScript变量（从Yii的DataProvider中）
+     * @param View $view
+     * @param ActiveDataProvider $dataProvider
+     * @param $name
+     * @return string
+     */
+    static public function dataProvider(View $view, ActiveDataProvider $dataProvider, $name){
+        //获取数据
+        $data = [
+            "list"          => $dataProvider->getModels(),
+            "pagination"    => [
+                "page" => $dataProvider->pagination->getPage(),
+                "pageSize" => $dataProvider->pagination->getPageSize(),
+                "pageCount" => $dataProvider->pagination->getPageCount(),
+                "totalCount" => $dataProvider->pagination->totalCount
+            ]
+        ];
+
+        //调用JavaScript变量导入函数
+        return self::value($view, $data, $name);
+    }
+
+    /**
      * 导入Vue组件
      * @param View $view        视图
      * @param String $paths     组件路径
      * @param array $params     PHP参数
+     * @return bool
      */
     static public function component(View $view, $paths, array $params = []){
         $content = $view->render($paths, $params);
         $component = new VueComponent($content);
-        $component->export($view);
+        return $component->export($view);
+    }
+
+    /**
+     * 导入Vue组件(直接以组件代码形式导入)
+     * @param View $view        视图
+     * @param String $content   组件内容
+     * @return bool
+     */
+    static public function componentByContent(View $view, $content){
+        $component = new VueComponent($content);
+        return $component->export($view);
+    }
+
+    /**
+     * 导入Vue组件(直接以Html形式创建并导入)
+     * @param View $view        视图
+     * @param String $html      组件内容
+     * @param String $name      组件名称
+     * @return bool
+     */
+    static public function componentByHtml(View $view, $html, $name){
+        //组装内容
+        $content = "<component-template><div>$html</div></component-template><script>Vue.component('$name', {template: '{{component-template}}'})</script>";
+        $component = new VueComponent($content);
+        return $component->export($view);
     }
 
     /**

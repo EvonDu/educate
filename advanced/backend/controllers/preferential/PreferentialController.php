@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers\preferential;
 
+use common\models\course\Course;
 use Yii;
 use common\models\preferential\Preferential;
 use common\models\preferential\PreferentialSearch;
@@ -65,12 +66,13 @@ class PreferentialController extends Controller
     {
         $model = new Preferential();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if(Yii::$app->request->isPost && $model->saveAll(Yii::$app->request->post())){
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'courses' => Course::getCourseDataMap()
         ]);
     }
 
@@ -85,12 +87,13 @@ class PreferentialController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if(Yii::$app->request->isPost && $model->saveAll(Yii::$app->request->post())){
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'courses' => Course::getCourseDataMap()
         ]);
     }
 

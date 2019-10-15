@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
+/* @var $courses array */
 /* @var $model common\models\preferential\Preferential */
 
 $this->title = '更新:'.$model->name;
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = 'Update';
 
 vuelte\lib\Import::value($this, $model, "data");
-vuelte\lib\Import::component($this,'_form', ['model' => $model]);
+vuelte\lib\Import::component($this,'_form', ['model' => $model, 'courses' => $courses]);
 ?>
 <div id="app">
     <lte-row>

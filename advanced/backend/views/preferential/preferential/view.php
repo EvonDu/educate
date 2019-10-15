@@ -62,6 +62,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         'remarks:ntext',
                         'start_time',
                         'end_time',
+                        [
+                            "attribute" => "items",
+                            "format" => "raw",
+                            "value" => function($model){
+                                $rows = [];
+                                if($model->items){
+                                    foreach ($model->items as $item){
+                                        $course_name = $item["course_name"];
+                                        $price_original = round($item["price_original"]/100, 2);
+                                        $price = round($item["price"]/100, 2);
+                                        $td = \yii\helpers\Html::tag('td',"[$course_name]: $price(原价$price_original)");
+                                        $rows[] = \yii\helpers\Html::tag('tr',$td);
+                                    }
+                                }
+                                return \yii\helpers\Html::tag("table",implode("\n",$rows));
+                            },
+                        ],
                     ],
                 ]) ?>
 

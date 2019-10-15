@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
+/* @var $courses array */
 /* @var $model common\models\preferential\Preferential */
 
 $this->title = '添加活动';
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => '活动管理', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 
 vuelte\lib\Import::value($this, $model, "data");
-vuelte\lib\Import::component($this,'_form', ['model' => $model]);
+vuelte\lib\Import::component($this,'_form', ['model' => $model, 'courses' => $courses]);
 ?>
 <div id="app">
     <lte-row>
@@ -46,7 +47,7 @@ vuelte\lib\Import::component($this,'_form', ['model' => $model]);
     new Vue({
         el:'#app',
         data:{
-            data:data
+            data:data,
         }
     })
 </script>
