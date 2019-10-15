@@ -6,6 +6,7 @@ use Yii;
 use common\models\task\Task;
 use common\models\instructor\Instructor;
 use yii\helpers\ArrayHelper;
+use common\models\preferential\PreferentialItem;
 
 /**
  * This is the model class for table "course".
@@ -44,6 +45,7 @@ use yii\helpers\ArrayHelper;
  * @property Instructor $instructor
  * @property CourseLesson[] $courseLessons
  * @property Task[] $tasks
+ * @property PreferentialItem[] $preferentials
  */
 class Course extends \yii\db\ActiveRecord
 {
@@ -96,12 +98,28 @@ class Course extends \yii\db\ActiveRecord
     public function fields()
     {
         $parent = parent::fields();
+        $parent["price_preferential"] = "pricePreferential";
         $parent["instructor"] = "instructor";
         $parent["courseCatalog"] = "courseCatalog";
+        $parent["preferentials"] = "preferentials";
         return $parent;
     }
 
     /**
+     * 最低活动价
+     * @return int|mixed
+     */
+    public function getPricePreferential(){
+        $result = $this->price;
+        if($this->preferentials){
+            foreach ($this->preferentials as $preferential){
+                $result = min($this->price, $preferential->price_preferential);
+            }
+        }
+        return $result;
+    }
+
+        /**
      * @inheritdoc
      */
     public function attributeLabels()
@@ -177,6 +195,13 @@ class Course extends \yii\db\ActiveRecord
     public function getCourseLessons()
     {
         return $this->hasMany(CourseLesson::className(), ['course_id' => 'id'])->orderBy('lesson');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPreferentials(){
+        return $this->hasMany(PreferentialItem::className(), ['course_id' => 'id'])->joinWith("preferential");
     }
 
     /**

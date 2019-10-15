@@ -12,7 +12,7 @@ use Yii;
  * @property int $course_id 活动课程
  * @property string $course_name 课程名称
  * @property int $price_original 课程原价
- * @property int $price 活动价格
+ * @property int $price_preferential 活动价格
  *
  * @property Preferential $preferential
  */
@@ -32,8 +32,8 @@ class PreferentialItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['preferential_id', 'course_id', 'course_name', 'price', 'price_original'], 'required'],
-            [['preferential_id', 'course_id', 'price', 'price_original'], 'integer'],
+            [['preferential_id', 'course_id', 'course_name', 'price_preferential', 'price_original'], 'required'],
+            [['preferential_id', 'course_id', 'price_preferential', 'price_original'], 'integer'],
             [['course_name'], 'string', 'max' => 50],
             [['preferential_id'], 'exist', 'skipOnError' => true, 'targetClass' => Preferential::className(), 'targetAttribute' => ['preferential_id' => 'id']],
         ];
@@ -45,12 +45,12 @@ class PreferentialItem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'                => '活动项编号',
-            'preferential_id'   => '所属活动',
-            'course_id'         => '活动课程',
-            'course_name'       => '课程名称',
-            'price_original'    => '课程原价',
-            'price'             => '活动价格',
+            'id'                    => '活动项编号',
+            'preferential_id'       => '所属活动',
+            'course_id'             => '活动课程',
+            'course_name'           => '课程名称',
+            'price_original'        => '课程原价',
+            'price_preferential'    => '活动价格',
         ];
     }
 

@@ -13,7 +13,7 @@ vuelte\lib\Import::component($this, '@app/views/components/input-price');
             </el-table-column>
             <el-table-column prop="price" label="活动价格">
                 <template slot-scope="scope">
-                    {{scope.row.price/100}}
+                    {{scope.row.price_preferential/100}}
                 </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="100">
@@ -34,8 +34,8 @@ vuelte\lib\Import::component($this, '@app/views/components/input-price');
                 <el-form-item label="课程原价">
                     <input-price v-model="item.price_original" disabled></input-price>
                 </el-form-item>
-                <el-form-item label="优惠价格">
-                    <input-price v-model="item.price"></input-price>
+                <el-form-item label="活动价格">
+                    <input-price v-model="item.price_preferential"></input-price>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -55,7 +55,7 @@ vuelte\lib\Import::component($this, '@app/views/components/input-price');
         data:function(){
             return {
                 dialogVisible : false,
-                defaultValue:{"course_id":null,"course_name":null,"price_original":null,"price":null},
+                defaultValue:{"course_id":null,"course_name":null,"price_original":null,"price_preferential":null},
                 item : null,
                 isNew : false,
             };
@@ -116,7 +116,7 @@ vuelte\lib\Import::component($this, '@app/views/components/input-price');
             },
             submit:function(){
                 //判断输入
-                if(!this.item.course_id || !this.item.price)
+                if(!this.item.course_id || !this.item.price_preferential)
                     return;
                 //关闭窗口
                 this.dialogVisible = false;
