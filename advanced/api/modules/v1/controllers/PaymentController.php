@@ -90,7 +90,7 @@ class PaymentController extends ApiController
         ];
 
         //支付价格
-        $price = max(1,$course->price);
+        $price = max(1,$course->getPricePreferential());
 
         //获取支付地址
         $order_no = "CN".date("YmdHis").uniqid();
@@ -143,7 +143,7 @@ class PaymentController extends ApiController
         ];
 
         //支付价格
-        $price = max(1,$course->price);
+        $price = max(1,$course->getPricePreferential());
 
         //获取支付地址
         $order_no = "CN".date("YmdHis").uniqid();
