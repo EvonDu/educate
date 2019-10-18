@@ -119,7 +119,7 @@ class Course extends \yii\db\ActiveRecord
         return $result;
     }
 
-        /**
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
@@ -201,7 +201,11 @@ class Course extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getPreferentials(){
-        return $this->hasMany(PreferentialItem::className(), ['course_id' => 'id'])->joinWith("preferential");
+        $now = Date("Y-m-d H:i:s");
+        return $this->hasMany(PreferentialItem::className(), ['course_id' => 'id'])
+            ->joinWith("preferential")
+            ->where(['<','preferential.start_time',$now])
+            ->andWhere(['>','preferential.end_time',$now]);
     }
 
     /**
@@ -270,7 +274,11 @@ class Course extends \yii\db\ActiveRecord
         return $result;
     }
 
-    static public function getCourseDataMap(){
+    /**
+     * 获取课程对象列表
+     * @return array
+     */
+    static public function getCourseList(){
         $list = self::find()->all();
         $result = [];
         foreach ($list as $item){

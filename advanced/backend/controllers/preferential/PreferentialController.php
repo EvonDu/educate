@@ -72,7 +72,7 @@ class PreferentialController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'courses' => Course::getCourseDataMap()
+            'courses' => Course::getCourseList()
         ]);
     }
 
@@ -93,7 +93,7 @@ class PreferentialController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'courses' => Course::getCourseDataMap()
+            'courses' => Course::getCourseList()
         ]);
     }
 
