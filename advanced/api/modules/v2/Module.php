@@ -47,6 +47,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'POST       v2/users/captcha/read'              => 'v2/users/captcha-read',
             'GET        v2/users/<id:\d+>/point'            => 'v2/users/point',
             'POST       v2/users/<id:\d+>/point'            => 'v2/users/point-change',
+            //重置密码
+            'POST       v2/users/captcha/reset'             => 'v2/users/captcha-reset',
+            'POST       v2/users/password/reset'            => 'v2/users/reset-password',
             //课程模块
             'POST       /v2/courses/<course_id:\d+>/redeem' => 'v2/courses/redeem',
             //大客户模块

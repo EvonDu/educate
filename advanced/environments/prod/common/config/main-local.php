@@ -3,16 +3,16 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => 'mysql:host=localhost;dbname=educate',
             'username' => 'root',
-            'password' => '',
+            'password' => 'earl83',
             'charset' => 'utf8',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'htmlLayout' => '@common/mail/layouts/i-link',
             'viewPath' => '@common/mail',
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             'transport' => [
                 'class'         => 'Swift_SmtpTransport',
                 'host'          => 'smtp.mxhichina.com',

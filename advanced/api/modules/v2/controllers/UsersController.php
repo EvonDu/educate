@@ -380,9 +380,13 @@ class UsersController extends ApiController
 
         //读取Session
         $captcha = $session->get("captcha_$params->email");
+        $captcha_reset = $session->get("captcha_reset_$params->email");
 
         //返回结果
-        return $captcha;
+        return [
+            "captcha_$params->email" => $captcha,
+            "captcha_reset_$params->email" => $captcha_reset
+        ];
     }
 
     /**
@@ -450,6 +454,100 @@ class UsersController extends ApiController
 
         //变更积分
         $result = $model->changePoint($params->increment, isset($params->remark)?$params->remark:"");
+
+        //返回结果
+        return $result;
+    }
+
+    /**
+     * 重置密码
+     * @OA\Post(
+     *      path="/v2/users/password/reset",
+     *      tags={"User"},
+     *      summary="重置密码",
+     *      description="重置密码",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/json", @OA\Schema(
+     *              @OA\Property(description="邮箱", property="email", type="string"),
+     *              @OA\Property(description="验证码", property="captcha", type="string"),
+     *              @OA\Property(description="新密码", property="password_new", type="string"),
+     *              @OA\Property(description="再次输入密码", property="password_again", type="string"),
+     *              example={"captcha":"948443","email":"evon1991@163.com","password_new":"654321","password_again":"654321"}
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionResetPassword(){
+        //参数检测
+        $params = ApiRequest::getJsonParams(["captcha","email","password_new","password_again"]);
+        $email = $params->email;
+        $password_new = $params->password_new;
+        $password_again = $params->password_again;
+
+        //开启Session
+        $session = Yii::$app->session;
+        if(!$session->isActive)
+            $session->open();
+
+        //验证邮箱
+        $captcha = $session->get("captcha_reset_$email");
+        if($captcha != $params->captcha)
+            throw new HttpException(401, 'verification captcha incorrect');
+
+        //获取模型
+        $model = User::findOne(["email"=>$email]);
+
+        //验证两次输出
+        if($password_new != $password_again)
+            throw new BadRequestHttpException('two input password must be consistent');
+
+        //设置新密码
+        $model->password_hash = Yii::$app->security->generatePasswordHash($password_new);
+
+        //保存修改
+        if(!$model->save()){
+            throw new BadRequestHttpException(ModelErrors::getError($model));
+        }
+    }
+
+    /**
+     * 重置密码-发送认证码
+     * @OA\POST(
+     *      path="/v2/users/captcha/reset",
+     *      tags={"User"},
+     *      summary="重置密码-发送认证码",
+     *      description="发送认证码到用户邮箱",
+     *      @OA\RequestBody(required=true, @OA\MediaType(
+     *          mediaType="application/json", @OA\Schema(
+     *              @OA\Property(property="email", type="string", description="用户邮箱"),
+     *              example={"email": "evon1991@163.com"}
+     *          )
+     *      )),
+     *      @OA\Response(response="default", description="返回结果"),
+     * )
+     */
+    public function actionCaptchaReset(){
+        //获取参数
+        $params = ApiRequest::getJsonParams(["email"]);
+
+        //开启Session
+        $session = Yii::$app->session;
+        if(!$session->isActive)
+            $session->open();
+
+        //生成验证码
+        $captcha = rand(100000,999999);
+
+        //保存验证码到Session
+        $session->set("captcha_reset_$params->email", $captcha);
+
+        //发送邮件
+        $result = Yii::$app->mailer->compose('template/captcha_password.php', ['code'=>$captcha])
+            ->setFrom(Yii::$app->params["supportEmail"])
+            ->setTo([$params->email])
+            ->setSubject('i-Link 重置密码')
+            ->send();
 
         //返回结果
         return $result;
